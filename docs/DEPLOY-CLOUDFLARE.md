@@ -163,7 +163,7 @@ Workers Builds (Cloudflare's Git integration) builds and deploys on every push.
 | Error 1102 / exceeded CPU in the Worker logs | Workers Free allows 10 ms CPU per request | Move to Workers Paid, or do less work per request |
 | A `NEXT_PUBLIC_*` change has no effect | Public variables are built into the bundle | Set it as a build variable and rebuild |
 | A runtime variable set in the dashboard disappears after a deploy | Deploys replace plain-text dashboard variables with `wrangler.jsonc` `vars` | Put it in `vars`, or store it as a Secret |
-| Missing modules under `.verification/pnpm-virtual` during the OpenNext build | This repo keeps pnpm's virtual store outside `node_modules` for Windows | Remove `storeDir`, `virtualStoreDir` and `packageImportMethod` from `pnpm-workspace.yaml` |
+| Missing modules under `.verification/pnpm-virtual` during the OpenNext build | Older revisions of this repo kept pnpm's virtual store outside `node_modules` | Remove `virtualStoreDir` from `pnpm-workspace.yaml` (done in `v1.0.2`) |
 
 Logs: Worker → **Observability** (enabled by `"observability"` in `wrangler.jsonc`) and the Deployments tab.
 

@@ -1,6 +1,7 @@
-# Keep dependency caches inside the checkout and avoid Windows hard-link locks.
+# Keep the package store inside the checkout and avoid Windows hard-link locks.
+# The virtual store stays in node_modules/.pnpm (the default): build caches such as Vercel's
+# restore node_modules but not other folders, so links into an outside virtual store break.
 storeDir: .pnpm-store
-virtualStoreDir: .verification/pnpm-virtual
 packageImportMethod: copy
 
 # pnpm 11 fails CI installs when a dependency build script is not explicitly allowed.

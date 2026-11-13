@@ -18,11 +18,12 @@ Cập nhật: 2026-11-13 bởi Claude Code.
 
 ## Bước tiếp theo
 
-- 2026-11-13: **sửa lỗi card production lúc có lúc mất khung/hiệu ứng hồ sơ** (bản phát hành `V1.0.1`).
+- 2026-11-13: **sửa lỗi card production lúc có lúc mất khung/hiệu ứng hồ sơ** (tag `v1.0.2`; trên remote đã có `v1.0.1` của chủ repo ở `ecacfa2`).
   - Nguyên nhân: instance lạnh vượt budget 1,5 s nên render thiếu art; CDN giữ bản thiếu theo `stale-while-revalidate=3600`; host serverless có thể đóng băng request đang tải dở.
   - Sửa: `lookupProfileExtras()` trả `{ profile, complete, settled }`; `src/lib/cache-policy.ts` (`SNAPSHOT_CACHE`, `PARTIAL_CACHE`, `finishAfterResponse` dùng `after()`); `/api/[id]` và `/api/[id]/profile` cache ngắn `s-maxage=5` cho bản thiếu và khi Lanyard lỗi tạm thời; catalog lỗi chỉ cache 1 phút.
   - Kiểm: lint/typecheck/build 0, 2557/2557 test (43 file). Chạy `next start` với mirror giả chậm 2,5 s: lần đầu `null` + `s-maxage=5`, 3 s sau đủ Sakura + Crystals + SWR, mirror chỉ bị gọi 1 lần; SVG wave 706 KB, 10 ảnh.
   - Tài liệu: wiki (Caching, Troubleshooting), THEME-CONTRACT, PROJECT, decisions, gotchas.
+  - Deploy của `e04fee6` lỗi `NEXT_NO_VERSION`: `virtualStoreDir: .verification/pnpm-virtual` nằm ngoài `node_modules`, nên build cache của Vercel khôi phục link gãy; bản tốt trước đó chạy không dùng cache. Đã bỏ `virtualStoreDir`; `CI=true pnpm install` tự tạo lại `node_modules`; lint/typecheck/build 0, 2557/2557 test.
 
 - 2026-11-13: **thêm deploy Cloudflare Workers qua OpenNext.**
   - Người dùng tự làm theo hướng dẫn; Claude kiểm tra rồi dọn ghi chú trong `pnpm-workspace.yaml`.
