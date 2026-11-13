@@ -1,0 +1,1626 @@
+{
+  "now": 1794492000000,
+  "assets": {
+    "source": "bundled fixtures",
+    "loaded": 30,
+    "requested": 30
+  },
+  "examples": [
+    {
+      "file": "profile-dark.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "demo",
+      "width": 420,
+      "height": 416,
+      "bytes": 588149
+    },
+    {
+      "file": "profile-extras-dark.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "extras",
+      "width": 460,
+      "height": 631,
+      "bytes": 667449
+    },
+    {
+      "file": "profile-light.svg",
+      "theme": "profile",
+      "mode": "light",
+      "fixture": "demo",
+      "width": 420,
+      "height": 416,
+      "bytes": 588159
+    },
+    {
+      "file": "profile-extras-light.svg",
+      "theme": "profile",
+      "mode": "light",
+      "fixture": "extras",
+      "width": 460,
+      "height": 631,
+      "bytes": 667459
+    },
+    {
+      "file": "nitro-dark.svg",
+      "theme": "nitro",
+      "mode": "dark",
+      "fixture": "demo",
+      "width": 420,
+      "height": 448,
+      "bytes": 590944
+    },
+    {
+      "file": "nitro-extras-dark.svg",
+      "theme": "nitro",
+      "mode": "dark",
+      "fixture": "extras",
+      "width": 460,
+      "height": 663,
+      "bytes": 670248
+    },
+    {
+      "file": "nitro-light.svg",
+      "theme": "nitro",
+      "mode": "light",
+      "fixture": "demo",
+      "width": 420,
+      "height": 448,
+      "bytes": 590954
+    },
+    {
+      "file": "nitro-extras-light.svg",
+      "theme": "nitro",
+      "mode": "light",
+      "fixture": "extras",
+      "width": 460,
+      "height": 663,
+      "bytes": 670258
+    },
+    {
+      "file": "member-dark.svg",
+      "theme": "member",
+      "mode": "dark",
+      "fixture": "demo",
+      "width": 420,
+      "height": 96,
+      "bytes": 52091
+    },
+    {
+      "file": "member-extras-dark.svg",
+      "theme": "member",
+      "mode": "dark",
+      "fixture": "extras",
+      "width": 460,
+      "height": 203,
+      "bytes": 148947
+    },
+    {
+      "file": "member-light.svg",
+      "theme": "member",
+      "mode": "light",
+      "fixture": "demo",
+      "width": 420,
+      "height": 96,
+      "bytes": 52101
+    },
+    {
+      "file": "member-extras-light.svg",
+      "theme": "member",
+      "mode": "light",
+      "fixture": "extras",
+      "width": 460,
+      "height": 203,
+      "bytes": 148957
+    },
+    {
+      "file": "compact-dark.svg",
+      "theme": "compact",
+      "mode": "dark",
+      "fixture": "demo",
+      "width": 420,
+      "height": 68,
+      "bytes": 12568
+    },
+    {
+      "file": "compact-extras-dark.svg",
+      "theme": "compact",
+      "mode": "dark",
+      "fixture": "extras",
+      "width": 460,
+      "height": 175,
+      "bytes": 109424
+    },
+    {
+      "file": "compact-light.svg",
+      "theme": "compact",
+      "mode": "light",
+      "fixture": "demo",
+      "width": 420,
+      "height": 68,
+      "bytes": 12578
+    },
+    {
+      "file": "compact-extras-light.svg",
+      "theme": "compact",
+      "mode": "light",
+      "fixture": "extras",
+      "width": 460,
+      "height": 175,
+      "bytes": 109434
+    },
+    {
+      "file": "activity-dark.svg",
+      "theme": "activity",
+      "mode": "dark",
+      "fixture": "demo",
+      "width": 420,
+      "height": 280,
+      "bytes": 14699
+    },
+    {
+      "file": "activity-extras-dark.svg",
+      "theme": "activity",
+      "mode": "dark",
+      "fixture": "extras",
+      "width": 460,
+      "height": 387,
+      "bytes": 111542
+    },
+    {
+      "file": "activity-light.svg",
+      "theme": "activity",
+      "mode": "light",
+      "fixture": "demo",
+      "width": 420,
+      "height": 280,
+      "bytes": 14709
+    },
+    {
+      "file": "activity-extras-light.svg",
+      "theme": "activity",
+      "mode": "light",
+      "fixture": "extras",
+      "width": 460,
+      "height": 387,
+      "bytes": 111552
+    },
+    {
+      "file": "glass-dark.svg",
+      "theme": "glass",
+      "mode": "dark",
+      "fixture": "demo",
+      "width": 420,
+      "height": 339,
+      "bytes": 589849
+    },
+    {
+      "file": "glass-extras-dark.svg",
+      "theme": "glass",
+      "mode": "dark",
+      "fixture": "extras",
+      "width": 460,
+      "height": 554,
+      "bytes": 669153
+    },
+    {
+      "file": "glass-light.svg",
+      "theme": "glass",
+      "mode": "light",
+      "fixture": "demo",
+      "width": 420,
+      "height": 339,
+      "bytes": 589859
+    },
+    {
+      "file": "glass-extras-light.svg",
+      "theme": "glass",
+      "mode": "light",
+      "fixture": "extras",
+      "width": 460,
+      "height": 554,
+      "bytes": 669163
+    },
+    {
+      "file": "badge-dark.svg",
+      "theme": "badge",
+      "mode": "dark",
+      "fixture": "demo",
+      "width": 256,
+      "height": 32,
+      "bytes": 4068
+    },
+    {
+      "file": "badge-extras-dark.svg",
+      "theme": "badge",
+      "mode": "dark",
+      "fixture": "extras",
+      "width": 302,
+      "height": 102,
+      "bytes": 69432
+    },
+    {
+      "file": "badge-light.svg",
+      "theme": "badge",
+      "mode": "light",
+      "fixture": "demo",
+      "width": 256,
+      "height": 32,
+      "bytes": 4078
+    },
+    {
+      "file": "badge-extras-light.svg",
+      "theme": "badge",
+      "mode": "light",
+      "fixture": "extras",
+      "width": 302,
+      "height": 102,
+      "bytes": 69442
+    },
+    {
+      "file": "chat-dark.svg",
+      "theme": "chat",
+      "mode": "dark",
+      "fixture": "demo",
+      "width": 420,
+      "height": 150,
+      "bytes": 56757
+    },
+    {
+      "file": "chat-extras-dark.svg",
+      "theme": "chat",
+      "mode": "dark",
+      "fixture": "extras",
+      "width": 460,
+      "height": 257,
+      "bytes": 135878
+    },
+    {
+      "file": "chat-light.svg",
+      "theme": "chat",
+      "mode": "light",
+      "fixture": "demo",
+      "width": 420,
+      "height": 150,
+      "bytes": 56767
+    },
+    {
+      "file": "chat-extras-light.svg",
+      "theme": "chat",
+      "mode": "light",
+      "fixture": "extras",
+      "width": 460,
+      "height": 257,
+      "bytes": 135888
+    },
+    {
+      "file": "banner-dark.svg",
+      "theme": "banner",
+      "mode": "dark",
+      "fixture": "demo",
+      "width": 800,
+      "height": 200,
+      "bytes": 593198
+    },
+    {
+      "file": "banner-extras-dark.svg",
+      "theme": "banner",
+      "mode": "dark",
+      "fixture": "extras",
+      "width": 875,
+      "height": 403,
+      "bytes": 746078
+    },
+    {
+      "file": "banner-light.svg",
+      "theme": "banner",
+      "mode": "light",
+      "fixture": "demo",
+      "width": 800,
+      "height": 200,
+      "bytes": 593208
+    },
+    {
+      "file": "banner-extras-light.svg",
+      "theme": "banner",
+      "mode": "light",
+      "fixture": "extras",
+      "width": 875,
+      "height": 403,
+      "bytes": 746088
+    },
+    {
+      "file": "terminal-dark.svg",
+      "theme": "terminal",
+      "mode": "dark",
+      "fixture": "demo",
+      "width": 420,
+      "height": 270,
+      "bytes": 18649
+    },
+    {
+      "file": "terminal-extras-dark.svg",
+      "theme": "terminal",
+      "mode": "dark",
+      "fixture": "extras",
+      "width": 460,
+      "height": 431,
+      "bytes": 115871
+    },
+    {
+      "file": "terminal-light.svg",
+      "theme": "terminal",
+      "mode": "light",
+      "fixture": "demo",
+      "width": 420,
+      "height": 270,
+      "bytes": 18659
+    },
+    {
+      "file": "terminal-extras-light.svg",
+      "theme": "terminal",
+      "mode": "light",
+      "fixture": "extras",
+      "width": 460,
+      "height": 431,
+      "bytes": 115881
+    },
+    {
+      "file": "neon-dark.svg",
+      "theme": "neon",
+      "mode": "dark",
+      "fixture": "demo",
+      "width": 420,
+      "height": 284,
+      "bytes": 595103
+    },
+    {
+      "file": "neon-extras-dark.svg",
+      "theme": "neon",
+      "mode": "dark",
+      "fixture": "extras",
+      "width": 460,
+      "height": 391,
+      "bytes": 674213
+    },
+    {
+      "file": "neon-light.svg",
+      "theme": "neon",
+      "mode": "light",
+      "fixture": "demo",
+      "width": 420,
+      "height": 284,
+      "bytes": 595113
+    },
+    {
+      "file": "neon-extras-light.svg",
+      "theme": "neon",
+      "mode": "light",
+      "fixture": "extras",
+      "width": 460,
+      "height": 391,
+      "bytes": 674223
+    },
+    {
+      "file": "retro-dark.svg",
+      "theme": "retro",
+      "mode": "dark",
+      "fixture": "demo",
+      "width": 420,
+      "height": 318,
+      "bytes": 18722
+    },
+    {
+      "file": "retro-extras-dark.svg",
+      "theme": "retro",
+      "mode": "dark",
+      "fixture": "extras",
+      "width": 460,
+      "height": 425,
+      "bytes": 115565
+    },
+    {
+      "file": "retro-light.svg",
+      "theme": "retro",
+      "mode": "light",
+      "fixture": "demo",
+      "width": 420,
+      "height": 318,
+      "bytes": 18732
+    },
+    {
+      "file": "retro-extras-light.svg",
+      "theme": "retro",
+      "mode": "light",
+      "fixture": "extras",
+      "width": 460,
+      "height": 425,
+      "bytes": 115575
+    },
+    {
+      "file": "polaroid-dark.svg",
+      "theme": "polaroid",
+      "mode": "dark",
+      "fixture": "demo",
+      "width": 436,
+      "height": 532,
+      "bytes": 82854
+    },
+    {
+      "file": "polaroid-extras-dark.svg",
+      "theme": "polaroid",
+      "mode": "dark",
+      "fixture": "extras",
+      "width": 477,
+      "height": 643,
+      "bytes": 165368
+    },
+    {
+      "file": "polaroid-light.svg",
+      "theme": "polaroid",
+      "mode": "light",
+      "fixture": "demo",
+      "width": 436,
+      "height": 532,
+      "bytes": 82855
+    },
+    {
+      "file": "polaroid-extras-light.svg",
+      "theme": "polaroid",
+      "mode": "light",
+      "fixture": "extras",
+      "width": 477,
+      "height": 643,
+      "bytes": 165369
+    },
+    {
+      "file": "mobile-dark.svg",
+      "theme": "mobile",
+      "mode": "dark",
+      "fixture": "demo",
+      "width": 400,
+      "height": 312,
+      "bytes": 36789
+    },
+    {
+      "file": "mobile-extras-dark.svg",
+      "theme": "mobile",
+      "mode": "dark",
+      "fixture": "extras",
+      "width": 438,
+      "height": 414,
+      "bytes": 111059
+    },
+    {
+      "file": "mobile-light.svg",
+      "theme": "mobile",
+      "mode": "light",
+      "fixture": "demo",
+      "width": 400,
+      "height": 312,
+      "bytes": 36799
+    },
+    {
+      "file": "mobile-extras-light.svg",
+      "theme": "mobile",
+      "mode": "light",
+      "fixture": "extras",
+      "width": 438,
+      "height": 414,
+      "bytes": 111069
+    },
+    {
+      "file": "voice-dark.svg",
+      "theme": "voice",
+      "mode": "dark",
+      "fixture": "demo",
+      "width": 420,
+      "height": 252,
+      "bytes": 589856
+    },
+    {
+      "file": "voice-extras-dark.svg",
+      "theme": "voice",
+      "mode": "dark",
+      "fixture": "extras",
+      "width": 460,
+      "height": 359,
+      "bytes": 668966
+    },
+    {
+      "file": "voice-light.svg",
+      "theme": "voice",
+      "mode": "light",
+      "fixture": "demo",
+      "width": 420,
+      "height": 252,
+      "bytes": 589866
+    },
+    {
+      "file": "voice-extras-light.svg",
+      "theme": "voice",
+      "mode": "light",
+      "fixture": "extras",
+      "width": 460,
+      "height": 359,
+      "bytes": 668976
+    },
+    {
+      "file": "nitro-game-dark.svg",
+      "theme": "nitro",
+      "mode": "dark",
+      "fixture": "game",
+      "width": 420,
+      "height": 736,
+      "bytes": 611206
+    },
+    {
+      "file": "nitro-game-light.svg",
+      "theme": "nitro",
+      "mode": "light",
+      "fixture": "game",
+      "width": 420,
+      "height": 736,
+      "bytes": 611216
+    },
+    {
+      "file": "activity-spotify-dark.svg",
+      "theme": "activity",
+      "mode": "dark",
+      "fixture": "spotify",
+      "width": 420,
+      "height": 474,
+      "bytes": 62712
+    },
+    {
+      "file": "activity-spotify-light.svg",
+      "theme": "activity",
+      "mode": "light",
+      "fixture": "spotify",
+      "width": 420,
+      "height": 474,
+      "bytes": 62722
+    },
+    {
+      "file": "activity-streaming-dark.svg",
+      "theme": "activity",
+      "mode": "dark",
+      "fixture": "streaming",
+      "width": 420,
+      "height": 474,
+      "bytes": 47573
+    },
+    {
+      "file": "activity-streaming-light.svg",
+      "theme": "activity",
+      "mode": "light",
+      "fixture": "streaming",
+      "width": 420,
+      "height": 474,
+      "bytes": 47583
+    },
+    {
+      "file": "glass-spotify-dark.svg",
+      "theme": "glass",
+      "mode": "dark",
+      "fixture": "spotify",
+      "width": 420,
+      "height": 403,
+      "bytes": 615517
+    },
+    {
+      "file": "glass-spotify-light.svg",
+      "theme": "glass",
+      "mode": "light",
+      "fixture": "spotify",
+      "width": 420,
+      "height": 403,
+      "bytes": 615527
+    },
+    {
+      "file": "profile-streaming-dark.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "streaming",
+      "width": 420,
+      "height": 480,
+      "bytes": 606560
+    },
+    {
+      "file": "profile-streaming-light.svg",
+      "theme": "profile",
+      "mode": "light",
+      "fixture": "streaming",
+      "width": 420,
+      "height": 480,
+      "bytes": 606570
+    },
+    {
+      "file": "styles/avatar_shape-circle.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "avatar_shape": "circle"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47638
+    },
+    {
+      "file": "styles/avatar_shape-squircle.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "avatar_shape": "squircle"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47871
+    },
+    {
+      "file": "styles/avatar_shape-square.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "avatar_shape": "square"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47893
+    },
+    {
+      "file": "styles/avatar_shape-hexagon.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "avatar_shape": "hexagon"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47776
+    },
+    {
+      "file": "styles/avatar_shape-octagon.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "avatar_shape": "octagon"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47906
+    },
+    {
+      "file": "styles/ring-status.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "ring": "status"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47638
+    },
+    {
+      "file": "styles/ring-none.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "ring": "none"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 46168
+    },
+    {
+      "file": "styles/ring-accent.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "ring": "accent"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47625
+    },
+    {
+      "file": "styles/ring-gradient.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "ring": "gradient"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47954
+    },
+    {
+      "file": "styles/ring-rainbow.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "ring": "rainbow"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 48328
+    },
+    {
+      "file": "styles/ring-glow.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "ring": "glow"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47962
+    },
+    {
+      "file": "styles/ring-pulse.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "ring": "pulse"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 48200
+    },
+    {
+      "file": "styles/ring-dashed.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "ring": "dashed"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47829
+    },
+    {
+      "file": "styles/ring-double.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "ring": "double"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47845
+    },
+    {
+      "file": "styles/pattern-none.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "pattern": "none"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47638
+    },
+    {
+      "file": "styles/pattern-dots.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "pattern": "dots"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 48309
+    },
+    {
+      "file": "styles/pattern-grid.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "pattern": "grid"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 48438
+    },
+    {
+      "file": "styles/pattern-diagonal.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "pattern": "diagonal"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 48291
+    },
+    {
+      "file": "styles/pattern-waves.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "pattern": "waves"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 48548
+    },
+    {
+      "file": "styles/pattern-stars.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "pattern": "stars"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 51219
+    },
+    {
+      "file": "styles/pattern-circuit.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "pattern": "circuit"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 48904
+    },
+    {
+      "file": "styles/pattern-confetti.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "pattern": "confetti"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 49470
+    },
+    {
+      "file": "styles/pattern-bubbles.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "pattern": "bubbles"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 49151
+    },
+    {
+      "file": "styles/pattern-aurora.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "pattern": "aurora"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 48749
+    },
+    {
+      "file": "styles/pattern-noise.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "pattern": "noise"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 48669
+    },
+    {
+      "file": "styles/pattern-hex.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "pattern": "hex"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 48648
+    },
+    {
+      "file": "styles/effect-none.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "effect": "none"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47638
+    },
+    {
+      "file": "styles/effect-float.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "effect": "float"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47844
+    },
+    {
+      "file": "styles/effect-shimmer.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "effect": "shimmer"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 48296
+    },
+    {
+      "file": "styles/effect-glow.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "effect": "glow"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 48293
+    },
+    {
+      "file": "styles/effect-scanline.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "effect": "scanline"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 48363
+    },
+    {
+      "file": "styles/effect-sparkle.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "effect": "sparkle"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 48989
+    },
+    {
+      "file": "styles/status_style-dot.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "status_style": "dot"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47638
+    },
+    {
+      "file": "styles/status_style-pill.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "status_style": "pill"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 48188
+    },
+    {
+      "file": "styles/status_style-text.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "status_style": "text"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 48206
+    },
+    {
+      "file": "styles/status_style-ring.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "status_style": "ring"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47613
+    },
+    {
+      "file": "styles/eq_style-bars.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "eq_style": "bars"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47638
+    },
+    {
+      "file": "styles/eq_style-wave.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "eq_style": "wave"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47832
+    },
+    {
+      "file": "styles/eq_style-pulse.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "eq_style": "pulse"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47598
+    },
+    {
+      "file": "styles/eq_style-dots.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "eq_style": "dots"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47675
+    },
+    {
+      "file": "styles/eq_style-line.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "eq_style": "line"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47630
+    },
+    {
+      "file": "styles/eq_style-blocks.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "eq_style": "blocks"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47612
+    },
+    {
+      "file": "styles/eq_style-mirror.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "eq_style": "mirror"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47734
+    },
+    {
+      "file": "styles/eq_style-circle.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "eq_style": "circle"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 48003
+    },
+    {
+      "file": "styles/eq_style-spectrum.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "eq_style": "spectrum"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 48075
+    },
+    {
+      "file": "styles/eq_style-none.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "eq_style": "none"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 46647
+    },
+    {
+      "file": "styles/font-default.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "font": "default"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47638
+    },
+    {
+      "file": "styles/font-rounded.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "font": "rounded"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47825
+    },
+    {
+      "file": "styles/font-mono.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "font": "mono"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47840
+    },
+    {
+      "file": "styles/font-serif.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "font": "serif"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47806
+    },
+    {
+      "file": "styles/font-condensed.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "font": "condensed"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47862
+    },
+    {
+      "file": "styles/font-display.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "font": "display"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47951
+    },
+    {
+      "file": "styles/border-subtle.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "border": "subtle"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47638
+    },
+    {
+      "file": "styles/border-none.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "border": "none"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47713
+    },
+    {
+      "file": "styles/border-accent.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "border": "accent"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47948
+    },
+    {
+      "file": "styles/border-gradient.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "border": "gradient"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 48121
+    },
+    {
+      "file": "styles/border-glow.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "border": "glow"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 48004
+    },
+    {
+      "file": "styles/banner_source-auto.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "banner_source": "auto"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47638
+    },
+    {
+      "file": "styles/banner_source-profile.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "banner_source": "profile"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47638
+    },
+    {
+      "file": "styles/banner_source-nameplate.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "banner_source": "nameplate"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 65375
+    },
+    {
+      "file": "styles/banner_source-accent.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "banner_source": "accent"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47568
+    },
+    {
+      "file": "styles/banner_source-none.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true",
+        "banner_source": "none"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47481
+    },
+    {
+      "file": "styles/hide_effect-false.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "false",
+        "hide_frame": "true"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 61561
+    },
+    {
+      "file": "styles/hide_effect-true.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47638
+    },
+    {
+      "file": "styles/hide_frame-false.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "false"
+      },
+      "width": 460,
+      "height": 695,
+      "bytes": 125456
+    },
+    {
+      "file": "styles/hide_frame-true.svg",
+      "theme": "profile",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "hide_decoration": "true",
+        "hide_effect": "true",
+        "hide_frame": "true"
+      },
+      "width": 420,
+      "height": 588,
+      "bytes": 47638
+    }
+  ]
+}

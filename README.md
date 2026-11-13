@@ -1,0 +1,134 @@
+# Discord-Github-Profile
+
+Your Discord presence, with personality. Fifteen themes for GitHub profile READMEs and a live card for websites, maintained by [LianHarman(LienThuan04)](https://github.com/LienThuan04).
+
+<p align="center">
+  <img src="public/examples/profile-extras-dark.svg" width="45%" alt="Profile card with a collectible frame, banner color and profile effect" />
+  <img src="public/examples/nitro-extras-light.svg" width="45%" alt="Light Nitro card with profile extras" />
+</p>
+
+Show activities, Spotify, custom status, devices, avatar decorations, nameplates, server tags, display-name styles and public badges. Add eight style axes, dark/light modes, vivid profile effects and collectible frames. The bundled previews use sanitized fixtures; your card uses your public presence and profile.
+
+**Deploy first:** replace `https://YOUR-DEPLOYMENT.vercel.app` with your own origin. The production domain has not been selected.
+
+## Quick start
+
+1. Join [Lanyard](https://discord.gg/lanyard) so it can monitor your Discord presence.
+2. Enable Discord **Settings → Advanced → Developer Mode**, then right-click your profile and choose **Copy User ID**.
+3. Open [Card Studio](https://YOUR-DEPLOYMENT.vercel.app), enter your ID, choose a theme and copy Markdown, HTML, Picture, Live iframe or SVG URL. Or replace `YOUR_DISCORD_ID` below:
+
+```markdown
+[![Discord presence](https://YOUR-DEPLOYMENT.vercel.app/api/YOUR_DISCORD_ID?theme=profile)](https://discord.com/users/YOUR_DISCORD_ID)
+```
+
+## Theme gallery
+
+Every theme supports dark and light. These are self-contained SVG snapshots, available before deployment. See the [dark/light gallery](wiki/Home.md#dark-and-light-previews), [all example variants](public/examples/index.html) and [style gallery](public/examples/styles/index.html).
+
+| Theme | Preview |
+|---|---|
+| `profile` · discord profile popout | <img src="public/examples/profile-dark.svg" width="360" alt="Profile theme" /> |
+| `nitro` · bold color and glowing avatar | <img src="public/examples/nitro-dark.svg" width="360" alt="Nitro theme" /> |
+| `member` · member-list row | <img src="public/examples/member-dark.svg" width="360" alt="Member theme" /> |
+| `compact` · slim presence strip | <img src="public/examples/compact-dark.svg" width="360" alt="Compact theme" /> |
+| `activity` · current activity and artwork | <img src="public/examples/activity-dark.svg" width="360" alt="Activity theme" /> |
+| `glass` · frosted panels | <img src="public/examples/glass-dark.svg" width="360" alt="Glass theme" /> |
+| `badge` · tiny presence pill | <img src="public/examples/badge-dark.svg" width="256" alt="Badge theme" /> |
+| `chat` · discord message and embeds | <img src="public/examples/chat-dark.svg" width="360" alt="Chat theme" /> |
+| `banner` · wide identity banner | <img src="public/examples/banner-dark.svg" width="480" alt="Banner theme" /> |
+| `terminal` · command-line presence | <img src="public/examples/terminal-dark.svg" width="360" alt="Terminal theme" /> |
+| `neon` · glowing panels | <img src="public/examples/neon-dark.svg" width="360" alt="Neon theme" /> |
+| `retro` · pixel game interface | <img src="public/examples/retro-dark.svg" width="360" alt="Retro theme" /> |
+| `polaroid` · still photo and caption | <img src="public/examples/polaroid-dark.svg" width="360" alt="Polaroid theme" /> |
+| `mobile` · lock-screen notifications | <img src="public/examples/mobile-dark.svg" width="320" alt="Mobile theme" /> |
+| `voice` · voice-channel tile | <img src="public/examples/voice-dark.svg" width="360" alt="Voice theme" /> |
+
+## Options
+
+The same 35 snake_case options work on `/api/{id}` and `/live/{id}` where the theme supports them. Studio offers the relevant controls and omits defaults from copied URLs. Unknown keys are ignored; repeated keys use the first value; invalid fields fall back independently. Numbers are rounded and clamped. Booleans are exactly `true` or `false`; style values and `banner_source` also accept surrounding whitespace and mixed case.
+
+<details>
+<summary>Every parameter, accepted value and default</summary>
+
+| Parameter | Accepted values | Default | Effect |
+|---|---|---|---|
+| `theme` | `profile`, `nitro`, `member`, `compact`, `activity`, `glass`, `badge`, `chat`, `banner`, `terminal`, `neon`, `retro`, `polaroid`, `mobile`, `voice` | `profile` | Card layout |
+| `mode` | `dark`, `light` | `dark` | Appearance |
+| `accent` | 3, 6 or 8 hex digits; optional `#` | `5865f2` | Accent; this default allows valid KV `accent` to take precedence |
+| `bg` | Hex color or `transparent` | Automatic (`null` internally) | Theme background; overlays can remain visible |
+| `radius` | Number, 0–48px | `16` | Outer radius where supported; badge caps it at 16px |
+| `width` | Number, 300–600px; banner 600–1000px | `420`; banner `800` | Card body width before responsive scaling; member/mobile/polaroid apply their own clamps; badge sizes itself |
+| `animated` | `true`, `false` | `true` | Supported motion/assets; SVG nameplates and profile effects use still art; polaroid is always static |
+| `max_activities` | Number, 1–4 | `2` | Non-Spotify activity count on layouts with multiple sections; Spotify is separate |
+| `idle_text` | Trimmed nonempty text, at most 120 characters | `Enjoying a quiet moment` | Idle message |
+| `name_gradient` | 2–8 hex colors separated by `-` | `[]` (no custom gradient) | Custom name gradient; native Discord colors win unless forced |
+| `force_gradient` | `true`, `false` | `false` | Let a valid custom gradient override native name colors |
+| `show_banner` | `true`, `false` | `true` | Enable the KV banner override when `hide_kv=false`; other banner tiers still apply |
+| `hide_decoration` | `true`, `false` | `false` | Hide avatar decoration |
+| `hide_nameplate` | `true`, `false` | `false` | Hide nameplate artwork; other banner tiers still apply |
+| `hide_tag` | `true`, `false` | `false` | Hide guild/server tag |
+| `hide_badges` | `true`, `false` | `false` | Hide merged public-flag and profile badges |
+| `hide_status` | `true`, `false` | `false` | Hide status indicators and status wording where supported |
+| `hide_platforms` | `true`, `false` | `false` | Hide desktop/web/mobile/console/VR indicators |
+| `hide_custom_status` | `true`, `false` | `false` | Hide custom-status text and emoji |
+| `hide_activity` | `true`, `false` | `false` | Hide non-Spotify activities; summaries use the next visible source |
+| `hide_spotify` | `true`, `false` | `false` | Hide Spotify content |
+| `hide_timestamps` | `true`, `false` | `false` | Hide activity clocks and progress bars |
+| `hide_kv` | `true`, `false` | `false` | Hide bio/About Me and pronouns from KV and profile, KV location/website and the KV banner; KV accent remains independent |
+| `avatar_shape` | `circle`, `squircle`, `square`, `hexagon`, `octagon` | `circle` | Avatar silhouette |
+| `ring` | `status`, `none`, `accent`, `gradient`, `rainbow`, `glow`, `pulse`, `dashed`, `double` | `status` | Avatar ring; visible decorations suppress line rings and soften halo rings |
+| `pattern` | `none`, `dots`, `grid`, `diagonal`, `waves`, `stars`, `circuit`, `confetti`, `bubbles`, `aurora`, `noise`, `hex` | `none` | Background pattern |
+| `effect` | `none`, `float`, `shimmer`, `glow`, `scanline`, `sparkle` | `none` | Decorative style effect, independent of Discord profile effects |
+| `status_style` | `dot`, `pill`, `text`, `ring` | `dot` | Presence indicator; ring falls back to dot with a visible decoration |
+| `eq_style` | `bars`, `wave`, `pulse`, `dots`, `line`, `blocks`, `mirror`, `circle`, `spectrum`, `none` | `bars` | Equalizer beside Spotify or Listening titles |
+| `font` | `default`, `rounded`, `mono`, `serif`, `condensed`, `display` | `default` | System font stack; explicit choices override native name fonts |
+| `border` | `subtle`, `none`, `accent`, `gradient`, `glow` | `subtle` | Card border |
+| `banner_source` | `auto`, `profile`, `nameplate`, `accent`, `none` | `auto` | Banner family; `auto` tries KV → profile image → Nitro colors → banner color → nameplate → accent (member prefers nameplate) |
+| `hide_effect` | `true`, `false` | `false` | Hide the Discord profile effect, independently of the `effect` style |
+| `hide_frame` | `true`, `false` | `false` | Hide the collectible frame; otherwise its overflow grows the output canvas |
+| `tz` | Named IANA time zone, e.g. `Asia/Ho_Chi_Minh` | `UTC` | Chat/mobile clock and polaroid date; invalid zones and numeric offsets fall back to UTC; Studio initially uses the browser zone |
+
+</details>
+
+Hex colors accept 3, 6 or 8 digits (alpha included), optionally prefixed with `#`; omit it in URLs or encode it as `%23`. Profile frame overflow grows the image beyond `width`, which describes the underlying card. [Theme sizes and style support](wiki/Home.md#themes).
+
+## README snapshot and live card
+
+`/api/{id}` returns a self-contained SVG snapshot for README images. Its clocks can advance with CSS, but new status, song or activity data requires a fresh image request and is subject to GitHub Camo caching.
+
+`/live/{id}` updates through Lanyard's WebSocket. Copy Studio's **Live iframe** for a website: its `dgp:height` message reports the scaled canvas height, including frame overflow. The parent must validate both `event.origin` and `event.source === frame.contentWindow`, then accept only finite heights greater than 0 and less than 10,000px. See the [complete iframe example](wiki/Home.md#iframe-and-auto-resize). GitHub READMEs do not run iframe scripts.
+
+## Profile data and privacy
+
+Lanyard supplies presence, activities, Spotify, exposed cosmetics and public KV. The optional, **unofficial** `dcdn.dstn.to` mirror supplies profile bio/pronouns, banner colors, Nitro colors, effect/frame identifiers and extra badges. Public Discord `collectibles-products/{sku}` lookups resolve effect and frame artwork. An optional server-only `DISCORD_BOT_TOKEN` adds the official Discord user lookup for banner and accent color. Cards still render when these sources fail.
+
+`DISCORD_PROFILE_PROVIDER=dstn` is the default; set it to `off` to disable the mirror, or use `DISCORD_PROFILE_PROVIDER_URL` for a compatible mirror. The mirror receives requested user IDs and is independent of Discord and this project. Keep bot tokens server-side; no user token is needed. [Sources and environment variables](wiki/Home.md#profile-extras-and-privacy).
+
+**Privacy:** the card shows what your public Discord profile and whitelisted Lanyard KV expose. `hide_kv=true` hides About Me/bio and pronouns from both sources, KV location/website and the KV banner. Other artwork has separate controls (`banner_source`, `hide_effect`, `hide_frame`); `hide_kv` is a display setting, not access control for the public sources.
+
+## Deploying to Vercel
+
+1. Import this repository as a new Vercel project using the Next.js preset and repository root.
+2. Use the pinned Node.js `24.x` and `pnpm@11.22.0`. Set Vercel's `ENABLE_EXPERIMENTAL_COREPACK=1` to honor `packageManager`, then install with `pnpm install --frozen-lockfile` and build with `pnpm build` (use `pnpm.cmd` on Windows). See [Vercel Corepack setup](https://vercel.com/docs/builds/configure-a-build#corepack).
+3. Keep the default public Lanyard URLs, configure optional profile variables from [.env.example](.env.example), and set `NEXT_PUBLIC_SITE_URL` to your public HTTPS origin or leave it empty for the request origin.
+4. Deploy, replace the placeholder origin, and test Studio, an SVG image and a live iframe. The SVG must be publicly reachable without a login page. Redeploy after environment changes. Follow the [Vercel guide](wiki/Home.md#deploying-to-vercel).
+
+## Documentation
+
+| Page | Contents |
+|---|---|
+| [Card Studio](wiki/Home.md#card-studio) | Build, preview and share a card |
+| [Themes](wiki/Home.md#themes) | All 15 layouts, sizes and dark/light previews |
+| [Style axes](wiki/Home.md#style-axes) | Shapes, rings, patterns, effects, status, equalizer, fonts and borders |
+| [Options](wiki/Home.md#options) | All parameters and defaults |
+| [Profile extras and privacy](wiki/Home.md#profile-extras-and-privacy) | Data sources, environment and visibility |
+| [Lanyard KV](wiki/Home.md#lanyard-kv) | Set bio, pronouns, banner and metadata |
+| [Development](wiki/Home.md#development) | Local setup, tests and deterministic fixture examples |
+
+## Contributing
+
+Development setup and verification are in the [Wiki](wiki/Home.md#development). Implementation is original; cnrad/lanyard-profile-readme and kyrie25/lanyard-profile-readme inspired the project. Presence data comes from Lanyard.
+
+## License
+
+MIT · Copyright (c) 2026 LianHarman(LienThuan04). See [LICENSE](LICENSE).

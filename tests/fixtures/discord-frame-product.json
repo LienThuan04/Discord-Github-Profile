@@ -1,0 +1,8 @@
+{
+  "sku_id": "1484726324580061191", "name": "Crystals (Amethyst)", "type": 3,
+  "styles": { "background_colors": [4597896, 6240130], "button_colors": [5793266, 5793266] },
+  "items": [{ "type": 3, "sku_id": "1484726324580061191", "label": "Large purple crystal clusters crown the top and spill partway down the sides of the profile",
+    "inner_width": 1200, "overflow_top": 304, "overflow_bottom": 0, "overflow_horizontal": 56,
+    "layers": [{ "id": "1514422966870347837", "type": "staple", "order": "front", "anchor": "top", "responsive": false, "width": 1312, "height": 716 }, { "id": "1514422970251083806", "type": "staple", "order": "back", "anchor": "top", "responsive": false, "width": 1312, "height": 716 }]
+  }]
+}

@@ -1,0 +1,4 @@
+# Keep dependency caches inside the checkout and avoid Windows hard-link locks.
+storeDir: .pnpm-store
+virtualStoreDir: .verification/pnpm-virtual
+packageImportMethod: copy

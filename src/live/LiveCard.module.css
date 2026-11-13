@@ -1,0 +1,9 @@
+.viewport { width: 100%; min-width: 0; }
+.frame { position: relative; max-width: 100%; }
+.card { transform-origin: top left; }
+/* JS owns live time. Reusing the SVG digit animations would count elapsed time twice. */
+.card :global(.clock)::after { content: attr(aria-label); }
+.card :global(.clock-running), .card :global(.clock-final) { display: none !important; }
+.card :global(.progress-fill) { animation: none !important; }
+.page { width: 100%; min-height: 0; margin: 0; background: transparent; }
+.status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }

@@ -1,0 +1,200 @@
+{
+  "description": "Frozen artwork extracted from Phase 7 fixture SVGs. URL keys identify artwork only; examples never download them.",
+  "assets": {
+    "https://cdn.discordapp.com/app-assets/383226320970055681/1359298108856729682.png?size=128": {
+      "file": "2055c8d6743fe7c8.png",
+      "mime": "image/png",
+      "bytes": 2950
+    },
+    "https://cdn.discordapp.com/app-assets/383226320970055681/1359298108856729682.png?size=32": {
+      "file": "a5148b9ea93c9276.png",
+      "mime": "image/png",
+      "bytes": 653
+    },
+    "https://cdn.discordapp.com/app-assets/383226320970055681/1359298108856729682.png?size=64": {
+      "file": "bac17994d669cec4.png",
+      "mime": "image/png",
+      "bytes": 1404
+    },
+    "https://cdn.discordapp.com/app-assets/383226320970055681/1359298109074706533.png?size=32": {
+      "file": "329c1a9d24ae7568.png",
+      "mime": "image/png",
+      "bytes": 509
+    },
+    "https://cdn.discordapp.com/app-assets/383226320970055681/1359298109074706533.png?size=64": {
+      "file": "924a5aed06cd0ec0.png",
+      "mime": "image/png",
+      "bytes": 1010
+    },
+    "https://cdn.discordapp.com/assets/collectibles/nameplates/pitter_patter/1495807265175900180/static.png": {
+      "file": "5424dd1bef02dac4.png",
+      "mime": "image/png",
+      "bytes": 13319
+    },
+    "https://cdn.discordapp.com/assets/content/196b75b6dc1ea082963c8c69c0ddc2c31efcaf18ee09f517e12760b3a105f790": {
+      "file": "196b75b6dc1ea082.png",
+      "mime": "image/png",
+      "bytes": 10332
+    },
+    "https://cdn.discordapp.com/avatar-decoration-presets/a_8c18ac604dd50ec43d571f18af63c79f.png?size=320&passthrough=false": {
+      "file": "499226b51bf46eb8.png",
+      "mime": "image/png",
+      "bytes": 28213
+    },
+    "https://cdn.discordapp.com/avatar-decoration-presets/a_8c18ac604dd50ec43d571f18af63c79f.png?size=96&passthrough=false": {
+      "file": "e8d4168462a2f981.png",
+      "mime": "image/png",
+      "bytes": 14859
+    },
+    "https://cdn.discordapp.com/avatar-decoration-presets/a_8c18ac604dd50ec43d571f18af63c79f.webp?size=96&animated=true": {
+      "file": "5fd28f07d3168247.webp",
+      "mime": "image/webp",
+      "bytes": 415582
+    },
+    "https://cdn.discordapp.com/avatars/983724520789655613/c8996a80c144f90664d5d8cd9ebd0526.webp?size=128": {
+      "file": "26a56fec1a071292.webp",
+      "mime": "image/webp",
+      "bytes": 2116
+    },
+    "https://cdn.discordapp.com/avatars/983724520789655613/c8996a80c144f90664d5d8cd9ebd0526.webp?size=32": {
+      "file": "5a9007aa0b745d5e.webp",
+      "mime": "image/webp",
+      "bytes": 440
+    },
+    "https://cdn.discordapp.com/avatars/983724520789655613/c8996a80c144f90664d5d8cd9ebd0526.webp?size=512": {
+      "file": "e70bd608039c9227.webp",
+      "mime": "image/webp",
+      "bytes": 10672
+    },
+    "https://cdn.discordapp.com/avatars/983724520789655613/c8996a80c144f90664d5d8cd9ebd0526.webp?size=64": {
+      "file": "02715c64e8bdbc79.webp",
+      "mime": "image/webp",
+      "bytes": 960
+    },
+    "https://cdn.discordapp.com/badge-icons/011940fd013da3f7fb926e4a1cd2e618.png": {
+      "file": "1da13e18a3b48579.png",
+      "mime": "image/png",
+      "bytes": 1527
+    },
+    "https://cdn.discordapp.com/badge-icons/6bdc42827a38498929a4920da12695d9.png": {
+      "file": "8216341ad9c3b8f4.png",
+      "mime": "image/png",
+      "bytes": 2985
+    },
+    "https://cdn.discordapp.com/badge-icons/7060786766c9c840eb3019e725d2b358.png": {
+      "file": "696c3087e8df99ff.png",
+      "mime": "image/png",
+      "bytes": 2208
+    },
+    "https://cdn.discordapp.com/badge-icons/7d9ae358c8c5e118768335dbe68b4fb8.png": {
+      "file": "24f9c05eaa9e5051.png",
+      "mime": "image/png",
+      "bytes": 3705
+    },
+    "https://cdn.discordapp.com/banners/94490510688792576/bb4bff6e0bfc94ea9e01d6ad31750494.webp?size=600": {
+      "file": "7d41e1df2597d66f.webp",
+      "mime": "image/webp",
+      "bytes": 20764
+    },
+    "https://cdn.discordapp.com/banners/94490510688792576/bb4bff6e0bfc94ea9e01d6ad31750494.webp?size=600&animated=true": {
+      "file": "7d41e1df2597d66f.webp",
+      "mime": "image/webp",
+      "bytes": 20764
+    },
+    "https://cdn.discordapp.com/banners/983724520789655613/a_banner_hash.png": {
+      "file": "5424dd1bef02dac4.png",
+      "mime": "image/png",
+      "bytes": 13319
+    },
+    "https://cdn.discordapp.com/embed/avatars/2.png": {
+      "file": "9a013cd568e05ca7.png",
+      "mime": "image/png",
+      "bytes": 1325
+    },
+    "https://cdn.discordapp.com/emojis/232720527448342530.gif?size=32": {
+      "file": "27ee8549bd5e037e.png",
+      "mime": "image/png",
+      "bytes": 1861
+    },
+    "https://cdn.discordapp.com/emojis/232720527448342530.png?size=32": {
+      "file": "27ee8549bd5e037e.png",
+      "mime": "image/png",
+      "bytes": 1861
+    },
+    "https://cdn.discordapp.com/guild-tag-badges/1369636126096097300/f199d66208891c43b51805e21b78bd4c.png?size=32": {
+      "file": "c79e7ec8a9477747.png",
+      "mime": "image/png",
+      "bytes": 1408
+    },
+    "https://cdn.discordapp.com/media/v1/collectibles-shop/1484726324580061191/1514422966870347837/static?format=webp&width=302&height=165": {
+      "file": "1e9a9a017cbb764a.webp",
+      "mime": "image/webp",
+      "bytes": 6322
+    },
+    "https://cdn.discordapp.com/media/v1/collectibles-shop/1484726324580061191/1514422966870347837/static?format=webp&width=438&height=239": {
+      "file": "7b882054828694f9.webp",
+      "mime": "image/webp",
+      "bytes": 7982
+    },
+    "https://cdn.discordapp.com/media/v1/collectibles-shop/1484726324580061191/1514422966870347837/static?format=webp&width=460&height=251": {
+      "file": "0a772c3af5695184.webp",
+      "mime": "image/webp",
+      "bytes": 8322
+    },
+    "https://cdn.discordapp.com/media/v1/collectibles-shop/1484726324580061191/1514422966870347837/static?format=webp&width=477&height=260": {
+      "file": "073fa7fd52a73735.webp",
+      "mime": "image/webp",
+      "bytes": 8472
+    },
+    "https://cdn.discordapp.com/media/v1/collectibles-shop/1484726324580061191/1514422966870347837/static?format=webp&width=875&height=478": {
+      "file": "9dde811a649b90e8.webp",
+      "mime": "image/webp",
+      "bytes": 11494
+    },
+    "https://cdn.discordapp.com/media/v1/collectibles-shop/1484726324580061191/1514422970251083806/static?format=webp&width=302&height=165": {
+      "file": "7a82f4bbb843b6cd.webp",
+      "mime": "image/webp",
+      "bytes": 27960
+    },
+    "https://cdn.discordapp.com/media/v1/collectibles-shop/1484726324580061191/1514422970251083806/static?format=webp&width=438&height=239": {
+      "file": "77c1a6da5f9db490.webp",
+      "mime": "image/webp",
+      "bytes": 46254
+    },
+    "https://cdn.discordapp.com/media/v1/collectibles-shop/1484726324580061191/1514422970251083806/static?format=webp&width=460&height=251": {
+      "file": "0fc68b9f28317740.webp",
+      "mime": "image/webp",
+      "bytes": 49562
+    },
+    "https://cdn.discordapp.com/media/v1/collectibles-shop/1484726324580061191/1514422970251083806/static?format=webp&width=477&height=260": {
+      "file": "be75f3b3f161f632.webp",
+      "mime": "image/webp",
+      "bytes": 51946
+    },
+    "https://cdn.discordapp.com/media/v1/collectibles-shop/1484726324580061191/1514422970251083806/static?format=webp&width=875&height=478": {
+      "file": "92c0d68c497f6235.webp",
+      "mime": "image/webp",
+      "bytes": 101690
+    },
+    "https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f525.svg": {
+      "file": "4fa646a4dbc10513.svg",
+      "mime": "image/svg+xml",
+      "bytes": 822
+    },
+    "https://i.scdn.co/image/ab67616d00001e021fb3115e3b35b94a49d6fe20": {
+      "file": "0ca7d2ad142abf58.jpg",
+      "mime": "image/jpeg",
+      "bytes": 16972
+    },
+    "https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg": {
+      "file": "2fc77b4a0620f5dc.jpg",
+      "mime": "image/jpeg",
+      "bytes": 21011
+    },
+    "https://static-cdn.jtvnw.net/previews-ttv/live_user_shroud-320x180.jpg": {
+      "file": "3541387bd57f5c90.jpg",
+      "mime": "image/jpeg",
+      "bytes": 11041
+    }
+  }
+}

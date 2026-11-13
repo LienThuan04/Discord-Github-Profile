@@ -1,0 +1,77 @@
+{
+  "sku_id": "1139323093991575696",
+  "name": "Sakura Dreams",
+  "summary": "Show this effect when others view your profile.",
+  "store_listing_id": "1139323093991575696",
+  "styles": {
+    "background_colors": [
+      5820651,
+      4330661
+    ],
+    "button_colors": [
+      5793266,
+      5793266
+    ],
+    "confetti_colors": [
+      43772,
+      15774258,
+      16414587,
+      3000177,
+      9739511
+    ]
+  },
+  "preview_assets": null,
+  "items": [
+    {
+      "type": 1,
+      "sku_id": "1139323093991575696",
+      "title": "Sakura Dreams",
+      "description": "Show this effect when others view your profile.",
+      "accessibilityLabel": "Sakura petals gently flutter in the breeze under sunlight... a true display of nature's beauty and elegance.",
+      "animationType": 1,
+      "staticFrameSrc": "https://cdn.discordapp.com/assets/content/196b75b6dc1ea082963c8c69c0ddc2c31efcaf18ee09f517e12760b3a105f790",
+      "thumbnailPreviewSrc": "https://cdn.discordapp.com/assets/content/7765f6bbd3a7e9e8c3e113a85b58887935bd0c9dd7947e8fde6ea953a6c5ab3c",
+      "reducedMotionSrc": "https://cdn.discordapp.com/assets/content/196b75b6dc1ea082963c8c69c0ddc2c31efcaf18ee09f517e12760b3a105f790",
+      "effects": [
+        {
+          "src": "https://cdn.discordapp.com/assets/content/4d89d846e27e98e767e31222a16adb13cdf0fa8e55431827fb728a38b230d229",
+          "loop": true,
+          "height": 880,
+          "width": 450,
+          "duration": 2880,
+          "start": 0,
+          "loopDelay": 0,
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "zIndex": 100,
+          "randomizedSources": []
+        },
+        {
+          "src": "https://cdn.discordapp.com/assets/content/865386444cad732750a74e393e3c3e14ccd5de4a5a2905e91e546e58b2603180",
+          "loop": true,
+          "height": 880,
+          "width": 450,
+          "duration": 2880,
+          "start": 2880,
+          "loopDelay": 2880,
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "zIndex": 101,
+          "randomizedSources": []
+        }
+      ]
+    }
+  ],
+  "type": 1,
+  "premium_type": 0,
+  "category_sku_id": "1324454241254903829",
+  "google_sku_ids": {
+    "5": "1139323093991575696_1259925088564809848",
+    "7": "1139323093991575696_1259925099973443736"
+  },
+  "is_first_party": true
+}

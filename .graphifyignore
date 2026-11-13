@@ -1,0 +1,19 @@
+# Local graph: code + docs only
+*.png
+*.gif
+*.jpg
+*.jpeg
+*.ico
+*.svg
+*.webp
+*.webm
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+node_modules/
+.next/
+public/examples/
+graphify-out/
+.verification/
+.pnpm-store/
+.npm-cache/

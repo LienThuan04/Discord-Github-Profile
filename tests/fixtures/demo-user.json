@@ -1,0 +1,59 @@
+{
+  "data": {
+    "kv": {},
+    "discord_user": {
+      "avatar": "c8996a80c144f90664d5d8cd9ebd0526",
+      "avatar_decoration_data": {
+        "asset": "a_8c18ac604dd50ec43d571f18af63c79f",
+        "expires_at": null,
+        "sku_id": "1466980253741092938"
+      },
+      "bot": false,
+      "collectibles": {
+        "nameplate": {
+          "asset": "nameplates/pitter_patter/1495807265175900180/",
+          "expires_at": null,
+          "label": "Drizzling rain pattering over a small pond",
+          "palette": "forest",
+          "sku_id": "1495807265175900180"
+        }
+      },
+      "discriminator": "0",
+      "display_name": "LiênThuận",
+      "display_name_styles": null,
+      "global_name": "LiênThuận",
+      "id": "983724520789655613",
+      "primary_guild": {
+        "badge": "f199d66208891c43b51805e21b78bd4c",
+        "identity_enabled": true,
+        "identity_guild_id": "1369636126096097300",
+        "tag": "ᗪᗴᐯ"
+      },
+      "public_flags": 0,
+      "username": "lianharman"
+    },
+    "activities": [
+      {
+        "content_classification": {
+          "data": null,
+          "loaded": true
+        },
+        "created_at": 1794490591153,
+        "id": "custom",
+        "name": "Custom Status",
+        "official_game_id": null,
+        "state": "Nothing here to care about",
+        "type": 4
+      }
+    ],
+    "discord_status": "online",
+    "active_on_discord_web": true,
+    "active_on_discord_desktop": false,
+    "active_on_discord_mobile": false,
+    "active_on_discord_embedded": false,
+    "active_on_discord_vr": false,
+    "listening_to_spotify": false,
+    "spotify": null
+  },
+  "success": true
+}
