@@ -14,6 +14,10 @@
  * abort timeout and fill the cache for the next render. The provider never throws; it returns `null` when
  * every enabled source fails, none is enabled, or the budget runs out.
  *
+ * `lookupProfileExtras()` also says whether the result is complete and hands back a `settled` promise.
+ * Routes use both: an incomplete card must not stay in the edge cache, and serverless hosts must be told
+ * (`after()`) to keep the instance alive until the background requests have warmed the cache.
+ *
  * The module has no Node-only imports, so client code may import its types and the pure helpers.
  */
 
@@ -92,7 +96,8 @@ const NETWORK_TIMEOUT_MS = 4000;
 const SUCCESS_TTL_MS = 10 * 60_000;
 const FAILURE_TTL_MS = 60_000;
 const EFFECT_TTL_MS = 24 * 60 * 60_000;
-const EFFECT_FAILURE_TTL_MS = 10 * 60_000;
+/** Short, like the profile: a transient catalog failure must not hide the art for long. */
+const EFFECT_FAILURE_TTL_MS = 60_000;
 export const DEFAULT_PROFILE_MIRROR_URL = "https://dcdn.dstn.to";
 /** Discord asks bot clients to identify as `DiscordBot ($url, $version)`. */
 const BOT_USER_AGENT = "DiscordBot (https://github.com/LienThuan04/Discord-Github-Profile, 0.1.0)";
@@ -552,24 +557,53 @@ function within<T>(promise: Promise<T>, ms: number): Promise<T | typeof TIMEOUT>
   return Promise.race([promise, expiry]).finally(() => clearTimeout(timer));
 }
 
-/** Profile extras for a Discord user, or `null`. Never throws and never waits longer than the budget. */
-export async function fetchProfileExtras(userId: string, options: ProfileProviderOptions = {}): Promise<ProfileExtras | null> {
+export interface ProfileLookup {
+  profile: ProfileExtras | null;
+  /**
+   * `false` when the budget ran out, an enabled source failed, or effect/frame art is missing. A card
+   * rendered from such a result may differ from the next render and should only be cached briefly.
+   */
+  complete: boolean;
+  /** Resolves (never rejects) once every request this lookup started has finished and been cached. */
+  settled: Promise<void>;
+}
+
+const SETTLED: Promise<void> = Promise.resolve();
+
+/** Profile extras plus completeness. Never throws and never waits longer than the budget. */
+export async function lookupProfileExtras(userId: string, options: ProfileProviderOptions = {}): Promise<ProfileLookup> {
   try {
-    if (!SNOWFLAKE.test(userId)) return null;
+    if (!SNOWFLAKE.test(userId)) return { profile: null, complete: true, settled: SETTLED };
     const settings = settingsFrom(options);
-    if (!settings.token && !settings.mirror) return null;
+    if (!settings.token && !settings.mirror) return { profile: null, complete: true, settled: SETTLED };
     const deadline = Date.now() + settings.budgetMs;
     const key = `${settings.mirror ?? "-"}|${settings.token ? "bot" : "-"}|${userId}`;
     const cached = profileCache.get(key, settings.now());
     const base = cached ? Promise.resolve(cached.value) : (profileInflight.get(key) ?? startProfileLoad(key, userId, settings));
+    // Start the art lookups as soon as the profile arrives, even after the budget, so the next render is complete.
+    const settled = base.then((profile) => Promise.all([
+      profile?.effect ? lookupEffect(profile.effect.skuId, settings) : null,
+      profile?.frame ? lookupFrame(profile.frame.skuId, settings) : null,
+    ])).then(() => undefined, () => undefined);
     const profile = await within(base, settings.budgetMs);
-    if (profile === TIMEOUT || !profile) return null;
+    if (profile === TIMEOUT || !profile) return { profile: null, complete: false, settled };
     const [details, frame] = await Promise.all([
       profile.effect ? within(lookupEffect(profile.effect.skuId, settings), deadline - Date.now()) : null,
       profile.frame ? within(lookupFrame(profile.frame.skuId, settings), deadline - Date.now()) : null,
     ]);
-    return { ...profile, effect: details && details !== TIMEOUT ? { skuId: profile.effect!.skuId, ...details } : profile.effect, frame: frame && frame !== TIMEOUT ? frame : null };
+    const effectReady = !profile.effect || (details !== null && details !== TIMEOUT);
+    const frameReady = !profile.frame || (frame !== null && frame !== TIMEOUT);
+    return {
+      profile: { ...profile, effect: details && details !== TIMEOUT ? { skuId: profile.effect!.skuId, ...details } : profile.effect, frame: frame && frame !== TIMEOUT ? frame : null },
+      complete: effectReady && frameReady,
+      settled,
+    };
   } catch {
-    return null;
+    return { profile: null, complete: false, settled: SETTLED };
   }
+}
+
+/** Profile extras for a Discord user, or `null`. Never throws and never waits longer than the budget. */
+export async function fetchProfileExtras(userId: string, options: ProfileProviderOptions = {}): Promise<ProfileExtras | null> {
+  return (await lookupProfileExtras(userId, options)).profile;
 }

@@ -1,7 +1,7 @@
 # Discord-Github-Profile — Discord Presence Card & Card Studio
 
 - Repo: `github.com/LienThuan04/Discord-Github-Profile` (branch **`main`**), phát triển và duy trì bởi `LianHarman(LienThuan04)`. Giấy phép: `LICENSE` (MIT).
-- Deploy: Vercel (domain production đang chờ chủ repo chọn; tài liệu hiện dùng hằng giữ chỗ `https://YOUR-DEPLOYMENT.vercel.app`, không dùng `lianharman-discord.vercel.app` vì domain đó đang trỏ repo cũ).
+- Deploy: Vercel project `discord-github-profile` (team `lien-hoa-thuans-projects`), alias production `https://lianharman-discord.vercel.app`; đã xác nhận ngày 13/11 bằng `vercel inspect`. README profile và portfolio đều dùng URL này. Tài liệu người dùng vẫn dùng chỗ giữ `https://YOUR-DEPLOYMENT.vercel.app`.
 - Deploy thứ hai: Cloudflare Workers qua OpenNext (`wrangler.jsonc`, `open-next.config.ts`), Worker `discord-github-profile`. Hướng dẫn đầy đủ cho mọi app Next.js kèm bảng lỗi đã gặp: `docs/DEPLOY-CLOUDFLARE.md` (tag `cloudflare-deploy-guide`).
 - Stack: Next.js 16.4.6 (App Router, `src/`), React 19.3.1, TypeScript 6.0.3 (strict), Zod 4.6.7, CSS Modules + CSS variables (không Tailwind, không UI kit), Vitest 4.1.12, ESLint 9 flat config, pnpm 11.22.0.
 
@@ -10,7 +10,8 @@
 | Route | File | Việc |
 |---|---|---|
 | `/` | `src/app/page.tsx` | **Card Studio**: nhập Discord ID (mặc định demo `983724520789655613`), xem preview Live (WebSocket) hoặc SVG, chọn theme/tuỳ chọn và copy mã nhúng (Markdown, HTML, `<picture>`, Live iframe, SVG URL). |
-| `/api/[id]` | `src/app/api/[id]/route.ts` | Render card **SVG** (`image/svg+xml; charset=utf-8`, HTTP 200 kể cả khi lỗi ID/chưa vào server Lanyard) cho GitHub README. |
+| `/api/[id]` | `src/app/api/[id]/route.ts` | Render card **SVG** (`image/svg+xml; charset=utf-8`, HTTP 200 kể cả khi lỗi ID/chưa vào server Lanyard) cho GitHub README. Card đầy đủ cache `s-maxage=30, stale-while-revalidate=3600`; card thiếu (profile/art vượt budget hoặc lỗi, Lanyard lỗi) chỉ cache `s-maxage=5`, không SWR. Phần tải dở được chạy tiếp bằng `after()` (`src/lib/cache-policy.ts`). |
+| `/api/[id]/profile` | `src/app/api/[id]/profile/route.ts` | JSON profile extras cho Studio/live, cùng chính sách cache như trên. |
 | `/live/[id]` | `src/app/live/[id]/page.tsx` | Render **Live card** nền trong suốt cho website/iframe; tự cập nhật qua Lanyard WebSocket và gửi chiều cao bằng `postMessage({ type: "dgp:height", height })`. |
 
 ## Luồng dữ liệu
@@ -49,7 +50,7 @@ Chi tiết hợp đồng kỹ thuật khi thêm hoặc sửa theme nằm ở `do
 
 Ngoài bảy theme nền tảng ở bảng trên, registry còn có `chat`, `banner`, `terminal`, `neon`, `retro`, `polaroid`, `mobile`, `voice`, `wave`. Theme `wave` dựng lại card cũ của chủ repo: header nền nameplate, khối "nước" gợn sóng, màu theo `wave_color` (`auto` lấy màu của app đang chạy). Theme banner rộng 600–1000px, mặc định 800; Studio dùng cùng `THEME_WIDTHS`.
 
-Profile extras được hiển thị qua `src/card/parts/profile-look.tsx`: banner/nền, surface Nitro, effect tĩnh trong SVG và APNG có lịch phát trong live, gộp badge và fallback bio/pronouns. Cả 15 theme bật `usesProfile`; frame type 3 được bọc chung ở registry và tăng canvas theo overflow. `width` vẫn là chiều rộng card gốc. `/api/[id]/profile` cung cấp JSON có cache cho Studio; trang Studio warm/seed profile song song với Lanyard, còn live bổ sung profile khi seed server chưa có đủ effect. `banner_source`, `hide_effect`, `hide_frame`, `tz` có control theo theme; clock chat/mobile và date polaroid theo múi giờ IANA.
+Profile extras được hiển thị qua `src/card/parts/profile-look.tsx`: banner/nền, surface Nitro, effect tĩnh trong SVG và APNG có lịch phát trong live, gộp badge và fallback bio/pronouns. Cả 15 theme bật `usesProfile`; frame type 3 được bọc chung ở registry và tăng canvas theo overflow. `width` vẫn là chiều rộng card gốc. `/api/[id]/profile` cung cấp JSON có cache cho Studio; trang Studio warm/seed profile song song với Lanyard, còn live bổ sung profile khi seed server chưa có đủ effect. Hai route API dùng `lookupProfileExtras()` (`{ profile, complete, settled }`) để biết kết quả đã đủ chưa; `fetchProfileExtras()` chỉ trả `profile`. Lý do: instance lạnh trên Vercel thường vượt budget 1,5 s, và card thiếu art từng bị CDN giữ tới 1 giờ (xem `docs/memory/decisions.md`). `banner_source`, `hide_effect`, `hide_frame`, `tz` có control theo theme; clock chat/mobile và date polaroid theo múi giờ IANA.
 
 ## Query params
 
@@ -79,7 +80,7 @@ pnpm.cmd install --frozen-lockfile
 pnpm.cmd dev          # http://localhost:3000
 pnpm.cmd lint         # ESLint
 pnpm.cmd typecheck    # tsc --noEmit
-pnpm.cmd test         # Vitest (2387 tests / 36 files); thêm --maxWorkers=1 khi ít RAM
+pnpm.cmd test         # Vitest (2557 tests / 43 files); thêm --maxWorkers=1 khi ít RAM
 pnpm.cmd build        # Next.js production build
 pnpm.cmd examples     # Sinh 136 SVG offline + gallery style + index.html + manifest.json
 pnpm.cmd run preview  # Build OpenNext rồi chạy Worker ở http://localhost:8787 (Windows cần bật Developer Mode)
@@ -97,9 +98,10 @@ pnpm.cmd run deploy   # Build OpenNext rồi deploy lên Cloudflare (cần `wran
 - `src/lib/discord/` — Hàm tạo URL CDN Discord/Spotify/YouTube/Twitch/Twemoji, giải mã bitfield badges, bảng màu nameplate, tính thời gian và xử lý màu.
 - `src/lib/svg/` — Trình tải và nhúng ảnh base64 có kiểm tra bảo mật (`assets.ts`), trình kết xuất SVG tĩnh (`render.tsx`).
 - `src/lib/options.ts` & `src/lib/embed.ts` — Bộ phân tích query params và bộ tạo URL/mã nhúng.
+- `src/lib/cache-policy.ts` — Hai chuỗi `Cache-Control` (đầy đủ / thiếu) và `finishAfterResponse()` bọc `after()` của Next.
 - `scripts/` — `generate-examples.ts`, `example-data.ts`, `screenshot-examples.ps1`.
 - `public/examples/` — 136 SVG tất định, sinh offline từ fixture và asset đã đóng gói: 60 theme/mode/extras, 10 showcase, 66 style/control. Manifest lưu kích thước và byte; generator chặn XML lỗi, URL ảnh ngoài và SVG ≥1 MB.
-- `tests/` — 36 file kiểm thử Vitest và bộ `tests/fixtures/` (bản chụp JSON đã làm sạch cùng fixture tổng hợp, asset gallery đóng gói). Có 421 worst-case tests và kiểm tra generator không dùng mạng, SHA-256 hai lần sinh giống nhau.
+- `tests/` — 43 file kiểm thử Vitest và bộ `tests/fixtures/` (bản chụp JSON đã làm sạch cùng fixture tổng hợp, asset gallery đóng gói). Có 421 worst-case tests và kiểm tra generator không dùng mạng, SHA-256 hai lần sinh giống nhau.
 
 ## Tài liệu người dùng
 

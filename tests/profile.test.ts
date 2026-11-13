@@ -4,6 +4,7 @@ import { colorIntToHex } from "@/lib/discord/color";
 import {
   clearProfileCache,
   fetchProfileExtras,
+  lookupProfileExtras,
   mergeProfile,
   parseDstnProfile,
   parseEffectProduct,
@@ -349,6 +350,69 @@ describe("fetchProfileExtras()", () => {
     now += 61_000;
     await fetchProfileExtras(ID, options);
     expect(calls(fetchImpl, "/users/")).toBe(2);
+  });
+});
+
+describe("lookupProfileExtras()", () => {
+  const options = (fetchImpl: typeof fetch, extra: { budgetMs?: number; now?: () => number } = {}) => ({ fetchImpl, provider: "dstn", botToken: "", now: () => FIXED_NOW, ...extra });
+  // The dstn snapshot also wears a type-3 frame; serve its catalog entry with sized layers (no PNG probe).
+  const FRAME_SKU = "1484726324580061191";
+  const frameProduct = { name: "Crystals (Amethyst)", items: [{ type: 3, sku_id: FRAME_SKU, label: "Purple crystals", inner_width: 1200, overflow_top: 304, overflow_bottom: 0, overflow_horizontal: 56, layers: [{ id: "1514422966870347837", order: "front", anchor: "top", width: 1312, height: 716 }] }] };
+  const catalog = (effect: typeof fetch = async () => json(effectProduct)): typeof fetch => async (input, init) => (String(input).endsWith(FRAME_SKU) ? json(frameProduct) : effect(input, init));
+
+  it("reports a complete lookup when the profile and its effect art arrive within the budget", async () => {
+    const lookup = await lookupProfileExtras(ID, options(upstream({ product: catalog() })));
+    expect(lookup.complete).toBe(true);
+    expect(lookup.profile?.effect).toMatchObject({ title: "Sakura Dreams" });
+  });
+
+  it("treats a lookup with every source disabled as complete", async () => {
+    const fetchImpl = upstream();
+    const lookup = await lookupProfileExtras(ID, { fetchImpl, provider: "off", botToken: "" });
+    expect(lookup).toMatchObject({ profile: null, complete: true });
+    expect(fetchImpl).not.toHaveBeenCalled();
+  });
+
+  it("reports a late mirror as incomplete, and settles once the profile and its effect art are cached", async () => {
+    const dstn = deferred<Response>();
+    const fetchImpl = upstream({ dstn: () => dstn.promise, product: catalog() });
+    const first = await lookupProfileExtras(ID, options(fetchImpl, { budgetMs: 20 }));
+    expect(first).toMatchObject({ profile: null, complete: false });
+    dstn.resolve(json(dstnSnapshot));
+    await first.settled;
+    // The effect lookup started in the background, after the caller's budget had expired.
+    expect(calls(fetchImpl, `/collectibles-products/${SKU}`)).toBe(1);
+    const next = await lookupProfileExtras(ID, options(fetchImpl));
+    expect(next.complete).toBe(true);
+    expect(next.profile?.effect).toMatchObject({ title: "Sakura Dreams" });
+    expect(next.profile?.frame?.skuId).toBe(FRAME_SKU);
+    expect(calls(fetchImpl, "dcdn.dstn.to")).toBe(1);
+    expect(calls(fetchImpl, `/collectibles-products/${SKU}`)).toBe(1);
+  });
+
+  it("reports a failed mirror as incomplete", async () => {
+    const lookup = await lookupProfileExtras(ID, options(upstream({ dstn: async () => json({ message: "boom" }, 500) })));
+    expect(lookup).toMatchObject({ profile: null, complete: false });
+  });
+
+  it("reports a failed effect lookup as incomplete and retries it after about a minute", async () => {
+    let now = FIXED_NOW;
+    let failing = true;
+    const fetchImpl = upstream({ product: catalog(async () => (failing ? json({ message: "boom" }, 500) : json(effectProduct))) });
+    const first = await lookupProfileExtras(ID, options(fetchImpl, { now: () => now }));
+    expect(first.complete).toBe(false);
+    expect(first.profile?.effect).toEqual({ skuId: SKU });
+    failing = false;
+    now += 61_000;
+    const next = await lookupProfileExtras(ID, options(fetchImpl, { now: () => now }));
+    expect(next.complete).toBe(true);
+    expect(next.profile?.effect).toMatchObject({ title: "Sakura Dreams" });
+    expect(calls(fetchImpl, `/collectibles-products/${SKU}`)).toBe(2);
+  });
+
+  it("keeps fetchProfileExtras() as the profile of the same lookup", async () => {
+    const fetchImpl = upstream();
+    expect(await fetchProfileExtras(ID, options(fetchImpl))).toEqual((await lookupProfileExtras(ID, options(fetchImpl))).profile);
   });
 });
 

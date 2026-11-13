@@ -200,7 +200,7 @@ Profile effects use a compact still frame in README SVGs and timed APNG layers i
 
 ### Sources and environment
 
-The card combines optional public sources; missing, invalid or slow extras leave a usable presence card. Lanyard and profile requests run in parallel. Profile callers wait at most 1,500ms; unfinished upstream requests can warm the cache for the next render. Successful profiles cache for 10 minutes, failures/degraded responses for one minute, and collectible catalogs for 24 hours (failed catalog lookups for 10 minutes).
+The card combines optional public sources; missing, invalid or slow extras leave a usable presence card. Lanyard and profile requests run in parallel. Profile callers wait at most 1,500ms. Unfinished upstream requests keep running after the response (Next.js `after()`) and warm the cache for the next render. Successful profiles cache for 10 minutes, failures/degraded responses for one minute, and collectible catalogs for 24 hours (failed catalog lookups for one minute).
 
 | Source | What it supplies | Configuration |
 |---|---|---|
@@ -349,11 +349,13 @@ Cache-Control: public, max-age=0, s-maxage=30, stale-while-revalidate=3600
 X-Content-Type-Options: nosniff
 ```
 
-The edge can reuse a snapshot for 30 seconds and serve a stale response while refreshing during the following 3,600-second window. This reduces cold-start and asset-download delays. It is a cache policy, not a guarantee that GitHub refreshes every 30 seconds. Error images have the same policy.
+The edge can reuse a snapshot for 30 seconds and serve a stale response while refreshing during the following 3,600-second window. This reduces cold-start and asset-download delays. It is a cache policy, not a guarantee that GitHub refreshes every 30 seconds. Invalid-ID and "not monitored" cards use the same policy.
+
+A **partial snapshot** gets `Cache-Control: public, max-age=0, s-maxage=5` instead, with no stale reuse. A snapshot is partial when profile extras or their effect/frame art missed the 1,500ms budget or failed, or when Lanyard was unreachable. A cold serverless instance often misses the budget on its first render. With the long policy, the edge would keep serving that card without its profile art for up to an hour. With the short one, the next refresh replaces it within seconds, once the background lookup has warmed the cache. `/api/{id}/profile` follows the same rule.
 
 GitHub proxies images through Camo and can retain a snapshot independently. Its proxy fetch does not run the live card's JavaScript or open a socket. SVG artwork is inlined because external image loads inside the image cannot be relied on. A direct URL working in your browser does not prove the GitHub proxy can fetch it quickly.
 
-For diagnostics, compare the direct image, its HTTP content type/cache headers, and the README image. Keep the long stale-while-revalidate window when tuning performance. GitHub documents content-type checks and a sparingly used Camo purge in its [image troubleshooting guide](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-anonymized-urls#troubleshooting-issues-with-camo). Purging an image affects all viewers of that cached image.
+For diagnostics, compare the direct image, its HTTP content type/cache headers, and the README image. On Vercel, `X-Vercel-Cache: STALE` with a large `Age` means the edge served an older snapshot while refreshing. Keep the long stale-while-revalidate window for complete snapshots when tuning performance. GitHub documents content-type checks and a sparingly used Camo purge in its [image troubleshooting guide](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-anonymized-urls#troubleshooting-issues-with-camo). Purging an image affects all viewers of that cached image.
 
 [↑ Back to contents](#contents)
 
@@ -380,6 +382,10 @@ Replace the placeholder origin and `YOUR_DISCORD_ID`, open the API URL directly 
 ### Stale image
 
 A README is a cached snapshot. CSS clocks advancing do not mean presence is being fetched again. Check the direct API URL, allow edge and Camo caches to refresh, and consult [Caching and GitHub Camo](#caching-and-github-camo). Use the live iframe on your own website when changes must appear without reloading.
+
+### Profile frame or effect missing
+
+The frame, profile effect, banner color, bio and extra badges come from the profile sources, not from Lanyard. On a cold instance the first render can miss them; that render is a [partial snapshot](#caching-and-github-camo) and is replaced within seconds. Open `/api/{id}/profile` directly: `"profile": null` or an `effect` with only `skuId` means the sources were still loading or failed; reload after a few seconds. If it stays `null`, the dstn mirror may be down or rate-limiting your host. Set `DISCORD_BOT_TOKEN` for the banner and color, or point `DISCORD_PROFILE_PROVIDER_URL` at another compatible mirror.
 
 ### Live card stays disconnected or is clipped
 
