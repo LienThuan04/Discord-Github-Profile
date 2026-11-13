@@ -22,6 +22,21 @@ from urllib.request import Request, urlopen
 ROOT = Path(__file__).resolve().parents[1]
 DOCUMENTS = (ROOT / "README.md", ROOT / "wiki/Home.md")
 PLACEHOLDER_HOST = "your-deployment.vercel.app"
+# The repository may be private, so links to its own files and Wiki tab are resolved against this checkout
+# instead of being fetched: `{REPO_URL}/blob|raw/main/<path>` -> `<path>`, `{REPO_URL}/wiki#x` -> `wiki/Home.md#x`.
+REPO_URL = "https://github.com/LienThuan04/Discord-Github-Profile"
+
+
+def repository_path(link):
+    """Return a checkout-relative link for a URL into this repository or its Wiki, else None."""
+    for kind in ("blob", "raw"):
+        prefix = f"{REPO_URL}/{kind}/main/"
+        if link.startswith(prefix):
+            return "/" + link[len(prefix):]
+    if link == f"{REPO_URL}/wiki" or link.startswith((f"{REPO_URL}/wiki#", f"{REPO_URL}/wiki/Home#")):
+        fragment = urldefrag(link)[1]
+        return "/wiki/Home.md" + (f"#{fragment}" if fragment else "")
+    return None
 
 
 def without_fences(source):
@@ -134,6 +149,7 @@ def main():
     for document in DOCUMENTS:
         for link in document_links(document.read_text(encoding="utf-8")):
             link_count += 1
+            link = repository_path(link) or link
             parts = urlsplit(link)
             if parts.hostname == PLACEHOLDER_HOST:
                 placeholders.add(link)

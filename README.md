@@ -23,7 +23,7 @@ Show activities, Spotify, custom status, devices, avatar decorations, nameplates
 
 ## Theme gallery
 
-Every theme supports dark and light. These are self-contained SVG snapshots, available before deployment. See the [dark/light gallery](wiki/Home.md#dark-and-light-previews), [all example variants](public/examples/index.html) and [style gallery](public/examples/styles/index.html).
+Every theme supports dark and light. These are self-contained SVG snapshots, available before deployment. See the [dark/light gallery](https://github.com/LienThuan04/Discord-Github-Profile/wiki#dark-and-light-previews), [all example variants](public/examples/index.html) and [style gallery](public/examples/styles/index.html).
 
 | Theme | Preview |
 |---|---|
@@ -90,19 +90,19 @@ The same 35 snake_case options work on `/api/{id}` and `/live/{id}` where the th
 
 </details>
 
-Hex colors accept 3, 6 or 8 digits (alpha included), optionally prefixed with `#`; omit it in URLs or encode it as `%23`. Profile frame overflow grows the image beyond `width`, which describes the underlying card. [Theme sizes and style support](wiki/Home.md#themes).
+Hex colors accept 3, 6 or 8 digits (alpha included), optionally prefixed with `#`; omit it in URLs or encode it as `%23`. Profile frame overflow grows the image beyond `width`, which describes the underlying card. [Theme sizes and style support](https://github.com/LienThuan04/Discord-Github-Profile/wiki#themes).
 
 ## README snapshot and live card
 
 `/api/{id}` returns a self-contained SVG snapshot for README images. Its clocks can advance with CSS, but new status, song or activity data requires a fresh image request and is subject to GitHub Camo caching.
 
-`/live/{id}` updates through Lanyard's WebSocket. Copy Studio's **Live iframe** for a website: its `dgp:height` message reports the scaled canvas height, including frame overflow. The parent must validate both `event.origin` and `event.source === frame.contentWindow`, then accept only finite heights greater than 0 and less than 10,000px. See the [complete iframe example](wiki/Home.md#iframe-and-auto-resize). GitHub READMEs do not run iframe scripts.
+`/live/{id}` updates through Lanyard's WebSocket. Copy Studio's **Live iframe** for a website: its `dgp:height` message reports the scaled canvas height, including frame overflow. The parent must validate both `event.origin` and `event.source === frame.contentWindow`, then accept only finite heights greater than 0 and less than 10,000px. See the [complete iframe example](https://github.com/LienThuan04/Discord-Github-Profile/wiki#iframe-and-auto-resize). GitHub READMEs do not run iframe scripts.
 
 ## Profile data and privacy
 
 Lanyard supplies presence, activities, Spotify, exposed cosmetics and public KV. The optional, **unofficial** `dcdn.dstn.to` mirror supplies profile bio/pronouns, banner colors, Nitro colors, effect/frame identifiers and extra badges. Public Discord `collectibles-products/{sku}` lookups resolve effect and frame artwork. An optional server-only `DISCORD_BOT_TOKEN` adds the official Discord user lookup for banner and accent color. Cards still render when these sources fail.
 
-`DISCORD_PROFILE_PROVIDER=dstn` is the default; set it to `off` to disable the mirror, or use `DISCORD_PROFILE_PROVIDER_URL` for a compatible mirror. The mirror receives requested user IDs and is independent of Discord and this project. Keep bot tokens server-side; no user token is needed. [Sources and environment variables](wiki/Home.md#profile-extras-and-privacy).
+`DISCORD_PROFILE_PROVIDER=dstn` is the default; set it to `off` to disable the mirror, or use `DISCORD_PROFILE_PROVIDER_URL` for a compatible mirror. The mirror receives requested user IDs and is independent of Discord and this project. Keep bot tokens server-side; no user token is needed. [Sources and environment variables](https://github.com/LienThuan04/Discord-Github-Profile/wiki#profile-extras-and-privacy).
 
 **Privacy:** the card shows what your public Discord profile and whitelisted Lanyard KV expose. `hide_kv=true` hides About Me/bio and pronouns from both sources, KV location/website and the KV banner. Other artwork has separate controls (`banner_source`, `hide_effect`, `hide_frame`); `hide_kv` is a display setting, not access control for the public sources.
 
@@ -111,23 +111,23 @@ Lanyard supplies presence, activities, Spotify, exposed cosmetics and public KV.
 1. Import this repository as a new Vercel project using the Next.js preset and repository root.
 2. Use the pinned Node.js `24.x` and `pnpm@11.22.0`. Set Vercel's `ENABLE_EXPERIMENTAL_COREPACK=1` to honor `packageManager`, then install with `pnpm install --frozen-lockfile` and build with `pnpm build` (use `pnpm.cmd` on Windows). See [Vercel Corepack setup](https://vercel.com/docs/builds/configure-a-build#corepack).
 3. Keep the default public Lanyard URLs, configure optional profile variables from [.env.example](.env.example), and set `NEXT_PUBLIC_SITE_URL` to your public HTTPS origin or leave it empty for the request origin.
-4. Deploy, replace the placeholder origin, and test Studio, an SVG image and a live iframe. The SVG must be publicly reachable without a login page. Redeploy after environment changes. Follow the [Vercel guide](wiki/Home.md#deploying-to-vercel).
+4. Deploy, replace the placeholder origin, and test Studio, an SVG image and a live iframe. The SVG must be publicly reachable without a login page. Redeploy after environment changes. Follow the [Vercel guide](https://github.com/LienThuan04/Discord-Github-Profile/wiki#deploying-to-vercel).
 
 ## Documentation
 
 | Page | Contents |
 |---|---|
-| [Card Studio](wiki/Home.md#card-studio) | Build, preview and share a card |
-| [Themes](wiki/Home.md#themes) | All 15 layouts, sizes and dark/light previews |
-| [Style axes](wiki/Home.md#style-axes) | Shapes, rings, patterns, effects, status, equalizer, fonts and borders |
-| [Options](wiki/Home.md#options) | All parameters and defaults |
-| [Profile extras and privacy](wiki/Home.md#profile-extras-and-privacy) | Data sources, environment and visibility |
-| [Lanyard KV](wiki/Home.md#lanyard-kv) | Set bio, pronouns, banner and metadata |
-| [Development](wiki/Home.md#development) | Local setup, tests and deterministic fixture examples |
+| [Card Studio](https://github.com/LienThuan04/Discord-Github-Profile/wiki#card-studio) | Build, preview and share a card |
+| [Themes](https://github.com/LienThuan04/Discord-Github-Profile/wiki#themes) | All 15 layouts, sizes and dark/light previews |
+| [Style axes](https://github.com/LienThuan04/Discord-Github-Profile/wiki#style-axes) | Shapes, rings, patterns, effects, status, equalizer, fonts and borders |
+| [Options](https://github.com/LienThuan04/Discord-Github-Profile/wiki#options) | All parameters and defaults |
+| [Profile extras and privacy](https://github.com/LienThuan04/Discord-Github-Profile/wiki#profile-extras-and-privacy) | Data sources, environment and visibility |
+| [Lanyard KV](https://github.com/LienThuan04/Discord-Github-Profile/wiki#lanyard-kv) | Set bio, pronouns, banner and metadata |
+| [Development](https://github.com/LienThuan04/Discord-Github-Profile/wiki#development) | Local setup, tests and deterministic fixture examples |
 
 ## Contributing
 
-Development setup and verification are in the [Wiki](wiki/Home.md#development). Implementation is original; cnrad/lanyard-profile-readme and kyrie25/lanyard-profile-readme inspired the project. Presence data comes from Lanyard.
+Development setup and verification are in the [Wiki](https://github.com/LienThuan04/Discord-Github-Profile/wiki#development). Implementation is original; cnrad/lanyard-profile-readme and kyrie25/lanyard-profile-readme inspired the project. Presence data comes from Lanyard.
 
 ## License
 

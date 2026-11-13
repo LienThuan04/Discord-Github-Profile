@@ -58,7 +58,7 @@ All fifteen themes support dark and light modes. Sizes are CSS pixels before res
 
 ### Supported controls by theme
 
-All themes support `theme`, `mode`, `accent`, `bg`, `hide_status`, `hide_activity`, `hide_spotify`, `hide_custom_status`, `idle_text`, `banner_source`, `hide_effect`, `hide_badges` and `hide_frame`. Other section/identity controls depend on the layout. Studio only offers controls in that theme's [metadata](../src/card/theme-registry.ts), and omits unsupported parameters from copied URLs. `profile`, `nitro` and `glass` support every option except `tz`; `tz` applies to `chat`, `mobile` and `polaroid`.
+All themes support `theme`, `mode`, `accent`, `bg`, `hide_status`, `hide_activity`, `hide_spotify`, `hide_custom_status`, `idle_text`, `banner_source`, `hide_effect`, `hide_badges` and `hide_frame`. Other section/identity controls depend on the layout. Studio only offers controls in that theme's [metadata](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/src/card/theme-registry.ts), and omits unsupported parameters from copied URLs. `profile`, `nitro` and `glass` support every option except `tz`; `tz` applies to `chat`, `mobile` and `polaroid`.
 
 `member`, `compact` and `badge` use small static identity artwork; `activity` also uses a static avatar. Compact and activity omit avatar decorations. On member/compact, `animated` can still affect supported display-name effects. Badge's visible radius is capped at 16px. Polaroid is always static; mobile and retro keep their fixed silhouettes.
 
@@ -76,7 +76,7 @@ The eight axes use CSS, inline SVG and system fonts without extra image/font req
 | `voice` | `avatar_shape`, `pattern`, `effect`, `border`, `font`, `eq_style` |
 | `polaroid` | None; keeps its photograph presentation |
 
-See the [style gallery](../public/examples/styles/index.html) for every value on a fixed base card, plus all `banner_source` choices and both values of `hide_effect` / `hide_frame`. All accepted values and defaults appear in [Options](#options). `effect` styles and the Discord profile effect controlled by `hide_effect` are independent.
+See the [style gallery](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/public/examples/styles/index.html) for every value on a fixed base card, plus all `banner_source` choices and both values of `hide_effect` / `hide_frame`. All accepted values and defaults appear in [Options](#options). `effect` styles and the Discord profile effect controlled by `hide_effect` are independent.
 
 Full themes show custom status separately from activities. Playing (type 0), Streaming (1), Listening (2), Watching (3) and Competing (5) can include details, state, artwork, party size, timestamps and up to two button labels when Lanyard supplies them. Custom status (4) supports Unicode and custom emoji. Activity buttons are presentation only: Discord supplies labels without action URLs.
 
@@ -86,29 +86,29 @@ Member, compact and badge choose Spotify first, then the first visible activity,
 
 | Theme | Dark | Light |
 |---|---|---|
-| Profile | <img src="../public/examples/profile-dark.svg" width="280" alt="Profile dark" /> | <img src="../public/examples/profile-light.svg" width="280" alt="Profile light" /> |
-| Nitro | <img src="../public/examples/nitro-dark.svg" width="280" alt="Nitro dark" /> | <img src="../public/examples/nitro-light.svg" width="280" alt="Nitro light" /> |
-| Member | <img src="../public/examples/member-dark.svg" width="280" alt="Member dark" /> | <img src="../public/examples/member-light.svg" width="280" alt="Member light" /> |
-| Compact | <img src="../public/examples/compact-dark.svg" width="280" alt="Compact dark" /> | <img src="../public/examples/compact-light.svg" width="280" alt="Compact light" /> |
-| Activity | <img src="../public/examples/activity-dark.svg" width="280" alt="Activity dark" /> | <img src="../public/examples/activity-light.svg" width="280" alt="Activity light" /> |
-| Glass | <img src="../public/examples/glass-dark.svg" width="280" alt="Glass dark" /> | <img src="../public/examples/glass-light.svg" width="280" alt="Glass light" /> |
-| Badge | <img src="../public/examples/badge-dark.svg" width="256" alt="Badge dark" /> | <img src="../public/examples/badge-light.svg" width="256" alt="Badge light" /> |
-| Chat | <img src="../public/examples/chat-dark.svg" width="280" alt="Chat dark" /> | <img src="../public/examples/chat-light.svg" width="280" alt="Chat light" /> |
-| Banner | <img src="../public/examples/banner-dark.svg" width="280" alt="Banner dark" /> | <img src="../public/examples/banner-light.svg" width="280" alt="Banner light" /> |
-| Terminal | <img src="../public/examples/terminal-dark.svg" width="280" alt="Terminal dark" /> | <img src="../public/examples/terminal-light.svg" width="280" alt="Terminal light" /> |
-| Neon | <img src="../public/examples/neon-dark.svg" width="280" alt="Neon dark" /> | <img src="../public/examples/neon-light.svg" width="280" alt="Neon light" /> |
-| Retro | <img src="../public/examples/retro-dark.svg" width="280" alt="Retro dark" /> | <img src="../public/examples/retro-light.svg" width="280" alt="Retro light" /> |
-| Polaroid | <img src="../public/examples/polaroid-dark.svg" width="280" alt="Polaroid dark" /> | <img src="../public/examples/polaroid-light.svg" width="280" alt="Polaroid light" /> |
-| Mobile | <img src="../public/examples/mobile-dark.svg" width="280" alt="Mobile dark" /> | <img src="../public/examples/mobile-light.svg" width="280" alt="Mobile light" /> |
-| Voice | <img src="../public/examples/voice-dark.svg" width="280" alt="Voice dark" /> | <img src="../public/examples/voice-light.svg" width="280" alt="Voice light" /> |
+| Profile | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/profile-dark.svg" width="280" alt="Profile dark" /> | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/profile-light.svg" width="280" alt="Profile light" /> |
+| Nitro | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/nitro-dark.svg" width="280" alt="Nitro dark" /> | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/nitro-light.svg" width="280" alt="Nitro light" /> |
+| Member | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/member-dark.svg" width="280" alt="Member dark" /> | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/member-light.svg" width="280" alt="Member light" /> |
+| Compact | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/compact-dark.svg" width="280" alt="Compact dark" /> | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/compact-light.svg" width="280" alt="Compact light" /> |
+| Activity | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/activity-dark.svg" width="280" alt="Activity dark" /> | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/activity-light.svg" width="280" alt="Activity light" /> |
+| Glass | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/glass-dark.svg" width="280" alt="Glass dark" /> | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/glass-light.svg" width="280" alt="Glass light" /> |
+| Badge | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/badge-dark.svg" width="256" alt="Badge dark" /> | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/badge-light.svg" width="256" alt="Badge light" /> |
+| Chat | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/chat-dark.svg" width="280" alt="Chat dark" /> | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/chat-light.svg" width="280" alt="Chat light" /> |
+| Banner | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/banner-dark.svg" width="280" alt="Banner dark" /> | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/banner-light.svg" width="280" alt="Banner light" /> |
+| Terminal | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/terminal-dark.svg" width="280" alt="Terminal dark" /> | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/terminal-light.svg" width="280" alt="Terminal light" /> |
+| Neon | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/neon-dark.svg" width="280" alt="Neon dark" /> | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/neon-light.svg" width="280" alt="Neon light" /> |
+| Retro | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/retro-dark.svg" width="280" alt="Retro dark" /> | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/retro-light.svg" width="280" alt="Retro light" /> |
+| Polaroid | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/polaroid-dark.svg" width="280" alt="Polaroid dark" /> | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/polaroid-light.svg" width="280" alt="Polaroid light" /> |
+| Mobile | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/mobile-dark.svg" width="280" alt="Mobile dark" /> | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/mobile-light.svg" width="280" alt="Mobile light" /> |
+| Voice | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/voice-dark.svg" width="280" alt="Voice dark" /> | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/voice-light.svg" width="280" alt="Voice light" /> |
 
-The [complete fixture gallery](../public/examples/index.html) also includes every theme × dark/light with profile extras (frame, effect and banner color). Preview text is synthetic; no real bio is bundled.
+The [complete fixture gallery](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/public/examples/index.html) also includes every theme × dark/light with profile extras (frame, effect and banner color). Preview text is synthetic; no real bio is bundled.
 
 [↑ Back to contents](#contents)
 
 ## Options
 
-Use the same 35 snake_case query parameters on `/api/{id}` and `/live/{id}`. The authoritative parser is [src/lib/options.ts](../src/lib/options.ts), with style values in [src/lib/style-options.ts](../src/lib/style-options.ts); theme support comes from the [registry](../src/card/theme-registry.ts) and each theme's metadata.
+Use the same 35 snake_case query parameters on `/api/{id}` and `/live/{id}`. The authoritative parser is [src/lib/options.ts](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/src/lib/options.ts), with style values in [src/lib/style-options.ts](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/src/lib/style-options.ts); theme support comes from the [registry](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/src/card/theme-registry.ts) and each theme's metadata.
 
 Unknown keys are ignored. Repeated keys use the first value. Invalid fields fall back independently. Finite numeric values are rounded and clamped; empty, nonnumeric or nonfinite values use the default. Boolean URL values are exactly `true` or `false`.
 
@@ -166,9 +166,9 @@ https://YOUR-DEPLOYMENT.vercel.app/api/983724520789655613?theme=profile&mode=lig
 
 All themes wear your collectible profile frame by default. `hide_frame=true` removes it. Frames grow the SVG/live canvas by their scaled overflow; `width` continues to mean card width. Failed frame layers disappear together without changing reserved dimensions. Banner art and effects render at full strength. Short layouts place effects behind readable foreground text and panels; tall layouts retain Discord-style overlay art. Small themes use your profile color as their accent.
 
-<img src="../public/examples/profile-extras-dark.svg" width="280" alt="Profile with synthetic About Me, Discord banner and profile effect" /> <img src="../public/examples/profile-extras-light.svg" width="280" alt="Light profile with synthetic About Me and profile extras" />
+<img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/profile-extras-dark.svg" width="280" alt="Profile with synthetic About Me, Discord banner and profile effect" /> <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/profile-extras-light.svg" width="280" alt="Light profile with synthetic About Me and profile extras" />
 
-Nitro theme colors tint the surface; a solid profile banner gets a subtle sheen. KV bio/pronouns override Discord About Me, with `hide_kv` hiding both. The optional profile provider and cache behavior are documented in [the theme contract](../docs/THEME-CONTRACT.md#profile-extras).
+Nitro theme colors tint the surface; a solid profile banner gets a subtle sheen. KV bio/pronouns override Discord About Me, with `hide_kv` hiding both. The optional profile provider and cache behavior are documented in [the theme contract](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/docs/THEME-CONTRACT.md#profile-extras).
 
 Profile effects use a compact still frame in README SVGs and timed APNG layers in live cards (a still for reduced motion or `animated=false`). Use `hide_effect=true` to hide them. All 15 themes fetch profile data. Studio exposes a visible **Show on card** group of accessible switches for effect, frame, banner, an opt-in **Nameplate background** (off by default; sets `banner_source=nameplate` so the nameplate art replaces the profile banner), decoration, nameplate, guild tag, badges, status, platforms, custom status, activity, Spotify, timestamps and About/KV, filtered by theme support. Switching themes or IDs, re-enabling the effect, or pressing **Replay effect** restarts its intro (reduced motion stays static). Studio shows source/timezone controls only for supported themes, and fetches public normalized profile data from `/api/{id}/profile` once per user ID.
 
@@ -191,7 +191,7 @@ The dstn mirror is **unofficial**, independent of Discord and this project, and 
 | `DISCORD_PROFILE_PROVIDER_URL` | Empty → `https://dcdn.dstn.to` | Compatible mirror base; app appends `/profile/{id}` |
 | `DISCORD_BOT_TOKEN` | Empty | Optional official user lookup; server-only, never prefix with `NEXT_PUBLIC_` |
 
-See [.env.example](../.env.example). Public Lanyard and the default mirror require no credentials. A Discord bot can be created in the [Developer Portal](https://discord.com/developers/applications); keep its token only in server environment settings.
+See [.env.example](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/.env.example). Public Lanyard and the default mirror require no credentials. A Discord bot can be created in the [Developer Portal](https://discord.com/developers/applications); keep its token only in server environment settings.
 
 ### Privacy and visibility
 
@@ -285,7 +285,7 @@ For `banner`, use `/set` with key `banner` and a direct public HTTPS image URL a
 
 This app can use a compatible Lanyard instance. Running the upstream service, its bot and Redis is separate from deploying this card; follow [Lanyard's self-hosting instructions](https://github.com/Phineas/lanyard#self-host-with-docker).
 
-Start with [.env.example](../.env.example) in the repository root:
+Start with [.env.example](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/.env.example) in the repository root:
 
 | Variable | Default | Used by |
 |---|---|---|
@@ -370,7 +370,7 @@ pnpm.cmd install --frozen-lockfile
 pnpm.cmd dev
 ```
 
-Open localhost on port 3000. Public Lanyard works without secrets. The project uses Next.js App Router, React, strict TypeScript, Zod, CSS Modules, ESLint and Vitest. The [project map](../docs/PROJECT.md) describes the layout.
+Open localhost on port 3000. Public Lanyard works without secrets. The project uses Next.js App Router, React, strict TypeScript, Zod, CSS Modules, ESLint and Vitest. The [project map](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/docs/PROJECT.md) describes the layout.
 
 | Command | Purpose |
 |---|---|
@@ -385,7 +385,7 @@ Open localhost on port 3000. Public Lanyard works without secrets. The project u
 
 ### Generate and inspect examples
 
-The [examples generator](../scripts/generate-examples.ts) uses frozen fixtures and checked-in asset bytes, with no network. Its 136 public SVGs include 60 theme previews (15 themes × dark/light × with/without profile extras), 10 additional activity showcases and 66 style/control variants. The style gallery contains every style-axis value and the banner/effect/frame controls. Output is deterministic: the same fixtures produce identical bytes. The manifest records exact dimensions and byte sizes. Generated SVGs must be well-formed XML, contain no external asset URLs, and remain below 1,000,000 bytes. Fixture bios are synthetic.
+The [examples generator](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/scripts/generate-examples.ts) uses frozen fixtures and checked-in asset bytes, with no network. Its 136 public SVGs include 60 theme previews (15 themes × dark/light × with/without profile extras), 10 additional activity showcases and 66 style/control variants. The style gallery contains every style-axis value and the banner/effect/frame controls. Output is deterministic: the same fixtures produce identical bytes. The manifest records exact dimensions and byte sizes. Generated SVGs must be well-formed XML, contain no external asset URLs, and remain below 1,000,000 bytes. Fixture bios are synthetic.
 
 ```powershell
 pnpm.cmd examples
@@ -401,11 +401,11 @@ To inspect a deployed response's size and timing without changing it:
 curl.exe -sS -o .verification/card.svg -w "bytes=%{size_download} seconds=%{time_total}\n" "https://YOUR-DEPLOYMENT.vercel.app/api/983724520789655613?theme=profile&animated=false"
 ```
 
-Create `.verification` first if needed. Repeat once after the cache is warm, then check the GitHub README separately. Cold and warm timings depend on upstream services and the deployment region. The maintained [discord-card workflow](../docs/skills/discord-card/SKILL.md#4-check-svg-byte-size-and-github-camo-timing) records measured per-theme owner-card sizes and timings. Public Camo verification requires a chosen public deployment.
+Create `.verification` first if needed. Repeat once after the cache is warm, then check the GitHub README separately. Cold and warm timings depend on upstream services and the deployment region. The maintained [discord-card workflow](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/docs/skills/discord-card/SKILL.md#4-check-svg-byte-size-and-github-camo-timing) records measured per-theme owner-card sizes and timings. Public Camo verification requires a chosen public deployment.
 
 ### Add or modify a theme
 
-Follow the [theme contract](../docs/THEME-CONTRACT.md) and the [discord-card workflow](../docs/skills/discord-card/SKILL.md). Keep `Component` pure, share layout constants with deterministic `measure()`, route every image through `assets`, register the theme and its supported parameters, and extend the option validator. Reuse the normalized view model for both SVG and live output.
+Follow the [theme contract](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/docs/THEME-CONTRACT.md) and the [discord-card workflow](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/docs/skills/discord-card/SKILL.md). Keep `Component` pure, share layout constants with deterministic `measure()`, route every image through `assets`, register the theme and its supported parameters, and extend the option validator. Reuse the normalized view model for both SVG and live output.
 
 Verify relevant fixtures, both modes, width limits, hides, offline/error states and clocks. Run lint, typecheck, tests and a build; regenerate examples and inspect browser screenshots. Update the theme/parameter reference here and the README gallery/options table. Runtime dependencies need a concrete reason, and all implementation is original under MIT.
 

@@ -22,7 +22,8 @@ Cập nhật: 2026-11-13 bởi Codex.
 - 2026-11-13: thêm switch **Nameplate background** trong "Show on card" theo yêu cầu người dùng. Mặc định tắt; khi bật, đặt `banner_source=nameplate` để ảnh nameplate thay cho banner hồ sơ.
   - Switch chỉ hiện ở theme hỗ trợ cả `banner_source` lẫn `hide_nameplate`, và bị vô hiệu khi đang ẩn nameplate.
   - Kiểm tra: lint/typecheck 0, 2388/2388 test. Đã xem ảnh của `profile`/`nitro` và Studio.
-  - Chưa commit.
+  - Đã push trong `a321cf3`.
+- 2026-11-13: đồng bộ tab Wiki giống repo Spotify: `Home.md`, `_Sidebar.md` và `_Footer.md` đã push lên `Discord-Github-Profile.wiki.git`. README trỏ sang tab Wiki; `wiki/Home.md` dùng URL tuyệt đối; link checker đối chiếu URL repo/wiki với checkout local.
 - Chủ repo chọn **production domain** và **Vercel project**, rồi quyết định thời điểm ngừng deployment cũ **Profile_Discord**. Sau khi có public deployment, kiểm tra Camo thực tế; giữ `https://YOUR-DEPLOYMENT.vercel.app` đến lúc đó. Báo cáo: scratchpad `agy/phase8-report.md`; lịch sử: `docs/memory/history.md`.
 
 ## Nhật ký

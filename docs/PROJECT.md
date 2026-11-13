@@ -95,3 +95,15 @@ pnpm.cmd examples     # Sinh 136 SVG offline + gallery style + index.html + mani
 ## Tài liệu người dùng
 
 `README.md` có giới thiệu, quick start, ảnh của đủ 15 theme, bảng 35 tham số thu gọn, live iframe, nguồn dữ liệu/privacy và triển khai Vercel. `wiki/Home.md` giữ tài liệu chi tiết trên **một trang duy nhất** có mục lục: kích thước và control từng theme, gallery dark/light và style, Card Studio, live/iframe resize, Lanyard KV qua bot `/set`, self-host, cache/Camo, xử lý sự cố và phát triển. Cập nhật cả hai bảng tham số khi thay đổi contract. Kiểm tra link và ảnh bằng `python scripts/check-doc-links.py --remote`.
+
+Tab Wiki trên GitHub (`Discord-Github-Profile.wiki.git`, branch `master`) là bản sao của `wiki/`, làm giống repo Spotify.
+
+**Quy tắc link:**
+- README trỏ sang tab Wiki (`https://github.com/LienThuan04/Discord-Github-Profile/wiki#...`).
+- Trong `wiki/Home.md` không dùng link tương đối `../`. File trong repo dùng `.../blob/main/<path>`, ảnh dùng `.../raw/main/<path>`. Link nội bộ trong trang là anchor `#...`.
+- Script kiểm tra link đối chiếu các URL này với checkout local, vì repo có thể đang private.
+
+**Cách đồng bộ:**
+1. Sửa `wiki/Home.md` trước.
+2. Clone kho wiki và chép đè `Home.md`. Giữ nguyên `_Sidebar.md`/`_Footer.md`; khi thêm hoặc bớt mục lớn thì sửa mục lục trong `_Sidebar.md`.
+3. Commit và push kho wiki (chỉ khi người dùng yêu cầu push).
