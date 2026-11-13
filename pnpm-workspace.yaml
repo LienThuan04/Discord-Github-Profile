@@ -2,3 +2,7 @@
 storeDir: .pnpm-store
 virtualStoreDir: .verification/pnpm-virtual
 packageImportMethod: copy
+
+# pnpm 11 fails CI installs when a dependency build script is not explicitly allowed.
+allowBuilds:
+  esbuild: true

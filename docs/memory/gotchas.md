@@ -106,3 +106,5 @@ Verified with real requests for `src/lib/discord/profile.ts`. The sanitized dstn
 - A live server seed can have the banner color but only the effect SKU at the 1500 ms deadline. LivePresence requests the public JSON endpoint on hydration for incomplete seeds, so warmed effect art appears without reloading the iframe; fully populated seeds need no extra request.
 
 - This Windows shell can replace Unicode characters in Python source piped through stdin with question marks. Use apply_patch or save the script as UTF-8 with Set-Content before executing it; original UTF-8 file contents read/written by Python remain intact.
+
+- GitHub Actions CI failed at `pnpm install --frozen-lockfile` with `ERR_PNPM_IGNORED_BUILDS: esbuild@0.28.2`. pnpm 11 sets `strictDepBuilds` under CI, so an unapproved dependency build script is an error, not a warning. Fixed with `allowBuilds: { esbuild: true }` in `pnpm-workspace.yaml`. Verified in a fresh clone with `CI=true pnpm install --frozen-lockfile`. When pnpm writes the placeholder `esbuild: set this to true or false`, replace it; do not append a second `allowBuilds` key.
