@@ -3,6 +3,9 @@
 # restore node_modules but not other folders, so links into an outside virtual store break.
 storeDir: .pnpm-store
 packageImportMethod: copy
+# Check node_modules on every install instead of trusting the workspace state file. A restored
+# build cache can carry a state file that says "up to date" while its links are broken.
+optimisticRepeatInstall: false
 
 # pnpm 11 fails CI installs when a dependency build script is not explicitly allowed.
 allowBuilds:
