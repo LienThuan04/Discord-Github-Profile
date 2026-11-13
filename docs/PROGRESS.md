@@ -20,9 +20,10 @@ Cập nhật: 2026-11-13 bởi Codex.
 
 - 2026-11-13: **thêm deploy Cloudflare Workers qua OpenNext.**
   - Người dùng tự làm theo hướng dẫn; Claude kiểm tra rồi dọn ghi chú trong `pnpm-workspace.yaml`.
-  - Gồm `@opennextjs/cloudflare` 1.20.16, `wrangler` 4.160.1, `allowBuilds.workerd`, `wrangler.jsonc` (Worker `discord-github-profile`, `vars` có `FEEDBACK_URL=https://lian.lianharman.workers.dev`), `open-next.config.ts` mặc định, 4 script, ignore cho `.open-next`/`.wrangler`/`.dev.vars`, và `docs/DEPLOY-CLOUDFLARE.md`. Tag: `cloudflare-deploy-guide`.
+  - Gồm `@opennextjs/cloudflare` 1.20.16, `wrangler` 4.160.1, `allowBuilds.workerd`, `wrangler.jsonc` (Worker `discord-github-profile`, `vars` có `FEEDBACK_URL=https://lian.harmanit.workers.dev`), `open-next.config.ts` mặc định, 4 script, ignore cho `.open-next`/`.wrangler`/`.dev.vars`, và `docs/DEPLOY-CLOUDFLARE.md`. Tag: `cloudflare-deploy-guide`.
   - Kiểm trên bản sao sạch: frozen install bằng pnpm 11 OK, typecheck/lint 0, build OK. Bước đóng gói OpenNext lỗi `EPERM symlink` vì Windows chưa bật Developer Mode.
   - Chưa tạo Worker trên dashboard: địa chỉ workers.dev hiện trả 404.
+  - Người dùng đổi tên phụ workers.dev của tài khoản từ `lianharman` sang **`harmanit`**. Portfolio giờ ở `https://lian.harmanit.workers.dev`, Worker này sẽ ở `https://discord-github-profile.harmanit.workers.dev`. Đã sửa `FEEDBACK_URL` và tài liệu, rồi chuyển tag `cloudflare-deploy-guide` sang commit mới.
 
 - Commit đầu `da4a2ce` đã push lên `origin/main` (2026-11-13). CI lần đầu lỗi ở bước `pnpm install` (`ERR_PNPM_IGNORED_BUILDS` esbuild); đã sửa bằng `allowBuilds` trong `pnpm-workspace.yaml` (xem gotchas).
 - 2026-11-13: thêm switch **Nameplate background** trong "Show on card" theo yêu cầu người dùng. Mặc định tắt; khi bật, đặt `banner_source=nameplate` để ảnh nameplate thay cho banner hồ sơ.

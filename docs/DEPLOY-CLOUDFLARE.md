@@ -1,7 +1,7 @@
 # Deploying a Next.js app to Cloudflare Workers (OpenNext)
 
 This is the checklist used for this repo and for the owner's portfolio (`LienThuan04/My-Portfolio`, live at
-`https://lian.lianharman.workers.dev`). It works for any Next.js app with pnpm; the last sections list every error hit
+`https://lian.harmanit.workers.dev`). It works for any Next.js app with pnpm; the last sections list every error hit
 on the way and its fix. The git tag `cloudflare-deploy-guide` points at the commit that added it.
 
 Cloudflare runs Next.js through [OpenNext](https://opennext.js.org/cloudflare): `opennextjs-cloudflare build` runs
@@ -53,7 +53,7 @@ Workers Builds (Cloudflare's Git integration) builds and deploys on every push.
      "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "discord-github-profile" }],
      "observability": { "enabled": true },
      "vars": {
-       "FEEDBACK_URL": "https://lian.lianharman.workers.dev",
+       "FEEDBACK_URL": "https://lian.harmanit.workers.dev",
        "DISCORD_PROFILE_PROVIDER": "dstn",
        "LANYARD_API_URL": "https://api.lanyard.rest/v1"
      }
@@ -140,8 +140,8 @@ Workers Builds (Cloudflare's Git integration) builds and deploys on every push.
 
 ## 3. Domains
 
-- **workers.dev:** Workers & Pages → **Change** next to *Your subdomain* sets the account part (`lianharman`). Each Worker
-  is then `https://<worker-name>.lianharman.workers.dev`; there is no bare `lianharman.workers.dev`. Worker → Settings →
+- **workers.dev:** Workers & Pages → **Change** next to *Your subdomain* sets the account part (`harmanit`). Each Worker
+  is then `https://<worker-name>.harmanit.workers.dev`; there is no bare `harmanit.workers.dev`. Worker → Settings →
   **Domains & Routes** must show `workers.dev` as enabled.
 - **Your own domain:** buy or add a domain so it is an **active zone** in the account (the "Connect your domain" screen
   with DNS import and nameservers is this step, and only works for domains you own), then Worker → Settings → Domains &
@@ -172,7 +172,7 @@ Logs: Worker → **Observability** (enabled by `"observability"` in `wrangler.js
 | Item | Value |
 | --- | --- |
 | Worker name | `discord-github-profile` |
-| Address | `https://discord-github-profile.lianharman.workers.dev` once the Worker exists |
+| Address | `https://discord-github-profile.harmanit.workers.dev` once the Worker exists |
 | Runtime `vars` | `FEEDBACK_URL`, `DISCORD_PROFILE_PROVIDER`, `LANYARD_API_URL` |
 | Secret (optional) | `DISCORD_BOT_TOKEN` |
 | Build variables | none required; `NEXT_PUBLIC_SITE_URL` may stay empty (Studio then uses the request origin) |
