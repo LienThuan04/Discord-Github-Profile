@@ -23,7 +23,8 @@ Cập nhật: 2026-11-13 bởi Claude Code.
   - Sửa: `lookupProfileExtras()` trả `{ profile, complete, settled }`; `src/lib/cache-policy.ts` (`SNAPSHOT_CACHE`, `PARTIAL_CACHE`, `finishAfterResponse` dùng `after()`); `/api/[id]` và `/api/[id]/profile` cache ngắn `s-maxage=5` cho bản thiếu và khi Lanyard lỗi tạm thời; catalog lỗi chỉ cache 1 phút.
   - Kiểm: lint/typecheck/build 0, 2557/2557 test (43 file). Chạy `next start` với mirror giả chậm 2,5 s: lần đầu `null` + `s-maxage=5`, 3 s sau đủ Sakura + Crystals + SWR, mirror chỉ bị gọi 1 lần; SVG wave 706 KB, 10 ảnh.
   - Tài liệu: wiki (Caching, Troubleshooting), THEME-CONTRACT, PROJECT, decisions, gotchas.
-  - Deploy của `e04fee6` lỗi `NEXT_NO_VERSION`: `virtualStoreDir: .verification/pnpm-virtual` nằm ngoài `node_modules`, nên build cache của Vercel khôi phục link gãy; bản tốt trước đó chạy không dùng cache. Đã bỏ `virtualStoreDir`; `CI=true pnpm install` tự tạo lại `node_modules`; lint/typecheck/build 0, 2557/2557 test.
+  - Deploy của `e04fee6` lỗi `NEXT_NO_VERSION`: `virtualStoreDir: .verification/pnpm-virtual` nằm ngoài `node_modules`, nên build cache của Vercel khôi phục link gãy; bản tốt trước đó chạy không dùng cache. Sửa bằng 2 commit: `dc427bb` bỏ `virtualStoreDir`, nhưng vẫn lỗi vì pnpm tin file state; `d88cb6d` thêm `optimisticRepeatInstall: false` (đã tái hiện và kiểm trên bản clone). Deploy `6v8b0j0ol` Ready trong 47 s; production đủ Sakura + Crystals (wave 706 KB, README 172 KB, 10 ảnh).
+  - Còn chờ người dùng: tag `v1.0.2` đang ở `e04fee6` (commit đó không build được trên Vercel khi có cache). Auto mode chặn việc dời tag sang `d88cb6d` và chặn tạo GitHub Release; nội dung release đã viết sẵn trong scratchpad của phiên Claude (`release-body.md`).
 
 - 2026-11-13: **thêm deploy Cloudflare Workers qua OpenNext.**
   - Người dùng tự làm theo hướng dẫn; Claude kiểm tra rồi dọn ghi chú trong `pnpm-workspace.yaml`.
