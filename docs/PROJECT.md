@@ -2,6 +2,7 @@
 
 - Repo: `github.com/LienThuan04/Discord-Github-Profile` (branch **`main`**), phát triển và duy trì bởi `LianHarman(LienThuan04)`. Giấy phép: `LICENSE` (MIT).
 - Deploy: Vercel (domain production đang chờ chủ repo chọn; tài liệu hiện dùng hằng giữ chỗ `https://YOUR-DEPLOYMENT.vercel.app`, không dùng `lianharman-discord.vercel.app` vì domain đó đang trỏ repo cũ).
+- Deploy thứ hai: Cloudflare Workers qua OpenNext (`wrangler.jsonc`, `open-next.config.ts`), Worker `discord-github-profile`. Hướng dẫn đầy đủ cho mọi app Next.js kèm bảng lỗi đã gặp: `docs/DEPLOY-CLOUDFLARE.md` (tag `cloudflare-deploy-guide`).
 - Stack: Next.js 16.4.6 (App Router, `src/`), React 19.3.1, TypeScript 6.0.3 (strict), Zod 4.6.7, CSS Modules + CSS variables (không Tailwind, không UI kit), Vitest 4.1.12, ESLint 9 flat config, pnpm 11.22.0.
 
 ## Routes (`src/app/`)
@@ -69,6 +70,8 @@ Toàn bộ 37 tham số query dạng `snake_case` được định nghĩa tại 
 | `DISCORD_PROFILE_PROVIDER` | `dstn` | Mirror hồ sơ **không chính thức** `dcdn.dstn.to` (bio, pronouns, theme colors, profile effect, toàn bộ badge); `off` để tắt. |
 | `DISCORD_PROFILE_PROVIDER_URL` | `(trống → https://dcdn.dstn.to)` | Base URL của mirror tương thích dstn (`{url}/profile/{id}`). |
 
+Trên Cloudflare, biến runtime không bí mật nằm trong `vars` của `wrangler.jsonc`, vì mỗi lần deploy sẽ ghi đè biến thường đặt trên dashboard. `DISCORD_BOT_TOKEN` đặt làm Secret, còn `NEXT_PUBLIC_*` là build variable.
+
 ## Lệnh (Windows dùng `pnpm.cmd`)
 
 ```powershell
@@ -79,6 +82,8 @@ pnpm.cmd typecheck    # tsc --noEmit
 pnpm.cmd test         # Vitest (2387 tests / 36 files); thêm --maxWorkers=1 khi ít RAM
 pnpm.cmd build        # Next.js production build
 pnpm.cmd examples     # Sinh 136 SVG offline + gallery style + index.html + manifest.json
+pnpm.cmd run preview  # Build OpenNext rồi chạy Worker ở http://localhost:8787 (Windows cần bật Developer Mode)
+pnpm.cmd run deploy   # Build OpenNext rồi deploy lên Cloudflare (cần `wrangler login`)
 ```
 
 ## Bố cục thư mục

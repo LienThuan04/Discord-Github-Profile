@@ -134,6 +134,10 @@ Lanyard supplies presence, activities, Spotify, exposed cosmetics and public KV.
 3. Keep the default public Lanyard URLs, configure optional profile variables from [.env.example](.env.example), set `NEXT_PUBLIC_SITE_URL` to your public HTTPS origin or leave it empty for the request origin, and optionally set `FEEDBACK_URL` to where Studio's feedback links should go (default: the owner's GitHub profile).
 4. Deploy, replace the placeholder origin, and test Studio, an SVG image and a live iframe. The SVG must be publicly reachable without a login page. Redeploy after environment changes. Follow the [Vercel guide](https://github.com/LienThuan04/Discord-Github-Profile/wiki#deploying-to-vercel).
 
+## Deploying to Cloudflare Workers
+
+The repository also deploys to Cloudflare Workers through [OpenNext](https://opennext.js.org/cloudflare), configured by [wrangler.jsonc](wrangler.jsonc) and [open-next.config.ts](open-next.config.ts). Import the repository in Workers & Pages as a Worker named `discord-github-profile`, then set the build command to `pnpm exec opennextjs-cloudflare build` and the deploy command to `pnpm exec opennextjs-cloudflare deploy`. Runtime values live in `wrangler.jsonc` `vars`; add `DISCORD_BOT_TOKEN` as a Secret if you use one. Workers Free allows 10 ms of CPU per request, which SVG rendering can exceed. [docs/DEPLOY-CLOUDFLARE.md](docs/DEPLOY-CLOUDFLARE.md) is the full checklist for any Next.js app, with every error met so far and its fix.
+
 ## Documentation
 
 | Page | Contents |

@@ -41,3 +41,9 @@ pnpm-debug.log*
 /.npm-cache
 /.pnpm-store
 /.verification
+
+# cloudflare
+.open-next
+.wrangler
+.dev.var*
+

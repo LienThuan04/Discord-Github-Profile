@@ -6,3 +6,5 @@ packageImportMethod: copy
 # pnpm 11 fails CI installs when a dependency build script is not explicitly allowed.
 allowBuilds:
   esbuild: true
+  # Cloudflare Workers runtime used by OpenNext and wrangler (see docs/DEPLOY-CLOUDFLARE.md).
+  workerd: true
