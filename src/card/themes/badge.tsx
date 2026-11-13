@@ -6,6 +6,7 @@ import type { CardOptions } from "@/lib/options";
 import type { CardProps, ThemeDefinition } from "../types";
 import { currentPresence, smallAsset, statusLabel, themeStyle } from "../parts/theme-kit";
 import { cardStyle, StyleLayers, surfaceStyleParams } from "../styles";
+import { StatusGlyph } from "../parts/status-glyph";
 
 /** Courier New has a fixed .6em advance; combining marks occupy no extra column. */
 export function badgeColumns(text: string): number {
@@ -34,7 +35,7 @@ function Badge(raw: CardProps) {
   const layout = badgeLayout(data, options, error);
   return <div className={`dgp-badge ${options.mode} ${className}`} style={themeStyle(data, { ...options, ...(tint ? { accent: tint } : {}) }, layout)} title={error?.message}>
     <style>{badgeCss + profileLookCss + css}</style><StyleLayers {...props} />{layout.avatar && <img className="badge-avatar sx-float" width="20" height="20" src={assets(smallAsset(data.user.avatar.static, 32))} alt="" />}
-    {!options.hide_status && <span className={`badge-dot ${error ? "offline" : data.status}`} aria-label={statusLabel(data)} />}{!error && <Badges {...props} />}<span className="badge-text">{layout.text}</span>
+    {!options.hide_status && <span className={`badge-dot sd-host ${error ? "offline" : data.status}`} aria-label={statusLabel(data)}><StatusGlyph data={error ? { status: "offline", platforms: [] } : data} /></span>}{!error && <Badges {...props} />}<span className="badge-text">{layout.text}</span>
     {!error && <ProfileEffect {...props} width={layout.width} />}
   </div>;
 }

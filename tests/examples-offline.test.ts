@@ -27,10 +27,10 @@ describe("offline examples command", () => {
       const first = join(temporary, "first");
       const second = join(temporary, "second");
       const matrix = join(temporary, "matrix");
-      expect(generate(first)).toContain("Generated 136 examples");
-      expect(generate(second, matrix)).toContain("Generated 136 examples and 300 matrix SVGs");
+      expect(generate(first)).toContain("Generated 144 examples");
+      expect(generate(second, matrix)).toContain("Generated 144 examples and 320 matrix SVGs");
       expect(hashes(first)).toEqual(hashes(second));
-      expect(Object.keys(hashes(matrix)).filter((file) => file.endsWith(".svg"))).toHaveLength(300);
+      expect(Object.keys(hashes(matrix)).filter((file) => file.endsWith(".svg"))).toHaveLength(320);
 
       const manifest = JSON.parse(readFileSync(join(first, "manifest.json"), "utf8")) as {
         assets: { loaded: number; requested: number; source: string };
@@ -38,9 +38,9 @@ describe("offline examples command", () => {
       };
       expect(manifest.assets.source).toBe("bundled fixtures");
       expect(manifest.assets.loaded).toBe(manifest.assets.requested);
-      expect(manifest.examples).toHaveLength(136);
+      expect(manifest.examples).toHaveLength(144);
       const files = manifest.examples.map(({ file }) => file);
-      for (const theme of ["profile", "nitro", "member", "compact", "activity", "glass", "badge", "chat", "banner", "terminal", "neon", "retro", "polaroid", "mobile", "voice"]) {
+      for (const theme of ["profile", "nitro", "member", "compact", "activity", "glass", "badge", "chat", "banner", "terminal", "neon", "retro", "polaroid", "mobile", "voice", "wave"]) {
         for (const mode of ["dark", "light"]) {
           expect(files).toContain(`${theme}-${mode}.svg`);
           expect(files).toContain(`${theme}-extras-${mode}.svg`);
@@ -57,6 +57,7 @@ describe("offline examples command", () => {
         border: ["subtle", "none", "accent", "gradient", "glow"],
         banner_source: ["auto", "profile", "nameplate", "accent", "none"],
         hide_effect: ["false", "true"], hide_frame: ["false", "true"],
+        wave_color: ["auto", "ff5f9e", "ffffff", "f5e663"],
       })) for (const value of values) expect(files).toContain(`styles/${axis}-${value}.svg`);
       for (const entry of manifest.examples) {
         const svg = readFileSync(join(first, entry.file), "utf8");

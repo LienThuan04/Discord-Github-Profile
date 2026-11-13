@@ -143,3 +143,32 @@ The registry wraps each theme body with `withProfileFrame()`. The body measures 
 Every layer uses `assets()` on the allowlisted `cdn.discordapp.com/media/v1/collectibles-shop/{sku}/{layer}/static` path. Read only each source PNG header for intrinsic dimensions and cache it with the catalog. Request display-sized WebP with both `width` and `height` matching that aspect ratio, then sized PNG, then plain, each subject to a 160 KiB cap; the 870 KB original cannot be inlined. The aggregate decoded budget remains 660 KiB (about 901 KiB after base64), leaving markup room below the unchanged 1,000,000-byte SVG cap. Identity art retains priority. Use the sanitized `frameCardData()` fixture in both modes and every theme’s render matrix.
 
 Studio exposes a visible **Show on card** switch group before Fine-tune. It filters supported params, maps positive switches to `hide_*` values and maps Profile banner between `none` and `auto` (on only for `auto`/`profile`), and offers an opt-in Nameplate background switch (off by default) that maps `banner_source` between `auto` and `nameplate`. The nameplate switch appears only for themes that support both `banner_source` and `hide_nameplate`, and is disabled while the nameplate is hidden. Switches have a stable `id` separate from the query param they write (see `src/lib/studio-controls.ts`). Native checkbox switches have labels, `role="switch"` and `aria-checked`; URL, embeds and preview share the same option serializer.
+
+## Wave theme, theme defaults and legacy URLs
+
+- `wave` rebuilds the owner's original card: a header on banner art (nameplate by default) with avatar, display name, guild tag, badges and custom status, an optional About block, then a liquid panel whose wavy top edge rises 18px over the section above. `measure()` already subtracts that overlap; the panel uses `margin-top:-18px`.
+- The panel shows the first visible presence (Spotify art, title, artist and progress; or an activity's art, verb, name, details, state and timer), then up to `max_activities` compact rows, or `idle_text`. The profile effect paints under the text (`pf-underlay`), as on other short themes.
+- `wave_color=auto` resolves in `src/card/parts/wave-color.ts`: Spotify `#1db954`, then an exact-name brand map, then a blurred and saturated wash of the activity art with a scrim, and when idle the profile banner color, then the accent. A hex is used as-is. Ink is white whenever white reaches 2.4:1, which matches the original card's white text on Spotify green, with a soft text shadow; lighter fills switch to black, which reaches at least 4.5:1. Live cards transition the color. Reduced motion and `animated=false` disable the edge drift.
+- Header art keeps full strength. A light left-to-right wash and text shadows provide readability; there is no opaque identity box.
+- The header art zone spans the header and the About block, so the wave always rises over the art. Guild tag and badges follow the name, and the Spotify progress row is inline (elapsed, bar, total).
+- `THEME_DEFAULTS` in `src/lib/options.ts` holds per-theme option defaults: `member` and `wave` use `banner_source=nameplate`, and `wave` also hides platforms (`hide_platforms=true`), like the original header. Malformed values fall back to the theme default, embeds omit theme defaults, and Studio switches read their default state from it.
+- `ignore_app_id` drops activities by application ID before themes render.
+- Legacy keys from the previous card (`theme=dark|light`, `imgStyle`, `animatedDecoration`, `showBanner`, `hide*`, `forceGradient`, `ignoreAppId`) map in `legacyOptions()` only when present; modern keys always win.
+
+## Status glyphs
+
+Presence markers use Discord's shapes from `src/card/parts/status-glyph.tsx`, never plain colored dots:
+
+| Status | Shape |
+|---|---|
+| online | Green dot |
+| idle | Yellow crescent moon |
+| dnd | Red dot with a rounded bar cut out |
+| offline | Grey ring |
+| online, mobile only | Green phone |
+
+- Paths are single even-odd paths on a 10×10 grid with no SVG ids.
+- The avatar `.status-dot` paints `var(--bg)` behind the glyph, so cut-outs show the card background as on Discord.
+- Small inline markers (`mini-dot`, `badge-dot`, `note-dot`, `polaroid-dot`, `term-dot`) add `sd-host` and render the same glyph.
+- Colors are set on the path. `statusGlyphCss` ships the sizing and cut-out rules with every theme through `styleCss`.
+- Themes with their own wording or icons keep them: `retro` words, `neon` tubes and `voice` microphone states.

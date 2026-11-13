@@ -6,17 +6,17 @@ import { themes } from "@/card/theme-registry";
 import { profileLookCss } from "@/card/parts/profile-look";
 
 /** Switches that are off on a default card; every other switch starts on. */
-const OFF_BY_DEFAULT = new Set(["nameplate_background"]);
+const OFF_BY_DEFAULT = (theme: string) => new Set([theme === "wave" || theme === "member" ? "profile_banner" : "nameplate_background", ...(theme === "wave" ? ["hide_platforms"] : [])]);
 
 it("round trips each supported display switch through URLs", () => {
   for (const theme of Object.values(themes)) for (const control of displaySwitches(theme.supportedParams)) {
     const options = parseOptions({ theme: theme.name });
-    const defaultOn = !OFF_BY_DEFAULT.has(control.id);
+    const defaultOn = !OFF_BY_DEFAULT(theme.name).has(control.id);
     expect(switchChecked(control.id, options)).toBe(defaultOn);
-    const changed = withOption(options, control.name, switchValue(control.id, !defaultOn));
+    const changed = withOption(options, control.name, switchValue(control.id, !defaultOn, options));
     expect(switchChecked(control.id, changed)).toBe(!defaultOn);
     expect(serializeOptions(changed).has(control.name)).toBe(true);
-    const restored = withOption(changed, control.name, switchValue(control.id, defaultOn));
+    const restored = withOption(changed, control.name, switchValue(control.id, defaultOn, options));
     expect(switchChecked(control.id, restored)).toBe(defaultOn);
     expect(serializeOptions(restored).has(control.name)).toBe(false);
   }

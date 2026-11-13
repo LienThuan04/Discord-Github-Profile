@@ -1,5 +1,6 @@
 import type { StyleOptions } from "@/lib/style-options";
 import { FONT_STACKS } from "./fonts";
+import { statusGlyphCss } from "../parts/status-glyph";
 
 /**
  * CSS for the style axes. Only the rules for the active values are emitted, so a default card pays
@@ -170,6 +171,7 @@ export function styleCss({ style, motion, equalizer }: StyleCssInput): string {
   const eq = equalizer && style.eq_style !== "none";
   const parts = [
     `${R}{isolation:isolate}`,
+    statusGlyphCss(R),
     SHAPE_CSS[style.avatar_shape],
     ringOn ? RING_BASE + RING_CSS[style.ring] : "",
     STATUS_CSS[style.status_style],

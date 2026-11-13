@@ -42,8 +42,8 @@ export interface ExampleDefinition {
 export function exampleDefinitions(): ExampleDefinition[] {
   const definitions: ExampleDefinition[] = [];
   for (const theme of Object.keys(themes)) for (const mode of exampleModes) {
-    definitions.push({ file: `${theme}-${mode}.svg`, theme, mode, fixture: "demo" });
-    definitions.push({ file: `${theme}-extras-${mode}.svg`, theme, mode, fixture: "extras" });
+    definitions.push({ file: `${theme}-${mode}.svg`, theme, mode, fixture: theme === "wave" ? "spotify" : "demo" });
+    definitions.push({ file: `${theme}-extras-${mode}.svg`, theme, mode, fixture: theme === "wave" ? "gallery" : "extras" });
   }
   for (const [theme, fixture] of showcases) for (const mode of exampleModes) definitions.push({ file: `${theme}-${fixture}-${mode}.svg`, theme, mode, fixture });
   const controls = { ...STYLE_VALUES, banner_source: ["auto", "profile", "nameplate", "accent", "none"], hide_effect: ["false", "true"], hide_frame: ["false", "true"] };
@@ -53,6 +53,10 @@ export function exampleDefinitions(): ExampleDefinition[] {
       query: { hide_decoration: "true", hide_effect: "true", hide_frame: "true", [axis]: value },
     });
   }
+  for (const value of ["auto", "ff5f9e", "ffffff", "f5e663"]) definitions.push({
+    file: `styles/wave_color-${value}.svg`, theme: "wave", mode: "dark", fixture: "gallery",
+    query: { wave_color: value, hide_effect: "true", hide_frame: "true" },
+  });
   return definitions;
 }
 

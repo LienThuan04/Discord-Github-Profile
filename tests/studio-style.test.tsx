@@ -9,6 +9,17 @@ const render = (query: Record<string, string>) => renderToStaticMarkup(<CardStud
 const selected = (markup: string, id: string) => new RegExp(`<select id="${id}"[^>]*>(?:(?!</select>).)*<option value="([a-z]+)" selected=""`).exec(markup)?.[1];
 
 describe("Studio style group", () => {
+  it("offers app-aware wave color, custom picker/hex and ignored application IDs", () => {
+    const automatic = render({ theme: "wave" });
+    expect(automatic).toContain("Auto: match the running app");
+    expect(automatic).toContain('id="option-ignore_app_id"');
+    expect(automatic).not.toContain('id="option-wave-color-picker"');
+    const custom = render({ theme: "wave", wave_color: "f5e663" });
+    expect(custom).toContain('id="option-wave-color-picker" type="color" value="#f5e663"');
+    expect(custom).toContain('for="option-wave_color"');
+    expect(custom).toContain('id="option-wave_color"');
+    expect(render({ theme: "profile" })).not.toContain('id="option-wave-color-mode"');
+  });
   it("shows every supported axis as a labelled control with a hint where useful", () => {
     const markup = render({});
     expect(markup).toContain('aria-labelledby="style-title"');

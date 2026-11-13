@@ -35,7 +35,7 @@ describe("examples generation inputs", () => {
   });
   it("publishes all default pairs and frozen showcase metadata", () => {
     expect(manifest.now).toBe(FIXED_NOW);
-    expect(manifest.examples).toHaveLength(136);
+    expect(manifest.examples).toHaveLength(144);
     for (const theme of Object.keys(themes)) for (const mode of exampleModes) {
       expect(manifest.examples.some(({ file }) => file === `${theme}-${mode}.svg`)).toBe(true);
       expect(manifest.examples.some(({ file }) => file === `${theme}-extras-${mode}.svg`)).toBe(true);

@@ -79,6 +79,8 @@ export interface ActivityView {
 }
 
 export interface SpotifyView {
+  /** Present only when Discord supplied the corresponding activity's application ID. */
+  applicationId?: string;
   trackId: string | null;
   song: string;
   artist: string;

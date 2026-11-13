@@ -29,10 +29,14 @@ const timeZone = z.unknown().transform((value, context) => {
 }).catch(DEFAULT_TIME_ZONE);
 
 /** Must match the keys of `themes` in `src/card/theme-registry.ts` (enforced by tests/options.test.ts). */
-export const THEME_NAMES = ["profile", "nitro", "member", "compact", "activity", "glass", "badge", "chat", "banner", "terminal", "neon", "retro", "polaroid", "mobile", "voice"] as const;
+export const THEME_NAMES = ["profile", "nitro", "member", "compact", "activity", "glass", "badge", "chat", "banner", "terminal", "neon", "retro", "polaroid", "mobile", "voice", "wave"] as const;
 export type ThemeName = (typeof THEME_NAMES)[number];
 /** Themes whose `width` range differs from the shared 300–600px clamp (default 420). */
 export const THEME_WIDTHS: Partial<Record<ThemeName, { fallback: number; min: number; max: number }>> = { banner: { fallback: 800, min: 600, max: 1000 } };
+/** Defaults are also used by the embed serializer and Studio; explicit query values take precedence. */
+export const THEME_DEFAULTS: Partial<Record<ThemeName, Partial<CardOptions>>> = {
+  member: { banner_source: "nameplate" }, wave: { banner_source: "nameplate", hide_platforms: true },
+};
 
 export const optionSchema = z.object({
   theme: z.enum(THEME_NAMES).catch("profile"), mode: z.enum(["dark", "light"]).catch("dark"),
@@ -49,6 +53,13 @@ export const optionSchema = z.object({
   status_style: style("status_style"), eq_style: style("eq_style"), font: style("font"), border: style("border"),
   banner_source: z.preprocess((value) => typeof value === "string" ? value.trim().toLowerCase() : value, z.enum(BANNER_SOURCES)).catch("auto"),
   hide_effect: boolean(false), hide_frame: boolean(false), tz: timeZone,
+  wave_color: z.preprocess((value) => typeof value === "string" ? value.trim().toLowerCase() : value, z.union([z.literal("auto"), hex.refine((value) => value.length === 7, "Use an opaque RGB color")])).catch("auto"),
+  ignore_app_id: z.string().trim().transform((value, context) => {
+    if (!value) return "";
+    const ids = value.split(",").map((id) => id.trim());
+    if (ids.length > 10 || ids.some((id) => !/^\d{17,20}$/.test(id))) { context.addIssue({ code: "custom", message: "Use up to 10 comma-separated snowflakes" }); return z.NEVER; }
+    return [...new Set(ids)].join(",");
+  }).catch(""),
 });
 
 export type CardOptions = z.infer<typeof optionSchema>;
@@ -56,14 +67,40 @@ export type OptionName = keyof CardOptions;
 export const OPTION_NAMES = Object.keys(optionSchema.shape) as OptionName[];
 export type QueryInput = URLSearchParams | Record<string, string | string[] | undefined>;
 
+/** Read the first value identically for route searchParams and URLSearchParams. */
+function queryValue(input: QueryInput, key: string): string | undefined {
+  const value = input instanceof URLSearchParams ? input.get(key) ?? undefined : input[key];
+  return Array.isArray(value) ? value[0] : value;
+}
+
+/** Compatibility is opt-in through the old keys themselves; modern keys (including invalid ones) always win. */
+function legacyOptions(input: QueryInput, record: Record<string, unknown>) {
+  const set = (key: OptionName, value: string | undefined) => { if (record[key] === undefined && value !== undefined) record[key] = value; };
+  const legacyTheme = queryValue(input, "theme");
+  if (legacyTheme === "dark" || legacyTheme === "light") { record.theme = "wave"; set("mode", legacyTheme); }
+  const aliases = { animatedDecoration: "animated", hideDecoration: "hide_decoration", hideStatus: "hide_status", hideActivity: "hide_activity", hideSpotify: "hide_spotify", hideBadges: "hide_badges", forceGradient: "force_gradient", ignoreAppId: "ignore_app_id" } as const;
+  for (const [old, modern] of Object.entries(aliases)) set(modern, queryValue(input, old));
+  const shape = queryValue(input, "imgStyle");
+  if (shape === "circle" || shape === "square") set("avatar_shape", shape);
+  const banner = queryValue(input, "showBanner");
+  if (banner === "false") set("banner_source", "none");
+  else if (banner === "true" || banner === "animated") {
+    set("banner_source", THEME_DEFAULTS[record.theme as ThemeName]?.banner_source ?? "auto");
+    if (banner === "animated") set("animated", "true");
+  }
+}
+
 /** Unknown keys are ignored; repeated values consistently use the first. Every field falls back independently. */
 export function parseOptions(input: QueryInput = {}): CardOptions {
   const record: Record<string, unknown> = {};
-  for (const key of OPTION_NAMES) {
-    const value = input instanceof URLSearchParams ? input.get(key) ?? undefined : input[key];
-    record[key] = Array.isArray(value) ? value[0] : value;
-  }
+  for (const key of OPTION_NAMES) record[key] = queryValue(input, key);
+  legacyOptions(input, record);
   const options = optionSchema.parse(record);
+  for (const [key, fallback] of Object.entries(THEME_DEFAULTS[options.theme] ?? {})) {
+    // Replace the field's global catch, so malformed inputs fall back to the selected theme's value too.
+    const field: z.ZodType = optionSchema.shape[key as OptionName].unwrap();
+    Object.assign(options, { [key]: field.catch(fallback).parse(record[key]) });
+  }
   const range = THEME_WIDTHS[options.theme];
   return range ? { ...options, width: number(range.fallback, range.min, range.max).parse(record.width) } : options;
 }

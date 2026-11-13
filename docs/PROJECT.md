@@ -32,7 +32,7 @@ URL query params ──────────► parseOptions() / parseCardOpt
 
 ## Themes (`src/card/themes/` & `src/card/theme-registry.ts`)
 
-Có 15 theme, mỗi theme đều hỗ trợ `mode=dark|light`, hàm `measure(data, options, error)` tất định và CSS đóng gói riêng:
+Có 16 theme, mỗi theme đều hỗ trợ `mode=dark|light`, hàm `measure(data, options, error)` tất định và CSS đóng gói riêng:
 
 | Theme | Kích thước | Mục đích |
 |---|---|---|
@@ -46,13 +46,15 @@ Có 15 theme, mỗi theme đều hỗ trợ `mode=dark|light`, hàm `measure(dat
 
 Chi tiết hợp đồng kỹ thuật khi thêm hoặc sửa theme nằm ở `docs/THEME-CONTRACT.md` và quy trình ở `docs/skills/discord-card/SKILL.md`.
 
-Ngoài bảy theme nền tảng ở bảng trên, registry còn có `chat`, `banner`, `terminal`, `neon`, `retro`, `polaroid`, `mobile`, `voice`. Theme banner rộng 600–1000px, mặc định 800; Studio dùng cùng `THEME_WIDTHS`.
+Ngoài bảy theme nền tảng ở bảng trên, registry còn có `chat`, `banner`, `terminal`, `neon`, `retro`, `polaroid`, `mobile`, `voice`, `wave`. Theme `wave` dựng lại card cũ của chủ repo: header nền nameplate, khối "nước" gợn sóng, màu theo `wave_color` (`auto` lấy màu của app đang chạy). Theme banner rộng 600–1000px, mặc định 800; Studio dùng cùng `THEME_WIDTHS`.
 
 Profile extras được hiển thị qua `src/card/parts/profile-look.tsx`: banner/nền, surface Nitro, effect tĩnh trong SVG và APNG có lịch phát trong live, gộp badge và fallback bio/pronouns. Cả 15 theme bật `usesProfile`; frame type 3 được bọc chung ở registry và tăng canvas theo overflow. `width` vẫn là chiều rộng card gốc. `/api/[id]/profile` cung cấp JSON có cache cho Studio; trang Studio warm/seed profile song song với Lanyard, còn live bổ sung profile khi seed server chưa có đủ effect. `banner_source`, `hide_effect`, `hide_frame`, `tz` có control theo theme; clock chat/mobile và date polaroid theo múi giờ IANA.
 
 ## Query params
 
-Toàn bộ 35 tham số query dạng `snake_case` được định nghĩa tại `src/lib/options.ts` (`OPTION_NAMES`) và ánh xạ theo từng theme qua `supportedParams` trong `src/card/theme-registry.ts`. Bảng tra cứu đầy đủ kiểu dữ liệu, khoảng giá trị, mặc định và hiệu ứng nằm ở mục **Options** trong `wiki/Home.md`.
+Card Studio có ô **Coming soon** và link góp ý ở footer, cả hai trỏ tới `FEEDBACK_URL` (server-side, mặc định là GitHub của chủ repo; `.env` local đặt `https://lianharman.netlify.app`).
+
+Toàn bộ 37 tham số query dạng `snake_case` được định nghĩa tại `src/lib/options.ts` (`OPTION_NAMES`) và ánh xạ theo từng theme qua `supportedParams` trong `src/card/theme-registry.ts`. Bảng tra cứu đầy đủ kiểu dữ liệu, khoảng giá trị, mặc định và hiệu ứng nằm ở mục **Options** trong `wiki/Home.md`.
 
 ## Env (`.env` ở gốc repo, mẫu: `.env.example`)
 
@@ -83,7 +85,7 @@ pnpm.cmd examples     # Sinh 136 SVG offline + gallery style + index.html + mani
 - `src/components/studio/` — Giao diện và logic của Card Studio (`CardStudio.tsx`, `CardStudio.module.css`).
 - `src/live/` — Client wrapper cho Live card (`LiveCard.tsx`, tự co giãn theo khung và gửi `dgp:height`).
 - `src/hooks/useLanyard.ts` — React hook dùng `useSyncExternalStore` nối với store Lanyard.
-- `src/card/` — `theme-registry.ts`, `types.ts`, `parts/` (các thành phần dùng chung: identity, activity, clock, theme-kit) và `themes/` (15 theme).
+- `src/card/` — `theme-registry.ts`, `types.ts`, `parts/` (các thành phần dùng chung: identity, activity, clock, theme-kit) và `themes/` (16 theme).
 - `src/lib/lanyard/` — Kiểu dữ liệu, schema Zod, client REST (`client.ts`), hàm chuẩn hoá `normalize.ts`, và máy trạng thái WebSocket/polling (`socket.ts`).
 - `src/lib/discord/` — Hàm tạo URL CDN Discord/Spotify/YouTube/Twitch/Twemoji, giải mã bitfield badges, bảng màu nameplate, tính thời gian và xử lý màu.
 - `src/lib/svg/` — Trình tải và nhúng ảnh base64 có kiểm tra bảo mật (`assets.ts`), trình kết xuất SVG tĩnh (`render.tsx`).
@@ -94,7 +96,7 @@ pnpm.cmd examples     # Sinh 136 SVG offline + gallery style + index.html + mani
 
 ## Tài liệu người dùng
 
-`README.md` có giới thiệu, quick start, ảnh của đủ 15 theme, bảng 35 tham số thu gọn, live iframe, nguồn dữ liệu/privacy và triển khai Vercel. `wiki/Home.md` giữ tài liệu chi tiết trên **một trang duy nhất** có mục lục: kích thước và control từng theme, gallery dark/light và style, Card Studio, live/iframe resize, Lanyard KV qua bot `/set`, self-host, cache/Camo, xử lý sự cố và phát triển. Cập nhật cả hai bảng tham số khi thay đổi contract. Kiểm tra link và ảnh bằng `python scripts/check-doc-links.py --remote`.
+`README.md` có giới thiệu, quick start, ảnh của đủ 16 theme, bảng 37 tham số thu gọn, live iframe, nguồn dữ liệu/privacy và triển khai Vercel. `wiki/Home.md` giữ tài liệu chi tiết trên **một trang duy nhất** có mục lục: kích thước và control từng theme, gallery dark/light và style, Card Studio, live/iframe resize, Lanyard KV qua bot `/set`, self-host, cache/Camo, xử lý sự cố và phát triển. Cập nhật cả hai bảng tham số khi thay đổi contract. Kiểm tra link và ảnh bằng `python scripts/check-doc-links.py --remote`.
 
 Tab Wiki trên GitHub (`Discord-Github-Profile.wiki.git`, branch `master`) là bản sao của `wiki/`, làm giống repo Spotify.
 

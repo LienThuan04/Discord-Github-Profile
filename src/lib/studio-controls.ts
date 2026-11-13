@@ -1,4 +1,4 @@
-import type { CardOptions, OptionName } from "./options";
+import { THEME_DEFAULTS, type CardOptions, type OptionName } from "./options";
 
 /**
  * One "Show on card" switch. `id` identifies the switch; `name` is the query parameter it writes. Several
@@ -11,7 +11,7 @@ interface Control {
   /** Extra parameters the theme must support for the switch to apply. */
   requires?: readonly OptionName[];
   checked: (options: CardOptions) => boolean;
-  value: (checked: boolean) => string;
+  value: (checked: boolean, options?: CardOptions) => string;
   disabled?: (options: CardOptions) => boolean;
 }
 
@@ -26,10 +26,10 @@ const controls: readonly Control[] = [
   {
     id: "profile_banner", name: "banner_source", label: "Profile banner",
     checked: (options) => options.banner_source === "auto" || options.banner_source === "profile",
-    value: (checked) => checked ? "auto" : "none",
+    value: (checked, options) => checked ? "auto" : options && THEME_DEFAULTS[options.theme]?.banner_source === "nameplate" ? "nameplate" : "none",
   },
   {
-    // Opt-in: paint the nameplate art where the profile banner/backdrop would go. Off by default.
+    // Nameplate-first themes enable this through THEME_DEFAULTS; other themes opt in.
     id: "nameplate_background", name: "banner_source", label: "Nameplate background", requires: ["hide_nameplate"],
     checked: (options) => options.banner_source === "nameplate",
     value: (checked) => checked ? "nameplate" : "auto",
@@ -58,8 +58,8 @@ export function switchChecked(id: string, options: CardOptions): boolean {
   return control(id).checked(options);
 }
 /** The query value that puts the switch in the `checked` state. */
-export function switchValue(id: string, checked: boolean): string {
-  return control(id).value(checked);
+export function switchValue(id: string, checked: boolean, options?: CardOptions): string {
+  return control(id).value(checked, options);
 }
 export function switchDisabled(id: string, options: CardOptions): boolean {
   return control(id).disabled?.(options) ?? false;

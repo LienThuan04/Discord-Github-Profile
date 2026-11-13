@@ -9,6 +9,7 @@ import { profileCss } from "./profile-css";
 import { cardStyle, StatusText, StyleLayers } from "../styles";
 import { AboutSection, aboutHeight } from "../parts/theme-kit";
 import { aboutFields, BannerFill, bannerScope, ProfileEffect, profileLookCss, profileSurface, resolveBanner } from "../parts/profile-look";
+import { StatusGlyph } from "../parts/status-glyph";
 
 export function profileLayout(data: CardData, options: CardOptions) {
   const activities = options.hide_activity ? [] : data.activities.slice(0, options.max_activities);
@@ -48,7 +49,7 @@ function Profile(raw: CardProps) {
         {layout.kv && <AboutSection about={layout.about} height={layout.kvHeight} />}
         {layout.activities.map((activity) => <ActivityBlock {...props} activity={activity} collapseMissingArt key={activity.key} />)}
         <SpotifyBlock {...props} />
-        {layout.idle && <div className="idle-state">{!options.hide_status && <span className={`mini-dot ${data.status}`} />}<span className="truncate">{options.idle_text}</span></div>}
+        {layout.idle && <div className="idle-state">{!options.hide_status && <span className={`mini-dot sd-host ${data.status}`}><StatusGlyph data={data} /></span>}<span className="truncate">{options.idle_text}</span></div>}
       </div>
     </>}
     {!error && <ProfileEffect {...props} width={options.width} />}
@@ -57,7 +58,7 @@ function Profile(raw: CardProps) {
 }
 
 export const profileTheme: ThemeDefinition = {
-  name: "profile", label: "Profile", supportedParams: OPTION_NAMES.filter((name) => name !== "tz"), usesProfile: true,
+  name: "profile", label: "Profile", supportedParams: OPTION_NAMES.filter((name) => name !== "tz" && name !== "wave_color"), usesProfile: true,
   measure: (data, options, error) => ({ width: options.width, height: error ? 286 : profileLayout(data, options).height }),
   Component: Profile,
 };

@@ -176,7 +176,8 @@ describe("equalizer, motion and scoping", () => {
     for (const rule of css.replace(/@keyframes[^{]+\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}/g, "").replace(/@media[^{]+\{/g, "").split("}").map((part) => part.split("{")[0]!.trim()).filter(Boolean)) {
       for (const selector of rule.split(",")) expect(selector.trim()).toMatch(/^\.sx-root/);
     }
-    expect(styleCss({ style: STYLE_DEFAULTS, motion: true, equalizer: false }).length).toBeLessThan(1_200);
+    // ~1.2 KB of axis defaults plus the shared Discord status-glyph rules (status-glyph.tsx).
+    expect(styleCss({ style: STYLE_DEFAULTS, motion: true, equalizer: false }).length).toBeLessThan(1_400);
     expect(css).not.toMatch(/url\((?!#)/);
   });
   it("adds root classes only for non-default font, border and effect values and keeps SVG ids user-scoped", () => {

@@ -4,7 +4,9 @@ import { OPTION_NAMES } from "@/lib/options";
 
 describe("theme registry contract", () => {
   it("registers the named themes with valid, unique supported controls", () => {
-    expect(Object.keys(themes)).toEqual(["profile", "nitro", "member", "compact", "activity", "glass", "badge", "chat", "banner", "terminal", "neon", "retro", "polaroid", "mobile", "voice"]);
+    expect(Object.keys(themes)).toEqual(["profile", "nitro", "member", "compact", "activity", "glass", "badge", "chat", "banner", "terminal", "neon", "retro", "polaroid", "mobile", "voice", "wave"]);
+    expect(Object.keys(themes).filter((name) => themes[name]!.supportedParams.includes("wave_color"))).toEqual(["wave"]);
+    expect(Object.values(themes).every((theme) => theme.supportedParams.includes("ignore_app_id"))).toBe(true);
     for (const [key, theme] of Object.entries(themes)) {
       expect(theme.name).toBe(key);
       expect(theme.label.length).toBeGreaterThan(0);

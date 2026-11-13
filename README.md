@@ -1,6 +1,6 @@
 # Discord-Github-Profile
 
-Your Discord presence, with personality. Fifteen themes for GitHub profile READMEs and a live card for websites, maintained by [LianHarman(LienThuan04)](https://github.com/LienThuan04).
+Your Discord presence, with personality. Sixteen themes for GitHub profile READMEs and a live card for websites, maintained by [LianHarman(LienThuan04)](https://github.com/LienThuan04).
 
 <p align="center">
   <img src="public/examples/profile-extras-dark.svg" width="45%" alt="Profile card with a collectible frame, banner color and profile effect" />
@@ -42,17 +42,19 @@ Every theme supports dark and light. These are self-contained SVG snapshots, ava
 | `polaroid` · still photo and caption | <img src="public/examples/polaroid-dark.svg" width="360" alt="Polaroid theme" /> |
 | `mobile` · lock-screen notifications | <img src="public/examples/mobile-dark.svg" width="320" alt="Mobile theme" /> |
 | `voice` · voice-channel tile | <img src="public/examples/voice-dark.svg" width="360" alt="Voice theme" /> |
+| `wave` · nameplate header and a liquid activity panel | <img src="public/examples/wave-dark.svg" width="360" alt="Wave theme" /> |
+| **Coming soon** · more themes in development | Have an idea? [Suggest a theme](https://lianharman.netlify.app) |
 
 ## Options
 
-The same 35 snake_case options work on `/api/{id}` and `/live/{id}` where the theme supports them. Studio offers the relevant controls and omits defaults from copied URLs. Unknown keys are ignored; repeated keys use the first value; invalid fields fall back independently. Numbers are rounded and clamped. Booleans are exactly `true` or `false`; style values and `banner_source` also accept surrounding whitespace and mixed case.
+The same 37 snake_case options work on `/api/{id}` and `/live/{id}` where the theme supports them. Studio offers the relevant controls and omits defaults from copied URLs. Unknown keys are ignored; repeated keys use the first value; invalid fields fall back independently. Numbers are rounded and clamped. Booleans are exactly `true` or `false`; style values and `banner_source` also accept surrounding whitespace and mixed case.
 
 <details>
 <summary>Every parameter, accepted value and default</summary>
 
 | Parameter | Accepted values | Default | Effect |
 |---|---|---|---|
-| `theme` | `profile`, `nitro`, `member`, `compact`, `activity`, `glass`, `badge`, `chat`, `banner`, `terminal`, `neon`, `retro`, `polaroid`, `mobile`, `voice` | `profile` | Card layout |
+| `theme` | `profile`, `nitro`, `member`, `compact`, `activity`, `glass`, `badge`, `chat`, `banner`, `terminal`, `neon`, `retro`, `polaroid`, `mobile`, `voice`, `wave` | `profile` | Card layout |
 | `mode` | `dark`, `light` | `dark` | Appearance |
 | `accent` | 3, 6 or 8 hex digits; optional `#` | `5865f2` | Accent; this default allows valid KV `accent` to take precedence |
 | `bg` | Hex color or `transparent` | Automatic (`null` internally) | Theme background; overlays can remain visible |
@@ -87,10 +89,27 @@ The same 35 snake_case options work on `/api/{id}` and `/live/{id}` where the th
 | `hide_effect` | `true`, `false` | `false` | Hide the Discord profile effect, independently of the `effect` style |
 | `hide_frame` | `true`, `false` | `false` | Hide the collectible frame; otherwise its overflow grows the output canvas |
 | `tz` | Named IANA time zone, e.g. `Asia/Ho_Chi_Minh` | `UTC` | Chat/mobile clock and polaroid date; invalid zones and numeric offsets fall back to UTC; Studio initially uses the browser zone |
+| `wave_color` | `auto` or an opaque RGB hex color | `auto` | Wave theme's liquid panel. `auto` matches the running app: Spotify green, a known app's brand color, else a blurred, saturated wash of the activity art; idle uses the profile banner color, then the accent. Text is white like the original card and switches to black on light colors |
+| `ignore_app_id` | Up to 10 comma-separated application IDs (snowflakes) | empty | Drop activities from these applications before any theme renders them |
 
 </details>
 
 Hex colors accept 3, 6 or 8 digits (alpha included), optionally prefixed with `#`; omit it in URLs or encode it as `%23`. Profile frame overflow grows the image beyond `width`, which describes the underlying card. [Theme sizes and style support](https://github.com/LienThuan04/Discord-Github-Profile/wiki#themes).
+
+### Old card URLs
+
+Queries from the owner's previous card keep working when only the domain changes. Old keys are read only when present, and new keys always win:
+
+| Old key | Maps to |
+|---|---|
+| `theme=dark` / `theme=light` | `theme=wave` with that `mode` |
+| `imgStyle=circle\|square` | `avatar_shape` |
+| `animatedDecoration` | `animated` |
+| `showBanner=true\|animated\|false` | Header art on (animated) or `banner_source=none` |
+| `hideDecoration`, `hideStatus`, `hideActivity`, `hideSpotify`, `hideBadges` | The matching `hide_*` option |
+| `forceGradient` | `force_gradient` |
+| `ignoreAppId` | `ignore_app_id` |
+| `showDisplayName` | Ignored; display names are always shown |
 
 ## README snapshot and live card
 
@@ -110,7 +129,7 @@ Lanyard supplies presence, activities, Spotify, exposed cosmetics and public KV.
 
 1. Import this repository as a new Vercel project using the Next.js preset and repository root.
 2. Use the pinned Node.js `24.x` and `pnpm@11.22.0`. Set Vercel's `ENABLE_EXPERIMENTAL_COREPACK=1` to honor `packageManager`, then install with `pnpm install --frozen-lockfile` and build with `pnpm build` (use `pnpm.cmd` on Windows). See [Vercel Corepack setup](https://vercel.com/docs/builds/configure-a-build#corepack).
-3. Keep the default public Lanyard URLs, configure optional profile variables from [.env.example](.env.example), and set `NEXT_PUBLIC_SITE_URL` to your public HTTPS origin or leave it empty for the request origin.
+3. Keep the default public Lanyard URLs, configure optional profile variables from [.env.example](.env.example), set `NEXT_PUBLIC_SITE_URL` to your public HTTPS origin or leave it empty for the request origin, and optionally set `FEEDBACK_URL` to where Studio's feedback links should go (default: the owner's GitHub profile).
 4. Deploy, replace the placeholder origin, and test Studio, an SVG image and a live iframe. The SVG must be publicly reachable without a login page. Redeploy after environment changes. Follow the [Vercel guide](https://github.com/LienThuan04/Discord-Github-Profile/wiki#deploying-to-vercel).
 
 ## Documentation
@@ -118,12 +137,16 @@ Lanyard supplies presence, activities, Spotify, exposed cosmetics and public KV.
 | Page | Contents |
 |---|---|
 | [Card Studio](https://github.com/LienThuan04/Discord-Github-Profile/wiki#card-studio) | Build, preview and share a card |
-| [Themes](https://github.com/LienThuan04/Discord-Github-Profile/wiki#themes) | All 15 layouts, sizes and dark/light previews |
+| [Themes](https://github.com/LienThuan04/Discord-Github-Profile/wiki#themes) | All 16 layouts, sizes and dark/light previews |
 | [Style axes](https://github.com/LienThuan04/Discord-Github-Profile/wiki#style-axes) | Shapes, rings, patterns, effects, status, equalizer, fonts and borders |
 | [Options](https://github.com/LienThuan04/Discord-Github-Profile/wiki#options) | All parameters and defaults |
 | [Profile extras and privacy](https://github.com/LienThuan04/Discord-Github-Profile/wiki#profile-extras-and-privacy) | Data sources, environment and visibility |
 | [Lanyard KV](https://github.com/LienThuan04/Discord-Github-Profile/wiki#lanyard-kv) | Set bio, pronouns, banner and metadata |
 | [Development](https://github.com/LienThuan04/Discord-Github-Profile/wiki#development) | Local setup, tests and deterministic fixture examples |
+
+## Feedback and ideas
+
+More themes and features are still in development. Have an idea for a theme, a missing Discord detail or a new feature? Send it to me on [my website](https://lianharman.netlify.app) or through [my GitHub profile](https://github.com/LienThuan04). Card Studio links there too: the **Coming soon** tile and **Suggest a theme or feature** in the footer.
 
 ## Contributing
 

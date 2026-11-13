@@ -8,6 +8,7 @@ import { isMissingImage } from "../parts/image-state";
 import { smallAsset, statusLabel, themeCss } from "../parts/theme-kit";
 import { cardStyle, Equalizer, StyleLayers } from "../styles";
 import { ago, cardVars, customStatus, presenceItems, reducedMotion, snapshotClock, staticEmojiUrl, TimerLine, type PresenceItem } from "./presence-kit";
+import { StatusGlyph } from "../parts/status-glyph";
 
 const STATUS_BAR = 40;
 const CLOCK = 116;
@@ -71,7 +72,7 @@ function Mobile(raw: CardProps) {
           const last = index === layout.list.length - 1 ? " last" : "";
           const height = noteHeight(note);
           const item = note.item;
-          if (!item) return <Bubble key={note.key} className={`status${last}`} height={height} icon={<>{avatarIcon}{!options.hide_status && <i className={`note-dot ${data.status}`} />}</>} badge="✦" time="now" title={name}>
+          if (!item) return <Bubble key={note.key} className={`status${last}`} height={height} icon={<>{avatarIcon}{!options.hide_status && <i className={`note-dot sd-host ${data.status}`}><StatusGlyph data={data} /></i>}</>} badge="✦" time="now" title={name}>
             <div className="note-body">{status ? <>{status.emoji && (emoji ? <img width="16" height="16" src={assets(emoji)} alt={status.emoji.name} /> : <span>{status.emoji.name}</span>)}<span className="truncate">{status.text ? `“${status.text}”` : "updated their status"}</span></> : <span className="truncate">{options.hide_status ? options.idle_text : `is ${statusLabel(data).toLowerCase()} · ${options.idle_text}`}</span>}</div>
           </Bubble>;
           const art = item.image ? assets(smallAsset(item.image, 64)) : null;

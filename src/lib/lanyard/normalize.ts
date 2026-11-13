@@ -18,6 +18,12 @@ export function httpsUrl(value: string | null | undefined): string | null {
   } catch { return null; }
 }
 
+/** The Spotify activity's application ID, as a spreadable fragment that is empty when Discord omits it. */
+function spotifyApplication(presence: LanyardPresence, trackId: string | null): { applicationId?: string } {
+  const id = presence.activities.find((activity) => activity.type === 2 && (activity.name === "Spotify" || activity.sync_id === trackId))?.application_id;
+  return id ? { applicationId: id } : {};
+}
+
 /** Pure: the caller supplies snapshot time, so fixtures and live renders share identical math. */
 export function normalize(presence: LanyardPresence, { now }: { now: number }): CardData {
   const user = presence.discord_user;
@@ -63,7 +69,8 @@ export function normalize(presence: LanyardPresence, { now }: { now: number }): 
         party: formatParty(activity.party), buttons: (activity.buttons ?? []).slice(0, 2).map((label) => label.slice(0, 40)), url: httpsUrl(activity.url),
       };
     }),
-    spotify: spotify ? { trackId: spotify.track_id, song: text(spotify.song) ?? "Unknown song", artist: text(spotify.artist) ?? "Unknown artist", album: text(spotify.album) ?? "", albumArt: spotifyAlbumArtUrl(spotify.album_art_url), timestamps: spotify.timestamps } : null,
+    // Discord's Spotify activity normally has no application ID; add the key only when one is supplied, keeping the existing view shape.
+    spotify: spotify ? { ...spotifyApplication(presence, spotify.track_id), trackId: spotify.track_id, song: text(spotify.song) ?? "Unknown song", artist: text(spotify.artist) ?? "Unknown artist", album: text(spotify.album) ?? "", albumArt: spotifyAlbumArtUrl(spotify.album_art_url), timestamps: spotify.timestamps } : null,
     kv: {
       bio: text(kv.bio), banner: httpsUrl(kv.banner), pronouns: text(kv.pronouns, 40), location: text(kv.location, 80),
       website: website ? { url: website, label: website.replace(/^https:\/\//, "").replace(/\/$/, "").slice(0, 80) } : null,

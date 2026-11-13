@@ -7,6 +7,7 @@ import type { CardError, CardProps, ThemeDefinition } from "../types";
 import { smallAsset, statusLabel, themeCss } from "../parts/theme-kit";
 import { cardStyle, Equalizer, StyleLayers } from "../styles";
 import { cardVars, customStatus, presenceItems, reducedMotion, staticEmojiUrl, TimerLine, TYPE_GLYPHS, type PresenceItem } from "./presence-kit";
+import { StatusGlyph } from "../parts/status-glyph";
 
 const LINE = 18;
 const TITLE = 32;
@@ -21,7 +22,7 @@ function infoLines(props: CardProps): InfoLine[] {
   const lines: InfoLine[] = [];
   const about = aboutFields(data, options);
   const badges = cardBadges(data, options);
-  if (!options.hide_status) lines.push({ key: "status", label: "status", value: <><i className={`term-dot ${data.status}`} />{statusLabel(data).toLowerCase()}</> });
+  if (!options.hide_status) lines.push({ key: "status", label: "status", value: <><i className={`term-dot sd-host ${data.status}`}><StatusGlyph data={data} /></i>{statusLabel(data).toLowerCase()}</> });
   const custom = customStatus(data, options);
   if (custom) {
     const emoji = staticEmojiUrl(custom.emoji);

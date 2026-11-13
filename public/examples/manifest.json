@@ -13,7 +13,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 416,
-      "bytes": 588149
+      "bytes": 588796
     },
     {
       "file": "profile-extras-dark.svg",
@@ -22,7 +22,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 631,
-      "bytes": 667449
+      "bytes": 668096
     },
     {
       "file": "profile-light.svg",
@@ -31,7 +31,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 416,
-      "bytes": 588159
+      "bytes": 588806
     },
     {
       "file": "profile-extras-light.svg",
@@ -40,7 +40,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 631,
-      "bytes": 667459
+      "bytes": 668106
     },
     {
       "file": "nitro-dark.svg",
@@ -49,7 +49,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 448,
-      "bytes": 590944
+      "bytes": 591380
     },
     {
       "file": "nitro-extras-dark.svg",
@@ -58,7 +58,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 663,
-      "bytes": 670248
+      "bytes": 670684
     },
     {
       "file": "nitro-light.svg",
@@ -67,7 +67,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 448,
-      "bytes": 590954
+      "bytes": 591390
     },
     {
       "file": "nitro-extras-light.svg",
@@ -76,7 +76,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 663,
-      "bytes": 670258
+      "bytes": 670694
     },
     {
       "file": "member-dark.svg",
@@ -85,7 +85,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 96,
-      "bytes": 52091
+      "bytes": 52527
     },
     {
       "file": "member-extras-dark.svg",
@@ -94,7 +94,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 203,
-      "bytes": 148947
+      "bytes": 149383
     },
     {
       "file": "member-light.svg",
@@ -103,7 +103,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 96,
-      "bytes": 52101
+      "bytes": 52537
     },
     {
       "file": "member-extras-light.svg",
@@ -112,7 +112,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 203,
-      "bytes": 148957
+      "bytes": 149393
     },
     {
       "file": "compact-dark.svg",
@@ -121,7 +121,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 68,
-      "bytes": 12568
+      "bytes": 13004
     },
     {
       "file": "compact-extras-dark.svg",
@@ -130,7 +130,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 175,
-      "bytes": 109424
+      "bytes": 109860
     },
     {
       "file": "compact-light.svg",
@@ -139,7 +139,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 68,
-      "bytes": 12578
+      "bytes": 13014
     },
     {
       "file": "compact-extras-light.svg",
@@ -148,7 +148,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 175,
-      "bytes": 109434
+      "bytes": 109870
     },
     {
       "file": "activity-dark.svg",
@@ -157,7 +157,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 280,
-      "bytes": 14699
+      "bytes": 15135
     },
     {
       "file": "activity-extras-dark.svg",
@@ -166,7 +166,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 387,
-      "bytes": 111542
+      "bytes": 111978
     },
     {
       "file": "activity-light.svg",
@@ -175,7 +175,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 280,
-      "bytes": 14709
+      "bytes": 15145
     },
     {
       "file": "activity-extras-light.svg",
@@ -184,7 +184,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 387,
-      "bytes": 111552
+      "bytes": 111988
     },
     {
       "file": "glass-dark.svg",
@@ -193,7 +193,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 339,
-      "bytes": 589849
+      "bytes": 590285
     },
     {
       "file": "glass-extras-dark.svg",
@@ -202,7 +202,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 554,
-      "bytes": 669153
+      "bytes": 669589
     },
     {
       "file": "glass-light.svg",
@@ -211,7 +211,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 339,
-      "bytes": 589859
+      "bytes": 590295
     },
     {
       "file": "glass-extras-light.svg",
@@ -220,7 +220,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 554,
-      "bytes": 669163
+      "bytes": 669599
     },
     {
       "file": "badge-dark.svg",
@@ -229,7 +229,7 @@
       "fixture": "demo",
       "width": 256,
       "height": 32,
-      "bytes": 4068
+      "bytes": 4512
     },
     {
       "file": "badge-extras-dark.svg",
@@ -238,7 +238,7 @@
       "fixture": "extras",
       "width": 302,
       "height": 102,
-      "bytes": 69432
+      "bytes": 69876
     },
     {
       "file": "badge-light.svg",
@@ -247,7 +247,7 @@
       "fixture": "demo",
       "width": 256,
       "height": 32,
-      "bytes": 4078
+      "bytes": 4522
     },
     {
       "file": "badge-extras-light.svg",
@@ -256,7 +256,7 @@
       "fixture": "extras",
       "width": 302,
       "height": 102,
-      "bytes": 69442
+      "bytes": 69886
     },
     {
       "file": "chat-dark.svg",
@@ -265,7 +265,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 150,
-      "bytes": 56757
+      "bytes": 57193
     },
     {
       "file": "chat-extras-dark.svg",
@@ -274,7 +274,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 257,
-      "bytes": 135878
+      "bytes": 136314
     },
     {
       "file": "chat-light.svg",
@@ -283,7 +283,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 150,
-      "bytes": 56767
+      "bytes": 57203
     },
     {
       "file": "chat-extras-light.svg",
@@ -292,7 +292,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 257,
-      "bytes": 135888
+      "bytes": 136324
     },
     {
       "file": "banner-dark.svg",
@@ -301,7 +301,7 @@
       "fixture": "demo",
       "width": 800,
       "height": 200,
-      "bytes": 593198
+      "bytes": 593634
     },
     {
       "file": "banner-extras-dark.svg",
@@ -310,7 +310,7 @@
       "fixture": "extras",
       "width": 875,
       "height": 403,
-      "bytes": 746078
+      "bytes": 746514
     },
     {
       "file": "banner-light.svg",
@@ -319,7 +319,7 @@
       "fixture": "demo",
       "width": 800,
       "height": 200,
-      "bytes": 593208
+      "bytes": 593644
     },
     {
       "file": "banner-extras-light.svg",
@@ -328,7 +328,7 @@
       "fixture": "extras",
       "width": 875,
       "height": 403,
-      "bytes": 746088
+      "bytes": 746524
     },
     {
       "file": "terminal-dark.svg",
@@ -337,7 +337,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 270,
-      "bytes": 18649
+      "bytes": 19093
     },
     {
       "file": "terminal-extras-dark.svg",
@@ -346,7 +346,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 431,
-      "bytes": 115871
+      "bytes": 116315
     },
     {
       "file": "terminal-light.svg",
@@ -355,7 +355,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 270,
-      "bytes": 18659
+      "bytes": 19103
     },
     {
       "file": "terminal-extras-light.svg",
@@ -364,7 +364,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 431,
-      "bytes": 115881
+      "bytes": 116325
     },
     {
       "file": "neon-dark.svg",
@@ -373,7 +373,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 284,
-      "bytes": 595103
+      "bytes": 595539
     },
     {
       "file": "neon-extras-dark.svg",
@@ -382,7 +382,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 391,
-      "bytes": 674213
+      "bytes": 674649
     },
     {
       "file": "neon-light.svg",
@@ -391,7 +391,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 284,
-      "bytes": 595113
+      "bytes": 595549
     },
     {
       "file": "neon-extras-light.svg",
@@ -400,7 +400,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 391,
-      "bytes": 674223
+      "bytes": 674659
     },
     {
       "file": "retro-dark.svg",
@@ -409,7 +409,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 318,
-      "bytes": 18722
+      "bytes": 18955
     },
     {
       "file": "retro-extras-dark.svg",
@@ -418,7 +418,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 425,
-      "bytes": 115565
+      "bytes": 115798
     },
     {
       "file": "retro-light.svg",
@@ -427,7 +427,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 318,
-      "bytes": 18732
+      "bytes": 18965
     },
     {
       "file": "retro-extras-light.svg",
@@ -436,7 +436,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 425,
-      "bytes": 115575
+      "bytes": 115808
     },
     {
       "file": "polaroid-dark.svg",
@@ -445,7 +445,7 @@
       "fixture": "demo",
       "width": 436,
       "height": 532,
-      "bytes": 82854
+      "bytes": 83065
     },
     {
       "file": "polaroid-extras-dark.svg",
@@ -454,7 +454,7 @@
       "fixture": "extras",
       "width": 477,
       "height": 643,
-      "bytes": 165368
+      "bytes": 165579
     },
     {
       "file": "polaroid-light.svg",
@@ -463,7 +463,7 @@
       "fixture": "demo",
       "width": 436,
       "height": 532,
-      "bytes": 82855
+      "bytes": 83066
     },
     {
       "file": "polaroid-extras-light.svg",
@@ -472,7 +472,7 @@
       "fixture": "extras",
       "width": 477,
       "height": 643,
-      "bytes": 165369
+      "bytes": 165580
     },
     {
       "file": "mobile-dark.svg",
@@ -481,7 +481,7 @@
       "fixture": "demo",
       "width": 400,
       "height": 312,
-      "bytes": 36789
+      "bytes": 37233
     },
     {
       "file": "mobile-extras-dark.svg",
@@ -490,7 +490,7 @@
       "fixture": "extras",
       "width": 438,
       "height": 414,
-      "bytes": 111059
+      "bytes": 111503
     },
     {
       "file": "mobile-light.svg",
@@ -499,7 +499,7 @@
       "fixture": "demo",
       "width": 400,
       "height": 312,
-      "bytes": 36799
+      "bytes": 37243
     },
     {
       "file": "mobile-extras-light.svg",
@@ -508,7 +508,7 @@
       "fixture": "extras",
       "width": 438,
       "height": 414,
-      "bytes": 111069
+      "bytes": 111513
     },
     {
       "file": "voice-dark.svg",
@@ -517,7 +517,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 252,
-      "bytes": 589856
+      "bytes": 590089
     },
     {
       "file": "voice-extras-dark.svg",
@@ -526,7 +526,7 @@
       "fixture": "extras",
       "width": 460,
       "height": 359,
-      "bytes": 668966
+      "bytes": 669199
     },
     {
       "file": "voice-light.svg",
@@ -535,7 +535,7 @@
       "fixture": "demo",
       "width": 420,
       "height": 252,
-      "bytes": 589866
+      "bytes": 590099
     },
     {
       "file": "voice-extras-light.svg",
@@ -544,7 +544,43 @@
       "fixture": "extras",
       "width": 460,
       "height": 359,
-      "bytes": 668976
+      "bytes": 669209
+    },
+    {
+      "file": "wave-dark.svg",
+      "theme": "wave",
+      "mode": "dark",
+      "fixture": "spotify",
+      "width": 420,
+      "height": 214,
+      "bytes": 619775
+    },
+    {
+      "file": "wave-extras-dark.svg",
+      "theme": "wave",
+      "mode": "dark",
+      "fixture": "gallery",
+      "width": 460,
+      "height": 435,
+      "bytes": 716874
+    },
+    {
+      "file": "wave-light.svg",
+      "theme": "wave",
+      "mode": "light",
+      "fixture": "spotify",
+      "width": 420,
+      "height": 214,
+      "bytes": 619785
+    },
+    {
+      "file": "wave-extras-light.svg",
+      "theme": "wave",
+      "mode": "light",
+      "fixture": "gallery",
+      "width": 460,
+      "height": 435,
+      "bytes": 716884
     },
     {
       "file": "nitro-game-dark.svg",
@@ -553,7 +589,7 @@
       "fixture": "game",
       "width": 420,
       "height": 736,
-      "bytes": 611206
+      "bytes": 611720
     },
     {
       "file": "nitro-game-light.svg",
@@ -562,7 +598,7 @@
       "fixture": "game",
       "width": 420,
       "height": 736,
-      "bytes": 611216
+      "bytes": 611730
     },
     {
       "file": "activity-spotify-dark.svg",
@@ -571,7 +607,7 @@
       "fixture": "spotify",
       "width": 420,
       "height": 474,
-      "bytes": 62712
+      "bytes": 63148
     },
     {
       "file": "activity-spotify-light.svg",
@@ -580,7 +616,7 @@
       "fixture": "spotify",
       "width": 420,
       "height": 474,
-      "bytes": 62722
+      "bytes": 63158
     },
     {
       "file": "activity-streaming-dark.svg",
@@ -589,7 +625,7 @@
       "fixture": "streaming",
       "width": 420,
       "height": 474,
-      "bytes": 47573
+      "bytes": 48009
     },
     {
       "file": "activity-streaming-light.svg",
@@ -598,7 +634,7 @@
       "fixture": "streaming",
       "width": 420,
       "height": 474,
-      "bytes": 47583
+      "bytes": 48019
     },
     {
       "file": "glass-spotify-dark.svg",
@@ -607,7 +643,7 @@
       "fixture": "spotify",
       "width": 420,
       "height": 403,
-      "bytes": 615517
+      "bytes": 615953
     },
     {
       "file": "glass-spotify-light.svg",
@@ -616,7 +652,7 @@
       "fixture": "spotify",
       "width": 420,
       "height": 403,
-      "bytes": 615527
+      "bytes": 615963
     },
     {
       "file": "profile-streaming-dark.svg",
@@ -625,7 +661,7 @@
       "fixture": "streaming",
       "width": 420,
       "height": 480,
-      "bytes": 606560
+      "bytes": 606996
     },
     {
       "file": "profile-streaming-light.svg",
@@ -634,7 +670,7 @@
       "fixture": "streaming",
       "width": 420,
       "height": 480,
-      "bytes": 606570
+      "bytes": 607006
     },
     {
       "file": "styles/avatar_shape-circle.svg",
@@ -649,7 +685,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47638
+      "bytes": 48074
     },
     {
       "file": "styles/avatar_shape-squircle.svg",
@@ -664,7 +700,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47871
+      "bytes": 48307
     },
     {
       "file": "styles/avatar_shape-square.svg",
@@ -679,7 +715,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47893
+      "bytes": 48329
     },
     {
       "file": "styles/avatar_shape-hexagon.svg",
@@ -694,7 +730,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47776
+      "bytes": 48212
     },
     {
       "file": "styles/avatar_shape-octagon.svg",
@@ -709,7 +745,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47906
+      "bytes": 48342
     },
     {
       "file": "styles/ring-status.svg",
@@ -724,7 +760,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47638
+      "bytes": 48074
     },
     {
       "file": "styles/ring-none.svg",
@@ -739,7 +775,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 46168
+      "bytes": 46604
     },
     {
       "file": "styles/ring-accent.svg",
@@ -754,7 +790,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47625
+      "bytes": 48061
     },
     {
       "file": "styles/ring-gradient.svg",
@@ -769,7 +805,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47954
+      "bytes": 48390
     },
     {
       "file": "styles/ring-rainbow.svg",
@@ -784,7 +820,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 48328
+      "bytes": 48764
     },
     {
       "file": "styles/ring-glow.svg",
@@ -799,7 +835,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47962
+      "bytes": 48398
     },
     {
       "file": "styles/ring-pulse.svg",
@@ -814,7 +850,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 48200
+      "bytes": 48636
     },
     {
       "file": "styles/ring-dashed.svg",
@@ -829,7 +865,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47829
+      "bytes": 48265
     },
     {
       "file": "styles/ring-double.svg",
@@ -844,7 +880,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47845
+      "bytes": 48281
     },
     {
       "file": "styles/pattern-none.svg",
@@ -859,7 +895,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47638
+      "bytes": 48074
     },
     {
       "file": "styles/pattern-dots.svg",
@@ -874,7 +910,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 48309
+      "bytes": 48745
     },
     {
       "file": "styles/pattern-grid.svg",
@@ -889,7 +925,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 48438
+      "bytes": 48874
     },
     {
       "file": "styles/pattern-diagonal.svg",
@@ -904,7 +940,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 48291
+      "bytes": 48727
     },
     {
       "file": "styles/pattern-waves.svg",
@@ -919,7 +955,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 48548
+      "bytes": 48984
     },
     {
       "file": "styles/pattern-stars.svg",
@@ -934,7 +970,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 51219
+      "bytes": 51655
     },
     {
       "file": "styles/pattern-circuit.svg",
@@ -949,7 +985,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 48904
+      "bytes": 49340
     },
     {
       "file": "styles/pattern-confetti.svg",
@@ -964,7 +1000,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 49470
+      "bytes": 49906
     },
     {
       "file": "styles/pattern-bubbles.svg",
@@ -979,7 +1015,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 49151
+      "bytes": 49587
     },
     {
       "file": "styles/pattern-aurora.svg",
@@ -994,7 +1030,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 48749
+      "bytes": 49185
     },
     {
       "file": "styles/pattern-noise.svg",
@@ -1009,7 +1045,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 48669
+      "bytes": 49105
     },
     {
       "file": "styles/pattern-hex.svg",
@@ -1024,7 +1060,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 48648
+      "bytes": 49084
     },
     {
       "file": "styles/effect-none.svg",
@@ -1039,7 +1075,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47638
+      "bytes": 48074
     },
     {
       "file": "styles/effect-float.svg",
@@ -1054,7 +1090,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47844
+      "bytes": 48280
     },
     {
       "file": "styles/effect-shimmer.svg",
@@ -1069,7 +1105,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 48296
+      "bytes": 48732
     },
     {
       "file": "styles/effect-glow.svg",
@@ -1084,7 +1120,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 48293
+      "bytes": 48729
     },
     {
       "file": "styles/effect-scanline.svg",
@@ -1099,7 +1135,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 48363
+      "bytes": 48799
     },
     {
       "file": "styles/effect-sparkle.svg",
@@ -1114,7 +1150,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 48989
+      "bytes": 49425
     },
     {
       "file": "styles/status_style-dot.svg",
@@ -1129,7 +1165,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47638
+      "bytes": 48074
     },
     {
       "file": "styles/status_style-pill.svg",
@@ -1144,7 +1180,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 48188
+      "bytes": 48421
     },
     {
       "file": "styles/status_style-text.svg",
@@ -1159,7 +1195,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 48206
+      "bytes": 48439
     },
     {
       "file": "styles/status_style-ring.svg",
@@ -1174,7 +1210,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47613
+      "bytes": 47846
     },
     {
       "file": "styles/eq_style-bars.svg",
@@ -1189,7 +1225,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47638
+      "bytes": 48074
     },
     {
       "file": "styles/eq_style-wave.svg",
@@ -1204,7 +1240,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47832
+      "bytes": 48268
     },
     {
       "file": "styles/eq_style-pulse.svg",
@@ -1219,7 +1255,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47598
+      "bytes": 48034
     },
     {
       "file": "styles/eq_style-dots.svg",
@@ -1234,7 +1270,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47675
+      "bytes": 48111
     },
     {
       "file": "styles/eq_style-line.svg",
@@ -1249,7 +1285,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47630
+      "bytes": 48066
     },
     {
       "file": "styles/eq_style-blocks.svg",
@@ -1264,7 +1300,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47612
+      "bytes": 48048
     },
     {
       "file": "styles/eq_style-mirror.svg",
@@ -1279,7 +1315,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47734
+      "bytes": 48170
     },
     {
       "file": "styles/eq_style-circle.svg",
@@ -1294,7 +1330,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 48003
+      "bytes": 48439
     },
     {
       "file": "styles/eq_style-spectrum.svg",
@@ -1309,7 +1345,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 48075
+      "bytes": 48511
     },
     {
       "file": "styles/eq_style-none.svg",
@@ -1324,7 +1360,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 46647
+      "bytes": 47083
     },
     {
       "file": "styles/font-default.svg",
@@ -1339,7 +1375,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47638
+      "bytes": 48074
     },
     {
       "file": "styles/font-rounded.svg",
@@ -1354,7 +1390,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47825
+      "bytes": 48261
     },
     {
       "file": "styles/font-mono.svg",
@@ -1369,7 +1405,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47840
+      "bytes": 48276
     },
     {
       "file": "styles/font-serif.svg",
@@ -1384,7 +1420,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47806
+      "bytes": 48242
     },
     {
       "file": "styles/font-condensed.svg",
@@ -1399,7 +1435,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47862
+      "bytes": 48298
     },
     {
       "file": "styles/font-display.svg",
@@ -1414,7 +1450,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47951
+      "bytes": 48387
     },
     {
       "file": "styles/border-subtle.svg",
@@ -1429,7 +1465,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47638
+      "bytes": 48074
     },
     {
       "file": "styles/border-none.svg",
@@ -1444,7 +1480,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47713
+      "bytes": 48149
     },
     {
       "file": "styles/border-accent.svg",
@@ -1459,7 +1495,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47948
+      "bytes": 48384
     },
     {
       "file": "styles/border-gradient.svg",
@@ -1474,7 +1510,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 48121
+      "bytes": 48557
     },
     {
       "file": "styles/border-glow.svg",
@@ -1489,7 +1525,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 48004
+      "bytes": 48440
     },
     {
       "file": "styles/banner_source-auto.svg",
@@ -1504,7 +1540,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47638
+      "bytes": 48074
     },
     {
       "file": "styles/banner_source-profile.svg",
@@ -1519,7 +1555,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47638
+      "bytes": 48074
     },
     {
       "file": "styles/banner_source-nameplate.svg",
@@ -1534,7 +1570,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 65375
+      "bytes": 65811
     },
     {
       "file": "styles/banner_source-accent.svg",
@@ -1549,7 +1585,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47568
+      "bytes": 48004
     },
     {
       "file": "styles/banner_source-none.svg",
@@ -1564,7 +1600,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47481
+      "bytes": 47917
     },
     {
       "file": "styles/hide_effect-false.svg",
@@ -1578,7 +1614,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 61561
+      "bytes": 61997
     },
     {
       "file": "styles/hide_effect-true.svg",
@@ -1592,7 +1628,7 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47638
+      "bytes": 48074
     },
     {
       "file": "styles/hide_frame-false.svg",
@@ -1606,7 +1642,7 @@
       },
       "width": 460,
       "height": 695,
-      "bytes": 125456
+      "bytes": 125892
     },
     {
       "file": "styles/hide_frame-true.svg",
@@ -1620,7 +1656,63 @@
       },
       "width": 420,
       "height": 588,
-      "bytes": 47638
+      "bytes": 48074
+    },
+    {
+      "file": "styles/wave_color-auto.svg",
+      "theme": "wave",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "wave_color": "auto",
+        "hide_effect": "true",
+        "hide_frame": "true"
+      },
+      "width": 420,
+      "height": 328,
+      "bytes": 625122
+    },
+    {
+      "file": "styles/wave_color-ff5f9e.svg",
+      "theme": "wave",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "wave_color": "ff5f9e",
+        "hide_effect": "true",
+        "hide_frame": "true"
+      },
+      "width": 420,
+      "height": 328,
+      "bytes": 625121
+    },
+    {
+      "file": "styles/wave_color-ffffff.svg",
+      "theme": "wave",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "wave_color": "ffffff",
+        "hide_effect": "true",
+        "hide_frame": "true"
+      },
+      "width": 420,
+      "height": 328,
+      "bytes": 625106
+    },
+    {
+      "file": "styles/wave_color-f5e663.svg",
+      "theme": "wave",
+      "mode": "dark",
+      "fixture": "gallery",
+      "query": {
+        "wave_color": "f5e663",
+        "hide_effect": "true",
+        "hide_frame": "true"
+      },
+      "width": 420,
+      "height": 328,
+      "bytes": 625106
     }
   ]
 }

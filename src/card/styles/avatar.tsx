@@ -1,6 +1,7 @@
 import type { CardData } from "@/lib/lanyard/card-data";
 import type { CardOptions } from "@/lib/options";
 import type { AvatarShape, RingStyle } from "@/lib/style-options";
+import { StatusGlyph } from "../parts/status-glyph";
 
 /** Shape outlines in a 0–100 box. Regular shapes, so scaling about the centre is a uniform offset. */
 export const SHAPE_PATHS: Record<AvatarShape, string> = {
@@ -87,7 +88,7 @@ export const STATUS_LABELS: Record<CardData["status"], string> = { online: "Onli
  * (place `<StatusText>` in the theme's copy; the ring comes from `<AvatarRing>`).
  */
 export function StatusIndicator({ data, look }: { data: CardData; look: AvatarLook }) {
-  if (look.status === "dot") return <span className={`status-dot ${data.status}`} title={data.status} aria-label={data.status} />;
+  if (look.status === "dot") return <span className={`status-dot ${data.status}`} title={STATUS_LABELS[data.status]} aria-label={STATUS_LABELS[data.status]}><StatusGlyph data={data} /></span>;
   if (look.status === "pill") return <span className={`sx-status-pill sx-is-${data.status}`} title={STATUS_LABELS[data.status]}>{SHORT_STATUS[data.status]}</span>;
   if (look.status === "ring") return <span className="sx-sr" aria-label={STATUS_LABELS[data.status]} />;
   return null;

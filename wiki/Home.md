@@ -21,6 +21,7 @@ Discord presence cards for GitHub READMEs and websites, by [LianHarman(LienThuan
 11. [SVG size tips](#svg-size-tips)
 12. [Troubleshooting](#troubleshooting)
 13. [Development](#development)
+14. [Feedback and ideas](#feedback-and-ideas)
 
 ## Card Studio
 
@@ -30,13 +31,15 @@ Discord presence cards for GitHub READMEs and websites, by [LianHarman(LienThuan
 4. Adjust colors, width, radius, animation and visible sections. Text fields apply on blur or Enter. Switch between the live preview and the SVG snapshot to check the actual image output.
 5. Copy **Markdown**, **HTML**, **Picture**, **Live iframe** or **SVG URL**. Markdown links the image to your Discord profile; Picture chooses dark/light images using `prefers-color-scheme`. Live iframe includes a resize listener for your website.
 
+On wide screens the preview (**Your card, your way.**) and **Take it with you** stay in view while you scroll the controls, and stop level with **Style it your way**. Below 800px they stack and scroll normally. The theme grid ends with a **Coming soon** tile for ideas.
+
 Studio keeps shareable settings in its URL. `/?id=983724520789655613&theme=member` opens a preconfigured editor. The Studio-only `id` query is a 17–20 digit string; missing or invalid values use the demo ID. API/live routes put the ID in the path instead. **Reset** restores the demo ID and default options. If clipboard access fails, Studio selects the code for manual copying.
 
 [↑ Back to contents](#contents)
 
 ## Themes
 
-All fifteen themes support dark and light modes. Sizes are CSS pixels before responsive scaling and collectible-frame overflow. Tall themes calculate height from visible content. The live wrapper scales down to fit its container.
+All sixteen themes support dark and light modes. Sizes are CSS pixels before responsive scaling and collectible-frame overflow. Tall themes calculate height from visible content. The live wrapper scales down to fit its container.
 
 | Theme | Purpose | Card body size, before collectible-frame overflow |
 |---|---|---|
@@ -55,6 +58,7 @@ All fifteen themes support dark and light modes. Sizes are CSS pixels before res
 | `polaroid` | Still photo and caption | Photo frame clamped to 300–400, plus 36 horizontal / 42 vertical margin; height follows photo |
 | `mobile` | Lock-screen notifications | 320–400 wide; content height |
 | `voice` | Voice-channel tile | 300–600 wide; 5:3 aspect ratio |
+| `wave` | Nameplate header over a liquid activity panel (the owner's original card, upgraded) | 300–600 wide; height from content |
 
 ### Supported controls by theme
 
@@ -74,6 +78,7 @@ The eight axes use CSS, inline SVG and system fonts without extra image/font req
 | `retro` | `pattern`, `eq_style` |
 | `mobile` | `pattern`, `effect`, `border`, `font`, `eq_style` |
 | `voice` | `avatar_shape`, `pattern`, `effect`, `border`, `font`, `eq_style` |
+| `wave` | All identity/section controls, `wave_color`, `ignore_app_id` and all style axes; defaults to `banner_source=nameplate` and `hide_platforms=true` |
 | `polaroid` | None; keeps its photograph presentation |
 
 See the [style gallery](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/public/examples/styles/index.html) for every value on a fixed base card, plus all `banner_source` choices and both values of `hide_effect` / `hide_frame`. All accepted values and defaults appear in [Options](#options). `effect` styles and the Discord profile effect controlled by `hide_effect` are independent.
@@ -101,6 +106,7 @@ Member, compact and badge choose Spotify first, then the first visible activity,
 | Polaroid | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/polaroid-dark.svg" width="280" alt="Polaroid dark" /> | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/polaroid-light.svg" width="280" alt="Polaroid light" /> |
 | Mobile | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/mobile-dark.svg" width="280" alt="Mobile dark" /> | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/mobile-light.svg" width="280" alt="Mobile light" /> |
 | Voice | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/voice-dark.svg" width="280" alt="Voice dark" /> | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/voice-light.svg" width="280" alt="Voice light" /> |
+| Wave | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/wave-dark.svg" width="280" alt="Wave dark" /> | <img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/examples/wave-light.svg" width="280" alt="Wave light" /> |
 
 The [complete fixture gallery](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/public/examples/index.html) also includes every theme × dark/light with profile extras (frame, effect and banner color). Preview text is synthetic; no real bio is bundled.
 
@@ -108,7 +114,7 @@ The [complete fixture gallery](https://github.com/LienThuan04/Discord-Github-Pro
 
 ## Options
 
-Use the same 35 snake_case query parameters on `/api/{id}` and `/live/{id}`. The authoritative parser is [src/lib/options.ts](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/src/lib/options.ts), with style values in [src/lib/style-options.ts](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/src/lib/style-options.ts); theme support comes from the [registry](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/src/card/theme-registry.ts) and each theme's metadata.
+Use the same 37 snake_case query parameters on `/api/{id}` and `/live/{id}`. The authoritative parser is [src/lib/options.ts](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/src/lib/options.ts), with style values in [src/lib/style-options.ts](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/src/lib/style-options.ts); theme support comes from the [registry](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/src/card/theme-registry.ts) and each theme's metadata.
 
 Unknown keys are ignored. Repeated keys use the first value. Invalid fields fall back independently. Finite numeric values are rounded and clamped; empty, nonnumeric or nonfinite values use the default. Boolean URL values are exactly `true` or `false`.
 
@@ -118,7 +124,7 @@ Colors accept 3, 6 or 8 hex digits, with an optional `#`; use bare hex in URLs, 
 
 | Parameter | Accepted values | Default | Effect |
 |---|---|---|---|
-| `theme` | `profile`, `nitro`, `member`, `compact`, `activity`, `glass`, `badge`, `chat`, `banner`, `terminal`, `neon`, `retro`, `polaroid`, `mobile`, `voice` | `profile` | Card layout |
+| `theme` | `profile`, `nitro`, `member`, `compact`, `activity`, `glass`, `badge`, `chat`, `banner`, `terminal`, `neon`, `retro`, `polaroid`, `mobile`, `voice`, `wave` | `profile` | Card layout |
 | `mode` | `dark`, `light` | `dark` | Appearance |
 | `accent` | 3, 6 or 8 hex digits; optional `#` | `5865f2` | Accent; this default allows valid KV `accent` to take precedence |
 | `bg` | Hex color or `transparent` | Automatic (`null` internally) | Theme background; overlays can remain visible |
@@ -153,6 +159,24 @@ Colors accept 3, 6 or 8 hex digits, with an optional `#`; use bare hex in URLs, 
 | `hide_effect` | `true`, `false` | `false` | Hide the Discord profile effect, independently of the `effect` style |
 | `hide_frame` | `true`, `false` | `false` | Hide the collectible frame; otherwise its overflow grows the output canvas |
 | `tz` | Named IANA time zone, e.g. `Asia/Ho_Chi_Minh` | `UTC` | Chat/mobile clock and polaroid date; invalid zones and numeric offsets fall back to UTC; Studio initially uses the browser zone |
+| `wave_color` | `auto` or an opaque RGB hex color | `auto` | Wave theme's liquid panel. `auto` matches the running app: Spotify green, a known app's brand color, else a blurred, saturated wash of the activity art; idle uses the profile banner color, then the accent. Text is white like the original card and switches to black on light colors |
+| `ignore_app_id` | Up to 10 comma-separated application IDs (snowflakes) | empty | Drop activities from these applications before any theme renders them |
+
+#### Old card URLs
+
+Queries from the owner's previous card keep working when only the domain changes. Old keys are read only when present, and new keys always win:
+
+| Old key | Maps to |
+|---|---|
+| `theme=dark` / `theme=light` | `theme=wave` with that `mode` |
+| `imgStyle=circle\|square` | `avatar_shape` |
+| `animatedDecoration` | `animated` |
+| `showBanner=true\|animated\|false` | Header art on (animated) or `banner_source=none` |
+| `hideDecoration`, `hideStatus`, `hideActivity`, `hideSpotify`, `hideBadges` | The matching `hide_*` option |
+| `forceGradient` | `force_gradient` |
+| `ignoreAppId` | `ignore_app_id` |
+| `showDisplayName` | Ignored; display names are always shown |
+
 
 Example:
 
@@ -170,7 +194,7 @@ All themes wear your collectible profile frame by default. `hide_frame=true` rem
 
 Nitro theme colors tint the surface; a solid profile banner gets a subtle sheen. KV bio/pronouns override Discord About Me, with `hide_kv` hiding both. The optional profile provider and cache behavior are documented in [the theme contract](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/docs/THEME-CONTRACT.md#profile-extras).
 
-Profile effects use a compact still frame in README SVGs and timed APNG layers in live cards (a still for reduced motion or `animated=false`). Use `hide_effect=true` to hide them. All 15 themes fetch profile data. Studio exposes a visible **Show on card** group of accessible switches for effect, frame, banner, an opt-in **Nameplate background** (off by default; sets `banner_source=nameplate` so the nameplate art replaces the profile banner), decoration, nameplate, guild tag, badges, status, platforms, custom status, activity, Spotify, timestamps and About/KV, filtered by theme support. Switching themes or IDs, re-enabling the effect, or pressing **Replay effect** restarts its intro (reduced motion stays static). Studio shows source/timezone controls only for supported themes, and fetches public normalized profile data from `/api/{id}/profile` once per user ID.
+Profile effects use a compact still frame in README SVGs and timed APNG layers in live cards (a still for reduced motion or `animated=false`). Use `hide_effect=true` to hide them. All 16 themes fetch profile data. Studio exposes a visible **Show on card** group of accessible switches for effect, frame, banner, an opt-in **Nameplate background** (off by default; sets `banner_source=nameplate` so the nameplate art replaces the profile banner), decoration, nameplate, guild tag, badges, status, platforms, custom status, activity, Spotify, timestamps and About/KV, filtered by theme support. Switching themes or IDs, re-enabling the effect, or pressing **Replay effect** restarts its intro (reduced motion stays static). Studio shows source/timezone controls only for supported themes, and fetches public normalized profile data from `/api/{id}/profile` once per user ID.
 
 ### Sources and environment
 
@@ -190,6 +214,7 @@ The dstn mirror is **unofficial**, independent of Discord and this project, and 
 | `DISCORD_PROFILE_PROVIDER` | `dstn` | Enable the public mirror; set `off` to disable |
 | `DISCORD_PROFILE_PROVIDER_URL` | Empty → `https://dcdn.dstn.to` | Compatible mirror base; app appends `/profile/{id}` |
 | `DISCORD_BOT_TOKEN` | Empty | Optional official user lookup; server-only, never prefix with `NEXT_PUBLIC_` |
+| `FEEDBACK_URL` | Empty → `https://github.com/LienThuan04` | Where Studio's **Coming soon** tile and footer **Suggest a theme or feature** link point; any http(s) URL, read at request time |
 
 See [.env.example](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/.env.example). Public Lanyard and the default mirror require no credentials. A Discord bot can be created in the [Developer Portal](https://discord.com/developers/applications); keep its token only in server environment settings.
 
@@ -385,7 +410,7 @@ Open localhost on port 3000. Public Lanyard works without secrets. The project u
 
 ### Generate and inspect examples
 
-The [examples generator](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/scripts/generate-examples.ts) uses frozen fixtures and checked-in asset bytes, with no network. Its 136 public SVGs include 60 theme previews (15 themes × dark/light × with/without profile extras), 10 additional activity showcases and 66 style/control variants. The style gallery contains every style-axis value and the banner/effect/frame controls. Output is deterministic: the same fixtures produce identical bytes. The manifest records exact dimensions and byte sizes. Generated SVGs must be well-formed XML, contain no external asset URLs, and remain below 1,000,000 bytes. Fixture bios are synthetic.
+The [examples generator](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/scripts/generate-examples.ts) uses frozen fixtures and checked-in asset bytes, with no network. Its 144 public SVGs include 64 theme previews (16 themes × dark/light × with/without profile extras), 10 additional activity showcases and 70 style/control variants (including `wave_color`). The style gallery contains every style-axis value and the banner/effect/frame controls. Output is deterministic: the same fixtures produce identical bytes. The manifest records exact dimensions and byte sizes. Generated SVGs must be well-formed XML, contain no external asset URLs, and remain below 1,000,000 bytes. Fixture bios are synthetic.
 
 ```powershell
 pnpm.cmd examples
@@ -393,7 +418,7 @@ pnpm.cmd examples --out-dir .verification/examples --matrix-dir .verification/th
 powershell -File scripts/screenshot-examples.ps1 -MatrixDir .verification/theme-matrix
 ```
 
-`--out-dir` changes the gallery destination; `--matrix-dir` adds 300 SVGs (15 themes × 10 fixtures × 2 modes, including a sanitized frame profile) and per-theme HTML matrices. Open the gallery through browser `<img>` elements, then inspect each generated PNG matrix. The screenshot helper uses Chrome or Edge and an isolated profile. Check actual clipping, long names, missing artwork, light mode and timer boundaries; markup tests alone do not prove those visuals.
+`--out-dir` changes the gallery destination; `--matrix-dir` adds 320 SVGs (16 themes × 10 fixtures × 2 modes, including a sanitized frame profile) and per-theme HTML matrices. Open the gallery through browser `<img>` elements, then inspect each generated PNG matrix. The screenshot helper uses Chrome or Edge and an isolated profile. Check actual clipping, long names, missing artwork, light mode and timer boundaries; markup tests alone do not prove those visuals.
 
 To inspect a deployed response's size and timing without changing it:
 
@@ -408,5 +433,11 @@ Create `.verification` first if needed. Repeat once after the cache is warm, the
 Follow the [theme contract](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/docs/THEME-CONTRACT.md) and the [discord-card workflow](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/docs/skills/discord-card/SKILL.md). Keep `Component` pure, share layout constants with deterministic `measure()`, route every image through `assets`, register the theme and its supported parameters, and extend the option validator. Reuse the normalized view model for both SVG and live output.
 
 Verify relevant fixtures, both modes, width limits, hides, offline/error states and clocks. Run lint, typecheck, tests and a build; regenerate examples and inspect browser screenshots. Update the theme/parameter reference here and the README gallery/options table. Runtime dependencies need a concrete reason, and all implementation is original under MIT.
+
+[↑ Back to contents](#contents)
+
+## Feedback and ideas
+
+More themes and features are still in development. Have an idea for a theme, a missing Discord detail or a new feature? Send it to me on [my website](https://lianharman.netlify.app) or through [my GitHub profile](https://github.com/LienThuan04). Card Studio links there too: the **Coming soon** tile and **Suggest a theme or feature** in the footer.
 
 [↑ Back to contents](#contents)

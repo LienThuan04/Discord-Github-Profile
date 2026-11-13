@@ -6,6 +6,7 @@ import type { CardProps, ThemeDefinition } from "../types";
 import { isMissingImage } from "../parts/image-state";
 import { currentPresence, smallAsset, statusLabel, themeCss } from "../parts/theme-kit";
 import { cardVars, customStatus, reducedMotion, snapshotClock, staticEmojiUrl } from "./presence-kit";
+import { StatusGlyph } from "../parts/status-glyph";
 
 const MARGIN_X = 18;
 const MARGIN_TOP = 24;
@@ -56,7 +57,7 @@ function Polaroid(props: CardProps) {
         {error ? <><strong className="polaroid-name truncate">{error.title}</strong><span className="polaroid-line polaroid-error">{error.message}</span></> : <>
           <strong className="polaroid-name truncate" title={data.user.displayName}>{data.user.displayName}</strong>
           <span className="polaroid-line">{status?.emoji && (emoji ? <img width="18" height="18" src={assets(emoji)} alt={status.emoji.name} /> : <span>{status.emoji.name}</span>)}<span className="truncate">{caption}</span></span>
-          <span className="polaroid-meta">{!options.hide_status && <><i className={`polaroid-dot ${data.status}`} /><span>{statusLabel(data)}</span><b>·</b></>}<span className="truncate">{data.user.legacyTag ?? `@${data.user.username}`}</span><Badges {...props} />{!options.hide_tag && data.user.guildTag && <><b>·</b><span className="polaroid-tag">{data.user.guildTag.tag}</span></>}</span>
+          <span className="polaroid-meta">{!options.hide_status && <><i className={`polaroid-dot sd-host ${data.status}`}><StatusGlyph data={data} /></i><span>{statusLabel(data)}</span><b>·</b></>}<span className="truncate">{data.user.legacyTag ?? `@${data.user.username}`}</span><Badges {...props} />{!options.hide_tag && data.user.guildTag && <><b>·</b><span className="polaroid-tag">{data.user.guildTag.tag}</span></>}</span>
         </>}
       </figcaption>
     </figure>

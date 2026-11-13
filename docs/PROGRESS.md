@@ -4,7 +4,7 @@ Cập nhật: 2026-11-13 bởi Codex.
 
 ## Đang làm
 
-- (trống) — Phase 8 hoàn tất; báo cáo đã ghi ở scratchpad `agy/phase8-report.md`.
+- Phase 9 đang triển khai: theme `wave`, màu theo ứng dụng, URL cũ và Studio. Git sạch tại `e5c9c07`; không commit/push. Kế hoạch: `docs/superpowers/plans/2026-11-13-wave.md`. Parser/mặc định/legacy đã triển khai test-first (22 test đỏ ban đầu), bộ lọc ID và Studio switch đã qua 38/38 test phạm vi. Hai test wave còn chờ đăng ký theme. Đang thêm gallery/tài liệu và chờ layout; tiếp theo chạy toàn bộ QA theo `phase9.md`. Graph cũ có node `presence-kit.tsx` không còn tồn tại; đã đọc các part thực tế, sẽ update graph cuối phiên.
 
 ## Trạng thái xác minh hiện tại
 
@@ -24,6 +24,32 @@ Cập nhật: 2026-11-13 bởi Codex.
   - Kiểm tra: lint/typecheck 0, 2388/2388 test. Đã xem ảnh của `profile`/`nitro` và Studio.
   - Đã push trong `a321cf3`.
 - 2026-11-13: đồng bộ tab Wiki giống repo Spotify: `Home.md`, `_Sidebar.md` và `_Footer.md` đã push lên `Discord-Github-Profile.wiki.git`. README trỏ sang tab Wiki; `wiki/Home.md` dùng URL tuyệt đối; link checker đối chiếu URL repo/wiki với checkout local.
+- 2026-11-13: thêm theme thứ 16 **`wave`**, dựng lại card cũ của chủ repo.
+  - Bố cục: header nền nameplate; khối "nước" gợn sóng dâng lên.
+  - Tham số `wave_color=auto|hex`. `auto` chọn màu theo thứ tự: Spotify xanh, màu thương hiệu app, màu lấy từ ảnh hoạt động, rồi màu banner hồ sơ.
+  - Tham số `ignore_app_id`. `THEME_DEFAULTS` (member/wave dùng nameplate). Map tham số URL cũ (`theme=dark`, `imgStyle`, `ignoreAppId`…).
+  - Ai làm gì:
+    - Codex viết phần chính rồi hết quota. agy Opus làm tiếp rồi cũng hết quota.
+    - Claude khôi phục phần tử khối nước bị mất; bỏ hộp tối che nameplate; làm nhạt lớp phủ header.
+    - Claude đưa header và khối nước về một stacking context, để hiệu ứng hồ sơ hiện trên ảnh nameplate nhưng dưới chữ.
+    - Claude cập nhật README, wiki, contract và PROJECT.
+  - Kiểm tra: lint/typecheck/build 0; 2521/2521 test (39 file); 144 example; link check 0 lỗi. Đã xem ảnh: so với card cũ, sáng/tối, `wave_color`, Studio, live.
+  - Chưa commit.
+- 2026-11-13 (tiếp): làm `wave` giống card cũ hơn.
+  - Chữ trắng trên các màu trung tính như xanh Spotify; đổi sang chữ đen khi nền sáng. Ngưỡng tương phản trắng là 2,4.
+  - Thanh tiến trình nằm một hàng: thời gian đã chạy, thanh, tổng thời gian.
+  - Ảnh nền nameplate phủ cả header lẫn khối About, nên sóng luôn dâng lên trên ảnh.
+  - Chip guild tag và badge nằm ngay sau tên; mặc định ẩn hàng thiết bị (`THEME_DEFAULTS.wave.hide_platforms`).
+- 2026-11-13: biểu tượng trạng thái giống Discord (`src/card/parts/status-glyph.tsx`).
+  - Trực tuyến: chấm xanh. Chờ: trăng khuyết vàng. Không làm phiền: chấm đỏ có vạch. Ngoại tuyến: vòng xám rỗng. Chỉ trên điện thoại: hình điện thoại xanh.
+  - Áp dụng cho chấm ở avatar và các chấm nhỏ `mini/badge/note/polaroid/term`.
+  - Budget CSS mặc định nâng lên 1400 ký tự.
+- 2026-11-13: ô **Coming soon** ở lưới theme và link "Suggest a theme or feature" ở footer, cả hai trỏ tới `FEEDBACK_URL`.
+  - `src/lib/feedback.ts`: biến server-side, mặc định là GitHub của chủ repo; `.env` local đặt `https://lianharman.netlify.app`.
+  - README và wiki có mục "Feedback and ideas".
+- 2026-11-13: cột xem trước trong Studio dính theo khi cuộn (`.previewColumn{position:sticky;top:20px}`), dừng ngang "Style it your way". Dưới 800px trở lại `static`. Đã xác nhận bằng CDP: `previewTop=20` khi `scrollY=1534` và `2043`.
+- Kiểm tra: lint/typecheck/build 0; test và link check đều xanh; đã xem ảnh.
+- Commit và push cùng đợt 13/11. Theo yêu cầu rõ ràng của người dùng, commit này có `Co-authored-by: DanGuangLT <phatmcpack@gmail.com>`, ngoại lệ so với quy tắc mặc định "không thêm Co-authored-by".
 - Chủ repo chọn **production domain** và **Vercel project**, rồi quyết định thời điểm ngừng deployment cũ **Profile_Discord**. Sau khi có public deployment, kiểm tra Camo thực tế; giữ `https://YOUR-DEPLOYMENT.vercel.app` đến lúc đó. Báo cáo: scratchpad `agy/phase8-report.md`; lịch sử: `docs/memory/history.md`.
 
 ## Nhật ký

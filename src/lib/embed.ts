@@ -10,9 +10,8 @@ export const isDiscordId = (id: string) => /^\d{17,20}$/.test(id);
 /** Reuse the shared validator and resolve names through the runtime registry, so independently
  * registered themes appear in Studio and /live as soon as they land. */
 export function parseCardOptions(input: QueryInput = {}): CardOptions {
-  const candidate = input instanceof URLSearchParams ? input.get("theme") : input.theme;
-  const name = Array.isArray(candidate) ? candidate[0] : candidate;
-  return { ...parseOptions(input), theme: getTheme(name ?? "profile").name } as CardOptions;
+  const options = parseOptions(input);
+  return { ...options, theme: getTheme(options.theme).name } as CardOptions;
 }
 
 /** Stable, shareable query strings, limited to the selected theme's supported controls. */
@@ -27,7 +26,7 @@ export function serializeOptions(options: CardOptions): URLSearchParams {
     const fallback = key === "theme" ? DEFAULT_OPTIONS.theme : defaults[key];
     if (value === null || JSON.stringify(value) === JSON.stringify(fallback)) continue;
     const serialized = Array.isArray(value) ? value.map((color) => color.replace(/^#/, "")).join("-") : String(value);
-    params.set(key, key === "accent" || key === "bg" ? serialized.replace(/^#/, "") : serialized);
+    params.set(key, key === "accent" || key === "bg" || key === "wave_color" ? serialized.replace(/^#/, "") : serialized);
   }
   return params;
 }
