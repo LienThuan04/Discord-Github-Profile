@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { themes, getTheme } from "@/card/theme-registry";
 import { useLanyard } from "@/hooks/useLanyard";
@@ -33,8 +34,9 @@ const styleHints: Partial<Record<StyleParam, string>> = {
   effect: "Motion pauses for visitors who prefer reduced motion.",
 };
 
+/** The app icon (public/brand/icon.svg): an original cosmic-flame mark inspired by the owner's avatar. */
 function Mark({ small = false }: { small?: boolean }) {
-  return <svg width={small ? 20 : 34} height={small ? 20 : 34} viewBox="0 0 36 36" fill="none" aria-hidden="true"><rect width="36" height="36" rx="11" fill="currentColor" /><path d="M10 11h16v14H10z" stroke="#fff" strokeWidth="2" strokeLinejoin="round" /><path d="M14 16h8m-8 4h5" stroke="#fff" strokeWidth="2" strokeLinecap="round" /></svg>;
+  return <Image className={styles.mark} src="/brand/icon.svg" width={small ? 22 : 38} height={small ? 22 : 38} alt="" aria-hidden="true" unoptimized priority={!small} />;
 }
 
 function TextOption({ name, label, value, placeholder, onCommit }: { name: OptionName; label: string; value: string; placeholder?: string; onCommit: (name: OptionName, value: string) => void }) {

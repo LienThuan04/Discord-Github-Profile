@@ -1,3 +1,5 @@
+<p align="center"><img src="public/brand/icon.svg" width="112" alt="Discord-Github-Profile icon: a cosmic flame with a presence dot" /></p>
+
 # Discord-Github-Profile
 
 Your Discord presence, with personality. Sixteen themes for GitHub profile READMEs and a live card for websites, maintained by [LianHarman(LienThuan04)](https://github.com/LienThuan04).
@@ -151,6 +153,10 @@ More themes and features are still in development. Have an idea for a theme, a m
 ## Contributing
 
 Development setup and verification are in the [Wiki](https://github.com/LienThuan04/Discord-Github-Profile/wiki#development). Implementation is original; cnrad/lanyard-profile-readme and kyrie25/lanyard-profile-readme inspired the project. Presence data comes from Lanyard.
+
+## Icon
+
+The app icon ([public/brand/icon.svg](public/brand/icon.svg), also the favicon `src/app/icon.svg` and Card Studio's logo) is original artwork inspired by the owner's avatar: a cosmic purple flame rising from a spiked collar, with four-point sparkles. A green presence dot marks the Discord app. It does not reproduce Discord's logo or any other product's mark.
 
 ## License
 

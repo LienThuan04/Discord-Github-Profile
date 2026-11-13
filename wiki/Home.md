@@ -1,3 +1,5 @@
+<p align="center"><img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/brand/icon.svg" width="96" alt="Discord-Github-Profile icon" /></p>
+
 # Discord-Github-Profile Wiki
 
 Discord presence cards for GitHub READMEs and websites, by [LianHarman(LienThuan04)](https://github.com/LienThuan04). Everything is on this one page.

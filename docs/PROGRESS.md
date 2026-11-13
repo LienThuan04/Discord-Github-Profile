@@ -50,6 +50,10 @@ Cập nhật: 2026-11-13 bởi Codex.
 - 2026-11-13: cột xem trước trong Studio dính theo khi cuộn (`.previewColumn{position:sticky;top:20px}`), dừng ngang "Style it your way". Dưới 800px trở lại `static`. Đã xác nhận bằng CDP: `previewTop=20` khi `scrollY=1534` và `2043`.
 - Kiểm tra: lint/typecheck/build 0; test và link check đều xanh; đã xem ảnh.
 - Commit và push cùng đợt 13/11. Theo yêu cầu rõ ràng của người dùng, commit này có `Co-authored-by: DanGuangLT <phatmcpack@gmail.com>`, ngoại lệ so với quy tắc mặc định "không thêm Co-authored-by".
+- 2026-11-13: icon ứng dụng mới `public/brand/icon.svg` thay favicon `src/app/icon.svg` và logo `Mark` của Studio (dùng `next/image`, `unoptimized`). Có test `tests/brand.test.tsx`.
+  - Thiết kế gốc lấy cảm hứng từ avatar của chủ repo: ngọn lửa vũ trụ 3 lưỡi, vòng cổ 3 mũi nhọn, sao bốn cánh, chấm presence xanh.
+  - README và wiki hiện icon ở đầu trang; README có thêm mục "Icon".
+  - Push cùng đợt với wiki, theo yêu cầu người dùng.
 - Chủ repo chọn **production domain** và **Vercel project**, rồi quyết định thời điểm ngừng deployment cũ **Profile_Discord**. Sau khi có public deployment, kiểm tra Camo thực tế; giữ `https://YOUR-DEPLOYMENT.vercel.app` đến lúc đó. Báo cáo: scratchpad `agy/phase8-report.md`; lịch sử: `docs/memory/history.md`.
 
 ## Nhật ký

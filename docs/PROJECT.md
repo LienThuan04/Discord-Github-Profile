@@ -52,6 +52,8 @@ Profile extras được hiển thị qua `src/card/parts/profile-look.tsx`: bann
 
 ## Query params
 
+Icon ứng dụng là `public/brand/icon.svg`, đồng thời là favicon `src/app/icon.svg` (hai file phải giống hệt nhau) và logo `Mark` trong Studio. Đây là artwork gốc lấy cảm hứng từ avatar của chủ repo: ngọn lửa vũ trụ, vòng cổ có ba mũi nhọn, sao bốn cánh và chấm presence xanh. Icon không mô phỏng logo Discord. Script sinh icon nằm ngoài repo; muốn sửa thì chỉnh trực tiếp SVG.
+
 Card Studio có ô **Coming soon** và link góp ý ở footer, cả hai trỏ tới `FEEDBACK_URL` (server-side, mặc định là GitHub của chủ repo; `.env` local đặt `https://lianharman.netlify.app`).
 
 Toàn bộ 37 tham số query dạng `snake_case` được định nghĩa tại `src/lib/options.ts` (`OPTION_NAMES`) và ánh xạ theo từng theme qua `supportedParams` trong `src/card/theme-registry.ts`. Bảng tra cứu đầy đủ kiểu dữ liệu, khoảng giá trị, mặc định và hiệu ứng nằm ở mục **Options** trong `wiki/Home.md`.
