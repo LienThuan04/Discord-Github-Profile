@@ -45,6 +45,8 @@ const get = () => GET(new Request(`https://card.example/api/${ID}`), { params: P
 const found = (value: ProfileExtras | null, complete = true): ProfileLookup => ({ profile: value, complete, settled: Promise.resolve() });
 const FULL_CACHE = "public, max-age=0, s-maxage=30, stale-while-revalidate=3600";
 const PARTIAL_CACHE = "public, max-age=0, s-maxage=5";
+/** Every caller hands the lookup the presence's KV declarations as a promise. */
+const withDeclared = expect.objectContaining({ declared: expect.any(Promise) });
 
 beforeEach(() => {
   vi.mocked(fetchPresence).mockReset(); vi.mocked(fetchProfileExtras).mockReset(); vi.mocked(lookupProfileExtras).mockReset();
@@ -58,7 +60,7 @@ describe("Studio server profile seed", () => {
     vi.mocked(fetchPresence).mockReturnValue(presence.promise);
     vi.mocked(fetchProfileExtras).mockReturnValue(extras.promise);
     const pending = Home({ searchParams: Promise.resolve({}) });
-    await vi.waitFor(() => { expect(fetchPresence).toHaveBeenCalledWith(ID); expect(fetchProfileExtras).toHaveBeenCalledWith(ID); });
+    await vi.waitFor(() => { expect(fetchPresence).toHaveBeenCalledWith(ID); expect(fetchProfileExtras).toHaveBeenCalledWith(ID, withDeclared); });
     presence.resolve(ok); extras.resolve(profile);
     const element = await pending;
     expect((element as ReactElement<{ initialProfile: ProfileExtras | null }>).props.initialProfile).toEqual(profile);
@@ -67,7 +69,7 @@ describe("Studio server profile seed", () => {
     vi.mocked(fetchPresence).mockResolvedValue(ok);
     vi.mocked(fetchProfileExtras).mockResolvedValue(profile);
     await Home({ searchParams: Promise.resolve({ theme: "badge" }) });
-    expect(fetchProfileExtras).toHaveBeenCalledWith(ID);
+    expect(fetchProfileExtras).toHaveBeenCalledWith(ID, withDeclared);
   });
 });
 
@@ -76,7 +78,7 @@ describe("/api/[id] profile wiring", () => {
     vi.mocked(fetchPresence).mockResolvedValue(ok);
     vi.mocked(lookupProfileExtras).mockResolvedValue(found(profile));
     await GET(new Request(`https://card.example/api/${ID}?theme=compact`), { params: Promise.resolve({ id: ID }) });
-    expect(lookupProfileExtras).toHaveBeenCalledWith(ID);
+    expect(lookupProfileExtras).toHaveBeenCalledWith(ID, withDeclared);
   });
   it("starts Lanyard and the profile provider in parallel and attaches the profile", async () => {
     const presence = deferred<PresenceResult>();
@@ -87,7 +89,7 @@ describe("/api/[id] profile wiring", () => {
     // Neither upstream has answered, yet both requests are already in flight.
     await vi.waitFor(() => {
       expect(fetchPresence).toHaveBeenCalledWith(ID);
-      expect(lookupProfileExtras).toHaveBeenCalledWith(ID);
+      expect(lookupProfileExtras).toHaveBeenCalledWith(ID, withDeclared);
     });
     extras.resolve(found(profile));
     presence.resolve(ok);
@@ -124,6 +126,14 @@ describe("/api/[id] profile wiring", () => {
   it("skips the provider for an invalid ID", async () => {
     await GET(new Request("https://card.example/api/nope"), { params: Promise.resolve({ id: "nope" }) });
     expect(lookupProfileExtras).not.toHaveBeenCalled();
+  });
+
+  it("passes the presence's KV cosmetic declarations to the lookup", async () => {
+    vi.mocked(fetchPresence).mockResolvedValue({ ok: true, data: { ...demoUserPresence, kv: { profile_effect: "1139323093991575696", profile_frame: "none" } } });
+    vi.mocked(lookupProfileExtras).mockResolvedValue(found(profile));
+    await get();
+    const declared = await vi.mocked(lookupProfileExtras).mock.calls[0]![1]!.declared;
+    expect(declared).toEqual({ effect: "1139323093991575696", frame: null });
   });
 
   it("keeps the long SWR edge policy for a complete card", async () => {
@@ -182,7 +192,7 @@ describe("/live/[id] profile wiring", () => {
     const pending = page();
     await vi.waitFor(() => {
       expect(fetchPresence).toHaveBeenCalledWith(ID);
-      expect(fetchProfileExtras).toHaveBeenCalledWith(ID);
+      expect(fetchProfileExtras).toHaveBeenCalledWith(ID, withDeclared);
     });
     presence.resolve(ok);
     extras.resolve(profile);

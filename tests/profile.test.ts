@@ -3,6 +3,7 @@ import { bannerSource } from "@/lib/discord/cdn";
 import { colorIntToHex } from "@/lib/discord/color";
 import {
   clearProfileCache,
+  declaredCosmetics,
   fetchProfileExtras,
   lookupProfileExtras,
   mergeProfile,
@@ -413,6 +414,103 @@ describe("lookupProfileExtras()", () => {
   it("keeps fetchProfileExtras() as the profile of the same lookup", async () => {
     const fetchImpl = upstream();
     expect(await fetchProfileExtras(ID, options(fetchImpl))).toEqual((await lookupProfileExtras(ID, options(fetchImpl))).profile);
+  });
+});
+
+describe("durable store and Lanyard KV declarations", () => {
+  const FRAME_SKU = "1484726324580061191";
+  const OTHER_SKU = "1234567890123456789";
+  const frameProduct = { name: "Crystals (Amethyst)", items: [{ type: 3, sku_id: FRAME_SKU, label: "Purple crystals", inner_width: 1200, overflow_top: 304, overflow_bottom: 0, overflow_horizontal: 56, layers: [{ id: "1514422966870347837", order: "front", anchor: "top", width: 1312, height: 716 }] }] };
+  const catalog = (): typeof fetch => async (input) => {
+    const url = String(input);
+    if (url.endsWith(FRAME_SKU)) return json(frameProduct);
+    if (url.endsWith(OTHER_SKU)) return json({ ...effectProduct, items: effectProduct.items.map((item) => ({ ...item, sku_id: OTHER_SKU, title: "Other effect" })) });
+    return json(effectProduct);
+  };
+  const memoryStore = (initial: ProfileExtras | null = null) => {
+    let value = initial;
+    return { load: vi.fn(async () => value), save: vi.fn(async (_id: string, profile: ProfileExtras) => { value = profile; }), get value() { return value; } };
+  };
+  const base = { provider: "dstn", botToken: "", now: () => FIXED_NOW };
+  /** The complete profile a healthy mirror produces, used as a stored entry. */
+  async function completeProfile(): Promise<ProfileExtras> {
+    const lookup = await lookupProfileExtras(ID, { ...base, fetchImpl: upstream({ product: catalog() }), store: null });
+    clearProfileCache();
+    return lookup.profile!;
+  }
+
+  it("reads profile_effect and profile_frame from KV, with none/off and invalid values", () => {
+    expect(declaredCosmetics({ profile_effect: ` ${SKU} `, profile_frame: "NONE" })).toEqual({ effect: SKU, frame: null });
+    expect(declaredCosmetics({ profile_frame: "off" })).toEqual({ frame: null });
+    expect(declaredCosmetics({ profile_effect: "sakura", bio: "hi" })).toBeNull();
+    expect(declaredCosmetics(undefined)).toBeNull();
+  });
+
+  it("renders the stored profile, art included, when the mirror misses the budget, then saves the late answer", async () => {
+    const stored = await completeProfile();
+    const store = memoryStore(stored);
+    const dstn = deferred<Response>();
+    const fetchImpl = upstream({ dstn: () => dstn.promise, product: catalog() });
+    const lookup = await lookupProfileExtras(ID, { ...base, fetchImpl, store, budgetMs: 30 });
+    expect(lookup.complete).toBe(true);
+    expect(lookup.profile).toEqual(stored);
+    expect(calls(fetchImpl, "/collectibles-products/")).toBe(0);
+    dstn.resolve(json(dstnSnapshot));
+    await lookup.settled;
+    // The late answer equals the stored one, so nothing is written.
+    expect(store.save).not.toHaveBeenCalled();
+  });
+
+  it("saves a complete live answer once and skips unchanged writes", async () => {
+    const store = memoryStore();
+    const fetchImpl = upstream({ product: catalog() });
+    const first = await lookupProfileExtras(ID, { ...base, fetchImpl, store });
+    await first.settled;
+    expect(store.save).toHaveBeenCalledTimes(1);
+    expect(store.value?.frame?.name).toBe("Crystals (Amethyst)");
+    await (await lookupProfileExtras(ID, { ...base, fetchImpl, store })).settled;
+    expect(store.save).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not save a live answer whose art is missing", async () => {
+    const store = memoryStore();
+    const lookup = await lookupProfileExtras(ID, { ...base, fetchImpl: upstream({ product: async () => json({ message: "boom" }, 500) }), store });
+    await lookup.settled;
+    expect(store.save).not.toHaveBeenCalled();
+  });
+
+  it("uses KV declarations when the mirror cannot see the user", async () => {
+    const fetchImpl = upstream({ dstn: async () => json({ message: "Unknown user" }, 404), product: catalog() });
+    const lookup = await lookupProfileExtras(ID, { ...base, fetchImpl, store: null, declared: Promise.resolve({ effect: SKU, frame: FRAME_SKU }) });
+    expect(lookup.profile?.effect).toMatchObject({ skuId: SKU, title: "Sakura Dreams" });
+    expect(lookup.profile?.frame?.name).toBe("Crystals (Amethyst)");
+    expect(lookup.profile?.badges).toEqual([]);
+    // Banner color and badges may still arrive from the mirror, so the edge must not keep this card long.
+    expect(lookup.complete).toBe(false);
+  });
+
+  it("prefers KV over the store, honours none, and lets a current mirror answer win over both", async () => {
+    const store = memoryStore(await completeProfile());
+    const dstn = deferred<Response>();
+    const slow = upstream({ dstn: () => dstn.promise, product: catalog() });
+    const declared = { effect: OTHER_SKU, frame: null };
+    const fromKv = await lookupProfileExtras(ID, { ...base, fetchImpl: slow, store, budgetMs: 200, declared });
+    expect(fromKv.profile?.effect).toMatchObject({ skuId: OTHER_SKU, title: "Other effect" });
+    expect(fromKv.profile?.frame).toBeNull();
+    expect(fromKv.profile?.bannerColor).toBe("#8b6dd8");
+    expect(fromKv.complete).toBe(true);
+    dstn.resolve(json(dstnSnapshot));
+    await fromKv.settled;
+    const current = await lookupProfileExtras(ID, { ...base, fetchImpl: slow, store, declared });
+    expect(current.profile?.effect?.skuId).toBe(SKU);
+    expect(current.profile?.frame?.skuId).toBe(FRAME_SKU);
+  });
+
+  it("works from KV alone on a deployment without profile sources", async () => {
+    const fetchImpl = upstream({ product: catalog() });
+    const lookup = await lookupProfileExtras(ID, { fetchImpl, provider: "off", botToken: "", store: null, declared: { effect: SKU } });
+    expect(lookup).toMatchObject({ complete: true, profile: { effect: { skuId: SKU, title: "Sakura Dreams" }, frame: null, badges: [] } });
+    expect(calls(fetchImpl, "dcdn.dstn.to")).toBe(0);
   });
 });
 

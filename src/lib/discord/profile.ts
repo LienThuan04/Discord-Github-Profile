@@ -24,6 +24,7 @@
 import { z } from "zod";
 import { badgeIconUrl, bannerSource, DISCORD_API, type ImageSource } from "./cdn";
 import { colorIntToHex, normalizeHex } from "./color";
+import { profileStoreFromEnv, type ProfileStore } from "./profile-store";
 
 export interface ProfileBadge {
   /** Discord's badge id, e.g. `quest_completed`. */
@@ -101,7 +102,7 @@ const EFFECT_FAILURE_TTL_MS = 60_000;
 export const DEFAULT_PROFILE_MIRROR_URL = "https://dcdn.dstn.to";
 /** Discord asks bot clients to identify as `DiscordBot ($url, $version)`. */
 const BOT_USER_AGENT = "DiscordBot (https://github.com/LienThuan04/Discord-Github-Profile, 0.1.0)";
-const USER_AGENT = "Discord-Github-Profile/0.1";
+const USER_AGENT = "Discord-PULSE/0.1";
 
 const SNOWFLAKE = /^\d{17,20}$/;
 const HASH = /^(?:a_)?[0-9a-f]{16,64}$/i;
@@ -381,6 +382,10 @@ export interface ProfileProviderOptions {
   timeoutMs?: number;
   /** Clock for cache expiry and effect expiry. */
   now?: () => number;
+  /** Last good profiles. Defaults to the Upstash store configured in the environment; `null` disables it. */
+  store?: ProfileStore | null;
+  /** Cosmetics the user declared in Lanyard KV (see `declaredCosmetics()`), usually still loading with the presence. */
+  declared?: DeclaredCosmetics | null | Promise<DeclaredCosmetics | null>;
 }
 
 interface Settings {
@@ -391,6 +396,41 @@ interface Settings {
   budgetMs: number;
   timeoutMs: number;
   now: () => number;
+  store: ProfileStore | null;
+}
+
+/** Cosmetics a user declared in Lanyard KV: a collectible SKU, `null` for "none", absent when not declared. */
+export interface DeclaredCosmetics {
+  effect?: string | null;
+  frame?: string | null;
+}
+
+/** Lanyard KV keys that pin a user's cosmetics when the profile sources cannot see them. */
+export const DECLARED_COSMETIC_KEYS = { effect: "profile_effect", frame: "profile_frame" } as const;
+
+/** Reads `profile_effect` / `profile_frame` from Lanyard KV: a SKU, or `none`/`off`. Anything else is ignored. */
+export function declaredCosmetics(kv: Record<string, string> | null | undefined): DeclaredCosmetics | null {
+  const read = (value: string | undefined): string | null | undefined => {
+    const clean = value?.trim().toLowerCase();
+    if (!clean) return undefined;
+    if (clean === "none" || clean === "off") return null;
+    return SNOWFLAKE.test(clean) ? clean : undefined;
+  };
+  const effect = read(kv?.[DECLARED_COSMETIC_KEYS.effect]);
+  const frame = read(kv?.[DECLARED_COSMETIC_KEYS.frame]);
+  if (effect === undefined && frame === undefined) return null;
+  return { ...(effect !== undefined ? { effect } : {}), ...(frame !== undefined ? { frame } : {}) };
+}
+
+/** KV declarations from a Lanyard presence result (structural, so this module stays free of Lanyard imports). */
+export function presenceCosmetics(result: { ok: true; data: { kv?: Record<string, string> } } | { ok: false }): DeclaredCosmetics | null {
+  return result.ok ? declaredCosmetics(result.data.kv) : null;
+}
+
+/** A live result. `cosmetics` is true when the mirror answered, so its effect and frame are current. */
+interface LiveProfile {
+  profile: ProfileExtras;
+  cosmetics: boolean;
 }
 
 function baseUrl(value: string | undefined, fallback: string): string | null {
@@ -411,6 +451,7 @@ function settingsFrom(options: ProfileProviderOptions): Settings {
     budgetMs: Math.max(0, Math.min(options.budgetMs ?? PROFILE_BUDGET_MS, PROFILE_BUDGET_MS)),
     timeoutMs: options.timeoutMs ?? NETWORK_TIMEOUT_MS,
     now: options.now ?? Date.now,
+    store: options.store !== undefined ? options.store : profileStoreFromEnv(),
   };
 }
 
@@ -437,12 +478,18 @@ class TtlCache<V> {
 
 /** Results from before `clearProfileCache()` must not land in the fresh cache. */
 let generation = 0;
-const profileCache = new TtlCache<ProfileExtras | null>(500);
-const profileInflight = new Map<string, Promise<ProfileExtras | null>>();
+const profileCache = new TtlCache<LiveProfile | null>(500);
+const profileInflight = new Map<string, Promise<LiveProfile | null>>();
 const effectCache = new TtlCache<EffectDetails | null>(256);
 const effectInflight = new Map<string, Promise<EffectDetails | null>>();
 const frameCache = new TtlCache<ProfileFrame | null>(256);
 const frameInflight = new Map<string, Promise<ProfileFrame | null>>();
+/** Durable-store reads, so a dead mirror does not turn every render into a store request. */
+const storedCache = new TtlCache<ProfileExtras | null>(500);
+/** What this instance last saved or loaded per user, so unchanged profiles are not written again. */
+const savedCache = new TtlCache<string>(500);
+const STORED_TTL_MS = 60_000;
+const SAVED_TTL_MS = 6 * 60 * 60_000;
 
 export function clearProfileCache(): void {
   generation++;
@@ -452,6 +499,8 @@ export function clearProfileCache(): void {
   effectInflight.clear();
   frameCache.clear();
   frameInflight.clear();
+  storedCache.clear();
+  savedCache.clear();
 }
 
 async function getJson(settings: Settings, url: string, headers: Record<string, string>): Promise<unknown> {
@@ -461,7 +510,7 @@ async function getJson(settings: Settings, url: string, headers: Record<string, 
 }
 
 /** `undefined`: source disabled. `null`: source enabled but failed. */
-async function loadProfile(userId: string, settings: Settings): Promise<{ profile: ProfileExtras | null; degraded: boolean }> {
+async function loadProfile(userId: string, settings: Settings): Promise<{ live: LiveProfile | null; degraded: boolean }> {
   const [official, mirror] = await Promise.all([
     settings.token
       ? getJson(settings, `${settings.api}/users/${userId}`, { Authorization: `Bot ${settings.token}`, "User-Agent": BOT_USER_AGENT }).then((body) => parseOfficialUser(userId, body), () => null)
@@ -470,15 +519,16 @@ async function loadProfile(userId: string, settings: Settings): Promise<{ profil
       ? getJson(settings, `${settings.mirror}/profile/${userId}`, { "User-Agent": USER_AGENT }).then((body) => parseDstnProfile(userId, body, { now: settings.now() }), () => null)
       : undefined,
   ]);
-  return { profile: mergeProfile(official, mirror), degraded: official === null || mirror === null };
+  const profile = mergeProfile(official, mirror);
+  return { live: profile ? { profile, cosmetics: Boolean(mirror) } : null, degraded: official === null || mirror === null };
 }
 
-function startProfileLoad(key: string, userId: string, settings: Settings): Promise<ProfileExtras | null> {
+function startProfileLoad(key: string, userId: string, settings: Settings): Promise<LiveProfile | null> {
   const started = generation;
-  const pending: Promise<ProfileExtras | null> = loadProfile(userId, settings)
-    .then(({ profile, degraded }) => {
-      if (started === generation) profileCache.set(key, profile, profile && !degraded ? SUCCESS_TTL_MS : FAILURE_TTL_MS, settings.now());
-      return profile;
+  const pending: Promise<LiveProfile | null> = loadProfile(userId, settings)
+    .then(({ live, degraded }) => {
+      if (started === generation) profileCache.set(key, live, live && !degraded ? SUCCESS_TTL_MS : FAILURE_TTL_MS, settings.now());
+      return live;
     }, () => null)
     .finally(() => { if (profileInflight.get(key) === pending) profileInflight.delete(key); });
   profileInflight.set(key, pending);
@@ -570,32 +620,104 @@ export interface ProfileLookup {
 
 const SETTLED: Promise<void> = Promise.resolve();
 
-/** Profile extras plus completeness. Never throws and never waits longer than the budget. */
+const EMPTY_PROFILE: ProfileExtras = { bannerUrl: null, bannerColor: null, themeColors: null, bio: null, pronouns: null, effect: null, frame: null, badges: [] };
+const settle = <T>(value: T | typeof TIMEOUT): T | null => (value === TIMEOUT ? null : value);
+const hasEffectArt = (effect: ProfileEffect | null | undefined): effect is ProfileEffect => Boolean(effect && (effect.staticUrl || effect.layers?.length));
+
+async function loadStored(userId: string, settings: Settings): Promise<ProfileExtras | null> {
+  const cached = storedCache.get(userId, settings.now());
+  if (cached) return cached.value;
+  const stored = await settings.store!.load(userId);
+  storedCache.set(userId, stored, STORED_TTL_MS, settings.now());
+  if (stored) savedCache.set(userId, JSON.stringify(stored), SAVED_TTL_MS, settings.now());
+  return stored;
+}
+
+/** The live profile with its catalog art, waiting as long as the lookups take; `null` while any art is missing. */
+async function withFullArt(profile: ProfileExtras, settings: Settings): Promise<ProfileExtras | null> {
+  const [details, frame] = await Promise.all([
+    profile.effect ? lookupEffect(profile.effect.skuId, settings) : null,
+    profile.frame ? lookupFrame(profile.frame.skuId, settings) : null,
+  ]);
+  if ((profile.effect && !details) || (profile.frame && !frame)) return null;
+  return { ...profile, effect: profile.effect && details ? { skuId: profile.effect.skuId, ...details } : null, frame };
+}
+
+/** Saves a complete live profile as the user's last good one, skipping unchanged writes. */
+async function remember(userId: string, profile: ProfileExtras, settings: Settings): Promise<void> {
+  if (!settings.store) return;
+  const json = JSON.stringify(profile);
+  if (savedCache.get(userId, settings.now())?.value === json) return;
+  savedCache.set(userId, json, SAVED_TTL_MS, settings.now());
+  storedCache.set(userId, profile, STORED_TTL_MS, settings.now());
+  await settings.store.save(userId, profile);
+}
+
+/** Art for an effect SKU: stored art for the same SKU first (catalog entries do not change), then the catalog. */
+async function resolveEffect(skuId: string, stored: ProfileExtras | null, settings: Settings, deadline: number): Promise<{ effect: ProfileEffect; ready: boolean }> {
+  if (stored?.effect?.skuId === skuId && hasEffectArt(stored.effect)) return { effect: stored.effect, ready: true };
+  const details = settle(await within(lookupEffect(skuId, settings), deadline - Date.now()));
+  return details ? { effect: { skuId, ...details }, ready: true } : { effect: { skuId }, ready: false };
+}
+
+async function resolveFrame(skuId: string, stored: ProfileExtras | null, settings: Settings, deadline: number): Promise<{ frame: ProfileFrame | null; ready: boolean }> {
+  if (stored?.frame?.skuId === skuId) return { frame: stored.frame, ready: true };
+  const frame = settle(await within(lookupFrame(skuId, settings), deadline - Date.now()));
+  return { frame, ready: frame !== null };
+}
+
+/**
+ * Profile extras plus completeness. Never throws and never waits longer than the budget.
+ *
+ * The effect and frame come from, in order: a live mirror answer within the budget, the user's Lanyard KV
+ * declaration (`profile_effect` / `profile_frame`), then the last good profile in the durable store.
+ * Every other field comes from the live answer, else the store. Complete live answers are saved to the store
+ * in the background (`settled`), so cold starts and mirror outages fall back to them.
+ */
 export async function lookupProfileExtras(userId: string, options: ProfileProviderOptions = {}): Promise<ProfileLookup> {
   try {
     if (!SNOWFLAKE.test(userId)) return { profile: null, complete: true, settled: SETTLED };
     const settings = settingsFrom(options);
-    if (!settings.token && !settings.mirror) return { profile: null, complete: true, settled: SETTLED };
+    const live = Boolean(settings.token || settings.mirror);
+    if (!live && !settings.store && !options.declared) return { profile: null, complete: true, settled: SETTLED };
     const deadline = Date.now() + settings.budgetMs;
     const key = `${settings.mirror ?? "-"}|${settings.token ? "bot" : "-"}|${userId}`;
-    const cached = profileCache.get(key, settings.now());
-    const base = cached ? Promise.resolve(cached.value) : (profileInflight.get(key) ?? startProfileLoad(key, userId, settings));
-    // Start the art lookups as soon as the profile arrives, even after the budget, so the next render is complete.
-    const settled = base.then((profile) => Promise.all([
-      profile?.effect ? lookupEffect(profile.effect.skuId, settings) : null,
-      profile?.frame ? lookupFrame(profile.frame.skuId, settings) : null,
-    ])).then(() => undefined, () => undefined);
-    const profile = await within(base, settings.budgetMs);
-    if (profile === TIMEOUT || !profile) return { profile: null, complete: false, settled };
-    const [details, frame] = await Promise.all([
-      profile.effect ? within(lookupEffect(profile.effect.skuId, settings), deadline - Date.now()) : null,
-      profile.frame ? within(lookupFrame(profile.frame.skuId, settings), deadline - Date.now()) : null,
+    const cached = live ? profileCache.get(key, settings.now()) : undefined;
+    const base: Promise<LiveProfile | null> = !live ? Promise.resolve(null) : cached ? Promise.resolve(cached.value) : (profileInflight.get(key) ?? startProfileLoad(key, userId, settings));
+    // The store is only read when this instance has no current cosmetics of its own.
+    const storedLoad = settings.store && !cached?.value?.cosmetics ? loadStored(userId, settings) : Promise.resolve(null);
+    const declaredLoad = Promise.resolve(options.declared ?? null).catch(() => null);
+    // Finish the art lookups even after the budget, then keep a complete live answer for later cold starts.
+    const settled = base.then(async (value) => {
+      const full = value ? await withFullArt(value.profile, settings) : null;
+      if (full && value?.cosmetics) await remember(userId, full, settings);
+    }).then(() => undefined, () => undefined);
+
+    const [fresh, stored, declared] = await Promise.all([
+      within(base, settings.budgetMs).then(settle),
+      within(storedLoad, settings.budgetMs).then(settle),
+      within(declaredLoad, settings.budgetMs).then(settle),
     ]);
-    const effectReady = !profile.effect || (details !== null && details !== TIMEOUT);
-    const frameReady = !profile.frame || (frame !== null && frame !== TIMEOUT);
+    const current = fresh?.cosmetics ? fresh.profile : null;
+    const profileBase = current ?? stored ?? fresh?.profile ?? (declared ? EMPTY_PROFILE : null);
+    if (!profileBase) return { profile: null, complete: !live, settled };
+    // Fields other than cosmetics are final when they come from a mirror answer, the store, or a deployment without a mirror.
+    const baseReady = Boolean(current || stored || (fresh && !settings.mirror) || !live);
+    const choose = (kind: "effect" | "frame"): { sku: string | null; known: boolean } => {
+      if (current) return { sku: current[kind]?.skuId ?? null, known: true };
+      if (declared?.[kind] !== undefined) return { sku: declared[kind] ?? null, known: true };
+      if (stored) return { sku: stored[kind]?.skuId ?? null, known: true };
+      return { sku: null, known: !settings.mirror };
+    };
+    const effectChoice = choose("effect");
+    const frameChoice = choose("frame");
+    const [effect, frame] = await Promise.all([
+      effectChoice.sku ? resolveEffect(effectChoice.sku, stored, settings, deadline) : { effect: null, ready: true },
+      frameChoice.sku ? resolveFrame(frameChoice.sku, stored, settings, deadline) : { frame: null, ready: true },
+    ]);
     return {
-      profile: { ...profile, effect: details && details !== TIMEOUT ? { skuId: profile.effect!.skuId, ...details } : profile.effect, frame: frame && frame !== TIMEOUT ? frame : null },
-      complete: effectReady && frameReady,
+      profile: { ...profileBase, effect: effect.effect, frame: frame.frame },
+      complete: baseReady && effectChoice.known && frameChoice.known && effect.ready && frame.ready,
       settled,
     };
   } catch {

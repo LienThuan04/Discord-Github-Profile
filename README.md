@@ -1,8 +1,8 @@
-<p align="center"><img src="public/brand/icon.svg" width="112" alt="Discord-Github-Profile icon: a cosmic flame with a presence dot" /></p>
+<p align="center"><img src="public/brand/icon.svg" width="112" alt="Discord-PULSE icon: a cosmic flame with a presence dot" /></p>
 
-# Discord-Github-Profile
+# Discord-PULSE
 
-Your Discord presence, with personality. Sixteen themes for GitHub profile READMEs and a live card for websites, maintained by [LianHarman(LienThuan04)](https://github.com/LienThuan04).
+**PULSE** is the Profile User Live Status Engine: Discord presence cards for GitHub profile READMEs and a live card for websites, maintained by [LianHarman(LienThuan04)](https://github.com/LienThuan04). Sixteen themes for GitHub profile READMEs and a live card for websites.
 
 <p align="center">
   <img src="public/examples/profile-extras-dark.svg" width="45%" alt="Profile card with a collectible frame, banner color and profile effect" />
@@ -11,16 +11,16 @@ Your Discord presence, with personality. Sixteen themes for GitHub profile READM
 
 Show activities, Spotify, custom status, devices, avatar decorations, nameplates, server tags, display-name styles and public badges. Add eight style axes, dark/light modes, vivid profile effects and collectible frames. The bundled previews use sanitized fixtures; your card uses your public presence and profile.
 
-**Deploy first:** replace `https://YOUR-DEPLOYMENT.vercel.app` with your own origin. The production domain has not been selected.
+**Production:** the hosted deployment is `https://discord-pulse-lian.vercel.app`. Self-hosters replace that origin with their own.
 
 ## Quick start
 
 1. Join [Lanyard](https://discord.gg/lanyard) so it can monitor your Discord presence.
 2. Enable Discord **Settings → Advanced → Developer Mode**, then right-click your profile and choose **Copy User ID**.
-3. Open [Card Studio](https://YOUR-DEPLOYMENT.vercel.app), enter your ID, choose a theme and copy Markdown, HTML, Picture, Live iframe or SVG URL. Or replace `YOUR_DISCORD_ID` below:
+3. Open [Card Studio](https://discord-pulse-lian.vercel.app), enter your ID, choose a theme and copy Markdown, HTML, Picture, Live iframe or SVG URL. Or replace `YOUR_DISCORD_ID` below:
 
 ```markdown
-[![Discord presence](https://YOUR-DEPLOYMENT.vercel.app/api/YOUR_DISCORD_ID?theme=profile)](https://discord.com/users/YOUR_DISCORD_ID)
+[![Discord presence](https://discord-pulse-lian.vercel.app/api/YOUR_DISCORD_ID?theme=profile)](https://discord.com/users/YOUR_DISCORD_ID)
 ```
 
 ## Theme gallery
@@ -123,6 +123,13 @@ Queries from the owner's previous card keep working when only the domain changes
 
 Lanyard supplies presence, activities, Spotify, exposed cosmetics and public KV. The optional, **unofficial** `dcdn.dstn.to` mirror supplies profile bio/pronouns, banner colors, Nitro colors, effect/frame identifiers and extra badges. Public Discord `collectibles-products/{sku}` lookups resolve effect and frame artwork. An optional server-only `DISCORD_BOT_TOKEN` adds the official Discord user lookup for banner and accent color. Cards still render when these sources fail.
 
+**Keeping your frame and effect.** Discord gives apps no access to profile effects or frames, so the card resolves them in this order:
+1. The mirror's current answer.
+2. Your own Lanyard KV keys `profile_effect` and `profile_frame` (a SKU, or `none`). Card Studio shows the exact `/set` commands.
+3. The last good profile the server saved. This needs an optional Upstash Redis store (`KV_REST_API_URL`/`KV_REST_API_TOKEN` or `UPSTASH_REDIS_REST_URL`/`UPSTASH_REDIS_REST_TOKEN`).
+
+With the store, cold starts and mirror outages no longer drop the frame and effect.
+
 `DISCORD_PROFILE_PROVIDER=dstn` is the default; set it to `off` to disable the mirror, or use `DISCORD_PROFILE_PROVIDER_URL` for a compatible mirror. The mirror receives requested user IDs and is independent of Discord and this project. Keep bot tokens server-side; no user token is needed. [Sources and environment variables](https://github.com/LienThuan04/Discord-Github-Profile/wiki#profile-extras-and-privacy).
 
 **Privacy:** the card shows what your public Discord profile and whitelisted Lanyard KV expose. `hide_kv=true` hides About Me/bio and pronouns from both sources, KV location/website and the KV banner. Other artwork has separate controls (`banner_source`, `hide_effect`, `hide_frame`); `hide_kv` is a display setting, not access control for the public sources.
@@ -132,11 +139,11 @@ Lanyard supplies presence, activities, Spotify, exposed cosmetics and public KV.
 1. Import this repository as a new Vercel project using the Next.js preset and repository root.
 2. Use the pinned Node.js `24.x` and `pnpm@11.22.0`. Set Vercel's `ENABLE_EXPERIMENTAL_COREPACK=1` to honor `packageManager`, then install with `pnpm install --frozen-lockfile` and build with `pnpm build` (use `pnpm.cmd` on Windows). See [Vercel Corepack setup](https://vercel.com/docs/builds/configure-a-build#corepack).
 3. Keep the default public Lanyard URLs, configure optional profile variables from [.env.example](.env.example), set `NEXT_PUBLIC_SITE_URL` to your public HTTPS origin or leave it empty for the request origin, and optionally set `FEEDBACK_URL` to where Studio's feedback links should go (default: the owner's GitHub profile).
-4. Deploy, replace the placeholder origin, and test Studio, an SVG image and a live iframe. The SVG must be publicly reachable without a login page. Redeploy after environment changes. Follow the [Vercel guide](https://github.com/LienThuan04/Discord-Github-Profile/wiki#deploying-to-vercel).
+4. Deploy, set the production origin (`https://discord-pulse-lian.vercel.app` or your own), and test Studio, an SVG image and a live iframe. The SVG must be publicly reachable without a login page. Redeploy after environment changes. Follow the [Vercel guide](https://github.com/LienThuan04/Discord-Github-Profile/wiki#deploying-to-vercel).
 
 ## Deploying to Cloudflare Workers
 
-The repository also deploys to Cloudflare Workers through [OpenNext](https://opennext.js.org/cloudflare), configured by [wrangler.jsonc](wrangler.jsonc) and [open-next.config.ts](open-next.config.ts). Import the repository in Workers & Pages as a Worker named `discord-github-profile`, then set the build command to `pnpm exec opennextjs-cloudflare build` and the deploy command to `pnpm exec opennextjs-cloudflare deploy`. Runtime values live in `wrangler.jsonc` `vars`; add `DISCORD_BOT_TOKEN` as a Secret if you use one. Workers Free allows 10 ms of CPU per request, which SVG rendering can exceed. [docs/DEPLOY-CLOUDFLARE.md](docs/DEPLOY-CLOUDFLARE.md) is the full checklist for any Next.js app, with every error met so far and its fix.
+The repository also deploys to Cloudflare Workers through [OpenNext](https://opennext.js.org/cloudflare), configured by [wrangler.jsonc](wrangler.jsonc) and [open-next.config.ts](open-next.config.ts). Import the repository in Workers & Pages as a Worker named `discord-pulse`, then set the build command to `pnpm exec opennextjs-cloudflare build` and the deploy command to `pnpm exec opennextjs-cloudflare deploy`. Runtime values live in `wrangler.jsonc` `vars`; add `DISCORD_BOT_TOKEN` as a Secret if you use one. Workers Free allows 10 ms of CPU per request, which SVG rendering can exceed. [docs/DEPLOY-CLOUDFLARE.md](docs/DEPLOY-CLOUDFLARE.md) is the full checklist for any Next.js app, with every error met so far and its fix.
 
 ## Documentation
 

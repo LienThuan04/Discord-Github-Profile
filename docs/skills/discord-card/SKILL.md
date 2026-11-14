@@ -1,9 +1,9 @@
 ---
 name: discord-card
-description: Run Discord-Github-Profile locally, add or modify a card theme or query parameter, regenerate SVG examples, verify visual rendering with headless browser screenshots, and check SVG byte size and GitHub Camo timing.
+description: Run Discord-PULSE locally, add or modify a card theme or query parameter, regenerate SVG examples, verify visual rendering with headless browser screenshots, and check SVG byte size and GitHub Camo timing.
 ---
 
-# Discord card workflow (`Discord-Github-Profile`)
+# Discord card workflow (`Discord-PULSE`)
 
 Repository context and architecture: `docs/PROJECT.md`. Theme contract: `docs/THEME-CONTRACT.md`. Default branch: **`main`**.
 

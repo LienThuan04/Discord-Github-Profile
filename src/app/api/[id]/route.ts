@@ -1,6 +1,6 @@
 import { emptyCardData, normalize } from "@/lib/lanyard/normalize";
 import { fetchPresence, isSnowflake, withAppIcons } from "@/lib/lanyard/client";
-import { lookupProfileExtras, type ProfileLookup } from "@/lib/discord/profile";
+import { lookupProfileExtras, presenceCosmetics, type ProfileLookup } from "@/lib/discord/profile";
 import { parseOptions } from "@/lib/options";
 import { renderInlinedSvg } from "@/lib/svg/render";
 import { finishAfterResponse, PARTIAL_CACHE, SNAPSHOT_CACHE } from "@/lib/cache-policy";
@@ -23,7 +23,9 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
   } else {
     // The profile provider is bounded by its own 1.5s budget and never fails the card.
     const usesProfile = getTheme(options.theme).usesProfile;
-    const [result, lookup] = await Promise.all([fetchPresence(id), usesProfile ? lookupProfileExtras(id).catch((): ProfileLookup | null => null) : null]);
+    const presence = fetchPresence(id);
+    // KV cosmetic declarations ride on the presence, so the profile lookup reads them as soon as it arrives.
+    const [result, lookup] = await Promise.all([presence, usesProfile ? lookupProfileExtras(id, { declared: presence.then(presenceCosmetics) }).catch((): ProfileLookup | null => null) : null]);
     // Late profile and art requests finish after the response and warm the cache for the next render.
     if (lookup && !lookup.complete) finishAfterResponse(lookup.settled);
     if (result.ok) {

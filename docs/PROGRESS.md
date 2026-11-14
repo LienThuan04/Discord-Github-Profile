@@ -1,10 +1,11 @@
-# PROGRESS — Discord-Github-Profile
+# PROGRESS — Discord-PULSE
 
-Cập nhật: 2026-11-13 bởi Claude Code.
+Cập nhật: 2026-11-14 bởi Claude Code. Rename sang Discord-PULSE + host mới, chờ commit/push theo yêu cầu người dùng.
 
 ## Đang làm
 
-- Phase 9 đang triển khai: theme `wave`, màu theo ứng dụng, URL cũ và Studio. Git sạch tại `e5c9c07`; không commit/push. Kế hoạch: `docs/superpowers/plans/2026-11-13-wave.md`. Parser/mặc định/legacy đã triển khai test-first (22 test đỏ ban đầu), bộ lọc ID và Studio switch đã qua 38/38 test phạm vi. Hai test wave còn chờ đăng ký theme. Đang thêm gallery/tài liệu và chờ layout; tiếp theo chạy toàn bộ QA theo `phase9.md`. Graph cũ có node `presence-kit.tsx` không còn tồn tại; đã đọc các part thực tế, sẽ update graph cuối phiên.
+- Rename Discord-PULSE (PULSE = Profile User Live Status Engine) + host `discord-pulse-lian.vercel.app` (đã live, 200): README, wiki, Card Studio brand/metadata, package `discord-pulse`, worker `discord-pulse`, docs. Chưa commit.
+- Phase 9 đang triển khai (gộp chung commit này): theme `wave`, màu theo ứng dụng, URL cũ và Studio. Git sạch tại `e5c9c07`; không commit/push. Kế hoạch: `docs/superpowers/plans/2026-11-13-wave.md`. Parser/mặc định/legacy đã triển khai test-first (22 test đỏ ban đầu), bộ lọc ID và Studio switch đã qua 38/38 test phạm vi. Hai test wave còn chờ đăng ký theme. Đang thêm gallery/tài liệu và chờ layout; tiếp theo chạy toàn bộ QA theo `phase9.md`. Graph cũ có node `presence-kit.tsx` không còn tồn tại; đã đọc các part thực tế, sẽ update graph cuối phiên.
 
 ## Trạng thái xác minh hiện tại
 
@@ -18,6 +19,14 @@ Cập nhật: 2026-11-13 bởi Claude Code.
 
 ## Bước tiếp theo
 
+- 2026-11-13: **khung và hiệu ứng không còn phụ thuộc vào việc dstn sống hay server ấm** (người dùng giao "tự làm cách tối ưu nhất cho cả người dùng ngoài lẫn chủ repo"). **CHƯA commit/push**, chờ người dùng cho phép.
+  - Thứ tự ưu tiên cho mỗi món (effect/frame): (1) dstn trả kịp budget; (2) Lanyard KV `profile_effect`/`profile_frame` (SKU hoặc `none`); (3) bản tốt gần nhất trong kho Upstash (`src/lib/discord/profile-store.ts`, 90 ngày, `GETEX`, chỉ chấp nhận URL `cdn.discordapp.com`). Các trường khác lấy từ dstn, nếu không có thì từ kho.
+  - Kho chỉ bật khi có `KV_REST_API_URL`/`KV_REST_API_TOKEN` hoặc `UPSTASH_REDIS_REST_*`; HTTPS bắt buộc, trừ localhost.
+  - Studio có ô **Keep your frame and effect** (`CosmeticsLock.tsx`) hiện lệnh `/set` để copy; phần hướng dẫn KV đã thêm 2 key mới.
+  - Kiểm: lint/typecheck/build 0, 2573/2573 test (45 file). E2E bằng `next start`, Upstash giả và mirror giả: lần 1 cold thì partial và kho nhận `SET`; tắt server (instance lạnh) và cho mirror chết thì vẫn đủ Sakura + Crystals + 3 badge từ kho, mất 0,5 s, cache dài, SVG 706 KB / 10 ảnh. Ảnh Studio 1440 px và 390 px (iframe) đều đúng.
+  - Việc của người dùng: Vercel → Marketplace → Upstash for Redis → nối vào project `discord-pulse` (tự đặt `KV_REST_API_*`), rồi redeploy. Tuỳ chọn: `/set key:profile_effect value:1139323093991575696` và `/set key:profile_frame value:1484726324580061191` trong DM với bot Lanyard.
+  - Đã bỏ phương án workflow GitHub tự đồng bộ KV, vì nó đọc cùng dstn và chỉ giúp được chủ repo.
+
 - 2026-11-13: **sửa lỗi card production lúc có lúc mất khung/hiệu ứng hồ sơ** (tag `v1.0.2`; trên remote đã có `v1.0.1` của chủ repo ở `ecacfa2`).
   - Nguyên nhân: instance lạnh vượt budget 1,5 s nên render thiếu art; CDN giữ bản thiếu theo `stale-while-revalidate=3600`; host serverless có thể đóng băng request đang tải dở.
   - Sửa: `lookupProfileExtras()` trả `{ profile, complete, settled }`; `src/lib/cache-policy.ts` (`SNAPSHOT_CACHE`, `PARTIAL_CACHE`, `finishAfterResponse` dùng `after()`); `/api/[id]` và `/api/[id]/profile` cache ngắn `s-maxage=5` cho bản thiếu và khi Lanyard lỗi tạm thời; catalog lỗi chỉ cache 1 phút.
@@ -28,10 +37,10 @@ Cập nhật: 2026-11-13 bởi Claude Code.
 
 - 2026-11-13: **thêm deploy Cloudflare Workers qua OpenNext.**
   - Người dùng tự làm theo hướng dẫn; Claude kiểm tra rồi dọn ghi chú trong `pnpm-workspace.yaml`.
-  - Gồm `@opennextjs/cloudflare` 1.20.16, `wrangler` 4.160.1, `allowBuilds.workerd`, `wrangler.jsonc` (Worker `discord-github-profile`, `vars` có `FEEDBACK_URL=https://lian.harmanit.workers.dev`), `open-next.config.ts` mặc định, 4 script, ignore cho `.open-next`/`.wrangler`/`.dev.vars`, và `docs/DEPLOY-CLOUDFLARE.md`. Tag: `cloudflare-deploy-guide`.
+  - Gồm `@opennextjs/cloudflare` 1.20.16, `wrangler` 4.160.1, `allowBuilds.workerd`, `wrangler.jsonc` (Worker `discord-pulse`, `vars` có `FEEDBACK_URL=https://lian.harmanit.workers.dev`), `open-next.config.ts` mặc định, 4 script, ignore cho `.open-next`/`.wrangler`/`.dev.vars`, và `docs/DEPLOY-CLOUDFLARE.md`. Tag: `cloudflare-deploy-guide`.
   - Kiểm trên bản sao sạch: frozen install bằng pnpm 11 OK, typecheck/lint 0, build OK. Bước đóng gói OpenNext lỗi `EPERM symlink` vì Windows chưa bật Developer Mode.
   - Chưa tạo Worker trên dashboard: địa chỉ workers.dev hiện trả 404.
-  - Người dùng đổi tên phụ workers.dev của tài khoản từ `lianharman` sang **`harmanit`**. Portfolio giờ ở `https://lian.harmanit.workers.dev`, Worker này sẽ ở `https://discord-github-profile.harmanit.workers.dev`. Đã sửa `FEEDBACK_URL` và tài liệu, rồi chuyển tag `cloudflare-deploy-guide` sang commit mới.
+  - Người dùng đổi tên phụ workers.dev của tài khoản từ `lianharman` sang **`harmanit`**. Portfolio giờ ở `https://lian.harmanit.workers.dev`, Worker này sẽ ở `https://discord-pulse.harmanit.workers.dev`. Đã sửa `FEEDBACK_URL` và tài liệu, rồi chuyển tag `cloudflare-deploy-guide` sang commit mới.
 
 - Commit đầu `da4a2ce` đã push lên `origin/main` (2026-11-13). CI lần đầu lỗi ở bước `pnpm install` (`ERR_PNPM_IGNORED_BUILDS` esbuild); đã sửa bằng `allowBuilds` trong `pnpm-workspace.yaml` (xem gotchas).
 - 2026-11-13: thêm switch **Nameplate background** trong "Show on card" theo yêu cầu người dùng. Mặc định tắt; khi bật, đặt `banner_source=nameplate` để ảnh nameplate thay cho banner hồ sơ.
@@ -69,7 +78,7 @@ Cập nhật: 2026-11-13 bởi Claude Code.
   - Thiết kế gốc lấy cảm hứng từ avatar của chủ repo: ngọn lửa vũ trụ 3 lưỡi, vòng cổ 3 mũi nhọn, sao bốn cánh, chấm presence xanh.
   - README và wiki hiện icon ở đầu trang; README có thêm mục "Icon".
   - Push cùng đợt với wiki, theo yêu cầu người dùng.
-- Chủ repo chọn **production domain** và **Vercel project**, rồi quyết định thời điểm ngừng deployment cũ **Profile_Discord**. Sau khi có public deployment, kiểm tra Camo thực tế; giữ `https://YOUR-DEPLOYMENT.vercel.app` đến lúc đó. Báo cáo: scratchpad `agy/phase8-report.md`; lịch sử: `docs/memory/history.md`.
+- Production domain đã chọn: `https://discord-pulse-lian.vercel.app` (Vercel project `discord-pulse`). Chủ repo quyết định thời điểm ngừng deployment cũ **Profile_Discord**. Sau khi có public deployment, kiểm tra Camo thực tế. Báo cáo: scratchpad `agy/phase8-report.md`; lịch sử: `docs/memory/history.md`.
 
 ## Nhật ký
 

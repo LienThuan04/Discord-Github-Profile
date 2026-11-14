@@ -1,5 +1,5 @@
 {
-  "name": "discord-github-profile",
+  "name": "discord-pulse",
   "version": "0.1.0",
   "private": true,
   "description": "Discord presence cards for GitHub profile READMEs and websites, powered by Lanyard.",

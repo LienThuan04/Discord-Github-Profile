@@ -1,4 +1,4 @@
-# Discord-Github-Profile — design
+# Discord-PULSE — design
 
 Date: 2026-11-12 · Owner: `LianHarman(LienThuan04)` · Repo: `https://github.com/LienThuan04/Discord-Github-Profile` (branch `main`)
 
@@ -197,5 +197,5 @@ working Markdown/HTML/iframe snippets. Lint, typecheck, tests and build are all 
 
 ## Open (owner)
 
-- Production domain / Vercel project for this repo (old domain `lianharman-discord.vercel.app` still serves the old repo).
+- Production domain / Vercel project for this repo: `https://discord-pulse-lian.vercel.app` (Vercel project `discord-pulse`). The old domain `lianharman-discord.vercel.app` still serves the old repo.
 - When to commit and push.

@@ -85,7 +85,7 @@ async function downloadImage(url: URL, address: LookupAddress, signal: AbortSign
       if (options.all) callback(null, [address]);
       else callback(null, address.address, address.family);
     };
-    const req = request(url, { lookup, signal, headers: { Accept: "image/*", "User-Agent": "Discord-Github-Profile/0.1" } }, (response) => {
+    const req = request(url, { lookup, signal, headers: { Accept: "image/*", "User-Agent": "Discord-PULSE/0.1" } }, (response) => {
       const mime = (response.headers["content-type"] ?? "").split(";")[0]!.trim().toLowerCase();
       if (response.statusCode !== 200 || Number(response.headers["content-length"]) > maxBytes || !mime.startsWith("image/")) {
         response.destroy(); reject(new Error("Invalid image response")); return;

@@ -1,4 +1,5 @@
 import { THEME_DEFAULTS, type CardOptions, type OptionName } from "./options";
+import { DECLARED_COSMETIC_KEYS, declaredCosmetics, type ProfileExtras } from "./discord/profile";
 
 /**
  * One "Show on card" switch. `id` identifies the switch; `name` is the query parameter it writes. Several
@@ -66,4 +67,28 @@ export function switchDisabled(id: string, options: CardOptions): boolean {
 }
 export function effectReplayKey(id: string, theme: string, hidden: boolean, replay: number): string {
   return `${id}:${theme}:${hidden}:${replay}`;
+}
+
+/** One Lanyard bot command that pins a shown cosmetic in KV, so the card keeps it when the profile mirror cannot answer. */
+export interface CosmeticCommand {
+  kind: "effect" | "frame";
+  key: string;
+  value: string;
+  label: string;
+  command: string;
+  /** KV already declares this exact SKU. */
+  saved: boolean;
+}
+
+export function cosmeticCommands(profile: ProfileExtras | null | undefined, kv: Record<string, string> | null | undefined): CosmeticCommand[] {
+  const declared = declaredCosmetics(kv);
+  const shown = [
+    profile?.effect ? { kind: "effect" as const, value: profile.effect.skuId, label: profile.effect.title ?? "Profile effect" } : null,
+    profile?.frame ? { kind: "frame" as const, value: profile.frame.skuId, label: profile.frame.name } : null,
+  ];
+  return shown.flatMap((entry) => {
+    if (!entry) return [];
+    const key = DECLARED_COSMETIC_KEYS[entry.kind];
+    return [{ ...entry, key, command: `/set key:${key} value:${entry.value}`, saved: declared?.[entry.kind] === entry.value }];
+  });
 }

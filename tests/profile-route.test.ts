@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { profileExtras } from "./fixtures/profile-extras";
 import type { ProfileLookup } from "@/lib/discord/profile";
-vi.mock("@/lib/discord/profile", () => ({ lookupProfileExtras: vi.fn() }));
+vi.mock("@/lib/discord/profile", async (importOriginal) => ({ ...(await importOriginal<typeof import("@/lib/discord/profile")>()), lookupProfileExtras: vi.fn() }));
+vi.mock("@/lib/lanyard/client", async (importOriginal) => ({ ...(await importOriginal<typeof import("@/lib/lanyard/client")>()), fetchPresence: vi.fn(async () => ({ ok: false, kind: "network_error", message: "offline" })) }));
 vi.mock("next/server", () => ({ after: vi.fn() }));
 const { lookupProfileExtras } = await import("@/lib/discord/profile");
 const { after } = await import("next/server");

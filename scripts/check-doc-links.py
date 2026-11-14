@@ -125,7 +125,7 @@ def local_check(document, link):
 
 def remote_check(url):
     try:
-        request = Request(url, headers={"User-Agent": "Discord-Github-Profile-doc-link-check/1.0", "Accept": "text/html,application/xhtml+xml,*/*"})
+        request = Request(url, headers={"User-Agent": "Discord-PULSE-doc-link-check/1.0", "Accept": "text/html,application/xhtml+xml,*/*"})
         with urlopen(request, timeout=25) as response:
             status = response.status
             body = response.read(4 * 1024 * 1024).decode("utf-8", errors="replace")

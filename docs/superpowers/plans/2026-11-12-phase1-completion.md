@@ -8,7 +8,7 @@
 
 **Tech stack:** Next.js 16.4.6, React 19, strict TypeScript, zod, Vitest, pnpm; exact versions from package.json.
 
-**Spec:** docs/superpowers/specs/2026-11-12-discord-github-profile-design.md, sections 2–7 and 10; phase1.md supplied by the user.
+**Spec:** docs/superpowers/specs/2026-11-12-discord-pulse-design.md, sections 2–7 and 10; phase1.md supplied by the user.
 
 ## Global constraints
 

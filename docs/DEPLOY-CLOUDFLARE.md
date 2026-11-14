@@ -45,12 +45,12 @@ Workers Builds (Cloudflare's Git integration) builds and deploys on every push.
    ```jsonc
    {
      "$schema": "node_modules/wrangler/config-schema.json",
-     "name": "discord-github-profile",
+     "name": "discord-pulse",
      "main": ".open-next/worker.js",
      "compatibility_date": "2026-11-10",
      "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
      "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
-     "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "discord-github-profile" }],
+     "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "discord-pulse" }],
      "observability": { "enabled": true },
      "vars": {
        "FEEDBACK_URL": "https://lian.harmanit.workers.dev",
@@ -134,7 +134,8 @@ Workers Builds (Cloudflare's Git integration) builds and deploys on every push.
    `package.json` has no `"packageManager"` field. This repo pins `"packageManager": "pnpm@11.22.0"`, which Workers
    Builds reads first, so it needs no `PNPM_VERSION`.
 5. **Settings → Variables and Secrets** (runtime): secrets only, for this repo `DISCORD_BOT_TOKEN` as type Secret if
-   you use one. Plain runtime values live in `wrangler.jsonc` `vars`.
+   you use one, plus `KV_REST_API_URL` and `KV_REST_API_TOKEN` (Upstash Redis REST) to keep each user's last good profile.
+   Plain runtime values live in `wrangler.jsonc` `vars`.
 6. Every push to the production branch now builds and deploys. Settings changes apply to the next build; **Retry** a
    failed deployment after changing them.
 
@@ -171,10 +172,10 @@ Logs: Worker → **Observability** (enabled by `"observability"` in `wrangler.js
 
 | Item | Value |
 | --- | --- |
-| Worker name | `discord-github-profile` |
-| Address | `https://discord-github-profile.harmanit.workers.dev` once the Worker exists |
+| Worker name | `discord-pulse` |
+| Address | `https://discord-pulse.harmanit.workers.dev` once the Worker exists |
 | Runtime `vars` | `FEEDBACK_URL`, `DISCORD_PROFILE_PROVIDER`, `LANYARD_API_URL` |
-| Secret (optional) | `DISCORD_BOT_TOKEN` |
+| Secrets (optional) | `DISCORD_BOT_TOKEN`; `KV_REST_API_URL` + `KV_REST_API_TOKEN` for the profile store |
 | Build variables | none required; `NEXT_PUBLIC_SITE_URL` may stay empty (Studio then uses the request origin) |
 
 The Vercel deployment keeps working alongside it: Vercel ignores `wrangler.jsonc`. When switching, update the card URLs in

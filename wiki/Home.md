@@ -1,12 +1,12 @@
-<p align="center"><img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/brand/icon.svg" width="96" alt="Discord-Github-Profile icon" /></p>
+<p align="center"><img src="https://github.com/LienThuan04/Discord-Github-Profile/raw/main/public/brand/icon.svg" width="96" alt="Discord-PULSE icon" /></p>
 
-# Discord-Github-Profile Wiki
+# Discord-PULSE Wiki
 
-Discord presence cards for GitHub READMEs and websites, by [LianHarman(LienThuan04)](https://github.com/LienThuan04). Everything is on this one page.
+**PULSE** is the Profile User Live Status Engine: Discord presence cards for GitHub READMEs and websites, by [LianHarman(LienThuan04)](https://github.com/LienThuan04). Everything is on this one page.
 
-**Deploy first:** replace `https://YOUR-DEPLOYMENT.vercel.app` with your deployment's origin. A production domain has not been selected.
+**Production:** the hosted deployment is `https://discord-pulse-lian.vercel.app`. Self-hosters replace that origin with their own.
 
-**Quick start:** join [Lanyard](https://discord.gg/lanyard), copy your Discord user ID and open [Card Studio](https://YOUR-DEPLOYMENT.vercel.app).
+**Quick start:** join [Lanyard](https://discord.gg/lanyard), copy your Discord user ID and open [Card Studio](https://discord-pulse-lian.vercel.app).
 
 ## Contents
 
@@ -28,7 +28,7 @@ Discord presence cards for GitHub READMEs and websites, by [LianHarman(LienThuan
 ## Card Studio
 
 1. Enable Discord's **Settings → Advanced → Developer Mode**, then right-click your profile and **Copy User ID**. Use the 17–20 digit number, rather than your username or server ID.
-2. Enter it in [Card Studio](https://YOUR-DEPLOYMENT.vercel.app) and choose **Load presence**. The default demo ID is `983724520789655613`.
+2. Enter it in [Card Studio](https://discord-pulse-lian.vercel.app) and choose **Load presence**. The default demo ID is `983724520789655613`.
 3. Pick a theme and dark or light appearance. Studio shows only the controls declared by that theme.
 4. Adjust colors, width, radius, animation and visible sections. Text fields apply on blur or Enter. Switch between the live preview and the SVG snapshot to check the actual image output.
 5. Copy **Markdown**, **HTML**, **Picture**, **Live iframe** or **SVG URL**. Markdown links the image to your Discord profile; Picture chooses dark/light images using `prefers-color-scheme`. Live iframe includes a resize listener for your website.
@@ -183,7 +183,7 @@ Queries from the owner's previous card keep working when only the domain changes
 Example:
 
 ```text
-https://YOUR-DEPLOYMENT.vercel.app/api/983724520789655613?theme=profile&mode=light&accent=ec48bd&width=420&animated=false&name_gradient=5865f2-ec48bd&force_gradient=true
+https://discord-pulse-lian.vercel.app/api/983724520789655613?theme=profile&mode=light&accent=ec48bd&width=420&animated=false&name_gradient=5865f2-ec48bd&force_gradient=true
 ```
 
 [↑ Back to contents](#contents)
@@ -204,18 +204,31 @@ The card combines optional public sources; missing, invalid or slow extras leave
 
 | Source | What it supplies | Configuration |
 |---|---|---|
-| [Lanyard](https://github.com/Phineas/lanyard) REST/WebSocket | Presence, activities, Spotify, exposed user cosmetics/public flags and six whitelisted KV keys | Public endpoints work without secrets; self-hosting variables below |
+| [Lanyard](https://github.com/Phineas/lanyard) REST/WebSocket | Presence, activities, Spotify, exposed user cosmetics/public flags and eight whitelisted KV keys | Public endpoints work without secrets; self-hosting variables below |
 | Public `https://dcdn.dstn.to/profile/{id}` mirror | Profile bio/pronouns, banner and banner color, Nitro theme colors, effect/frame identifiers and extra badges | `DISCORD_PROFILE_PROVIDER=dstn` by default; `off` disables it; `DISCORD_PROFILE_PROVIDER_URL` overrides the base URL |
 | Official Discord `GET /api/v10/users/{id}` | Banner and accent color; wins over mirror values when supplied | Optional server-only `DISCORD_BOT_TOKEN`; no user token or OAuth flow |
-| Public Discord `GET /api/v10/collectibles-products/{sku}` | Effect still/APNG layers and type-3 profile-frame geometry/artwork, fetched from Discord's CDN | No token; used when a public profile supplies the SKU |
+| Public Discord `GET /api/v10/collectibles-products/{sku}` | Effect still/APNG layers and type-3 profile-frame geometry/artwork, fetched from Discord's CDN | No token; used when a public profile or KV declaration supplies the SKU |
+| Optional Upstash Redis store | The last good profile per user, so cold starts and mirror outages keep the frame, effect and badges | `KV_REST_API_URL`/`KV_REST_API_TOKEN` (Vercel Marketplace) or `UPSTASH_REDIS_REST_URL`/`UPSTASH_REDIS_REST_TOKEN`; `PROFILE_STORE=off` disables it |
 
 The dstn mirror is **unofficial**, independent of Discord and this project, and has no availability guarantee. It receives the user IDs requested from it. Discord's public collectibles endpoint is undocumented and can change; failures omit the unavailable artwork.
+
+#### Where the frame and effect come from
+
+Discord does not give apps a user's profile effect or frame; only its user-token profile endpoint has them, and automating a user token is against Discord's terms. The card therefore resolves each one in this order:
+
+1. **The mirror's current answer**, when it arrives within the 1,500ms budget.
+2. **Your Lanyard KV declaration**: `profile_effect` and `profile_frame` hold a collectible SKU, or `none` to show nothing. Card Studio's **Keep your frame and effect** box lists the exact `/set` commands for the cosmetics it found. KV travels with your presence, so it costs no extra request and works even when the mirror cannot see your account.
+3. **The last good profile** in the optional store. Every complete mirror answer is saved in the background (90 days, refreshed on read). A cold server or a dead mirror renders from it instantly. Stored art URLs must point at `cdn.discordapp.com`.
+
+All other profile fields (banner color, Nitro colors, bio, pronouns, badges) come from the mirror's answer, else the store. When you change cosmetics on Discord, the mirror answer wins again within minutes; update your KV keys too if you set them.
 
 | Profile variable | Default | Purpose |
 |---|---|---|
 | `DISCORD_PROFILE_PROVIDER` | `dstn` | Enable the public mirror; set `off` to disable |
 | `DISCORD_PROFILE_PROVIDER_URL` | Empty → `https://dcdn.dstn.to` | Compatible mirror base; app appends `/profile/{id}` |
 | `DISCORD_BOT_TOKEN` | Empty | Optional official user lookup; server-only, never prefix with `NEXT_PUBLIC_` |
+| `KV_REST_API_URL` + `KV_REST_API_TOKEN` (or `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN`) | Empty | Optional Upstash Redis REST store for last good profiles; HTTPS only (plain HTTP only for `localhost`). On Vercel, add **Upstash for Redis** from the Marketplace and connect it to the project |
+| `PROFILE_STORE` | Empty | `off` ignores the store variables |
 | `FEEDBACK_URL` | Empty → `https://github.com/LienThuan04` | Where Studio's **Coming soon** tile and footer **Suggest a theme or feature** link point; any http(s) URL, read at request time |
 
 See [.env.example](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/.env.example). Public Lanyard and the default mirror require no credentials. A Discord bot can be created in the [Developer Portal](https://discord.com/developers/applications); keep its token only in server environment settings.
@@ -231,7 +244,7 @@ These switches control rendered content; they do not make public upstream data p
 ## README snapshot
 
 ```markdown
-[![Discord presence](https://YOUR-DEPLOYMENT.vercel.app/api/YOUR_DISCORD_ID?theme=profile)](https://discord.com/users/YOUR_DISCORD_ID)
+[![Discord presence](https://discord-pulse-lian.vercel.app/api/YOUR_DISCORD_ID?theme=profile)](https://discord.com/users/YOUR_DISCORD_ID)
 ```
 
 `GET /api/{id}` returns `image/svg+xml; charset=utf-8`. Invalid IDs, unmonitored accounts and unavailable presence produce themed error images with HTTP 200, so an expected data error remains readable in a README.
@@ -250,7 +263,7 @@ Card height changes when activities or sections change. The embedded page sends 
 
 ```html
 <iframe id="dgp-card"
-  src="https://YOUR-DEPLOYMENT.vercel.app/live/983724520789655613?theme=profile"
+  src="https://discord-pulse-lian.vercel.app/live/983724520789655613?theme=profile"
   title="Live Discord presence" width="420" height="416"
   style="border:0;width:100%;max-width:420px" loading="lazy"></iframe>
 <script>
@@ -283,7 +296,7 @@ Retries use exponential delay with jitter. Five failures switch to an immediate 
 
 ## Lanyard KV
 
-Lanyard does not include your Discord bio or profile banner in its standard user fields. Its public KV store lets you override the optional profile sources for this card. This card reads only the six keys below; other keys are ignored. Treat these values as public profile information.
+Lanyard does not include your Discord bio, profile banner, profile effect or frame in its standard user fields. Its public KV store lets you override the optional profile sources for this card. This card reads only the eight keys below; other keys are ignored. Treat these values as public profile information.
 
 | Key | Accepted value | Card limit or behavior |
 |---|---|---|
@@ -293,6 +306,8 @@ Lanyard does not include your Discord bio or profile banner in its standard user
 | `website` | Absolute HTTPS URL without credentials | Display label capped at 80 characters; SVG text is presentational |
 | `banner` | Public HTTPS image URL without credentials | SVG download capped at 2 MiB; public DNS, MIME/signature, port and redirect checks apply. Arbitrary SVG banners are refused |
 | `accent` | 3, 6 or 8 hex digits, optional `#` | Used when query accent equals the default `5865f2` |
+| `profile_effect` | Profile-effect SKU (17–20 digits), or `none` | Used when the profile mirror has no current answer; see [Where the frame and effect come from](#where-the-frame-and-effect-come-from) |
+| `profile_frame` | Profile-frame SKU (17–20 digits), or `none` | Same as `profile_effect`, for the collectible frame |
 
 Join [the Lanyard server](https://discord.gg/lanyard), select the **Lanyard bot's** `/set` command and fill its key/value fields. For example:
 
@@ -302,6 +317,8 @@ Join [the Lanyard server](https://discord.gg/lanyard), select the **Lanyard bot'
 /set key:location value:Vietnam
 /set key:website value:https://github.com/LienThuan04
 /set key:accent value:ec48bd
+/set key:profile_effect value:1139323093991575696
+/set key:profile_frame value:1484726324580061191
 ```
 
 For `banner`, use `/set` with key `banner` and a direct public HTTPS image URL as the value. Remove a key with `/del key:bio`. Follow the bot's current command help if its interface changes. Bot commands and the optional authenticated KV API are documented in [Lanyard's KV guide](https://github.com/Phineas/lanyard#kv). Public presence reads need no API key; this app has no KV write token setting. KV changes emit presence updates, so the live card follows them too.
@@ -332,7 +349,7 @@ Use HTTPS/WSS in production. Restart local development after environment changes
 2. Use the repository's Node.js `24.x` pin to match CI; Vercel supports this line and honors [`engines.node`](https://vercel.com/docs/functions/runtimes/node-js/node-js-versions#version-overrides-in-package.json). Set `ENABLE_EXPERIMENTAL_COREPACK=1` in the Vercel project so [Corepack](https://vercel.com/docs/builds/configure-a-build#corepack) uses the pinned `pnpm@11.22.0` from `packageManager`. Install with `pnpm install --frozen-lockfile`; build with `pnpm build`; let Next.js select the output directory. On Windows these commands use `pnpm.cmd`.
 3. Keep the two public Lanyard endpoints at their defaults unless self-hosting. Set `NEXT_PUBLIC_SITE_URL` to your chosen public HTTPS origin, or leave it empty to use each deployment's request origin.
 4. Deploy. Set or correct environment variables for the appropriate Production/Preview environment, then redeploy. The card needs no database or OAuth setup. `DISCORD_BOT_TOKEN` is optional and server-only; the default public mirror works without it. Set `DISCORD_PROFILE_PROVIDER=off` if you do not want mirror requests.
-5. Replace every `https://YOUR-DEPLOYMENT.vercel.app` in your copied embeds and documentation with the actual origin. Test `/`, `/api/983724520789655613` and `/live/983724520789655613`, including one light theme and one live status change.
+5. Replace every `https://discord-pulse-lian.vercel.app` in your copied embeds and documentation with the actual origin. Test `/`, `/api/983724520789655613` and `/live/983724520789655613`, including one light theme and one live status change.
 6. Confirm the API image is publicly accessible without a login/protection page before embedding it in GitHub. Check the rendered README separately because Camo can cache an older response.
 
 The owner has not selected this repository's production domain or Vercel project yet.
@@ -377,7 +394,7 @@ For diagnostics, compare the direct image, its HTTP content type/cache headers, 
 
 ### Broken image
 
-Replace the placeholder origin and `YOUR_DISCORD_ID`, open the API URL directly and confirm it returns SVG rather than a login page or an HTML error. A user ID must be 17–20 digits. Try a small theme with `animated=false`; compare direct and GitHub-proxied responses. Invalid input and expected presence failures should show a themed HTTP 200 card. A completely broken image points to deployment, response, proxy or browser rendering trouble. Missing individual artwork can be an upstream CDN failure or a rejected/over-budget asset.
+Replace `YOUR_DISCORD_ID` (and the origin if you self-host instead of `https://discord-pulse-lian.vercel.app`), open the API URL directly and confirm it returns SVG rather than a login page or an HTML error. A user ID must be 17–20 digits. Try a small theme with `animated=false`; compare direct and GitHub-proxied responses. Invalid input and expected presence failures should show a themed HTTP 200 card. A completely broken image points to deployment, response, proxy or browser rendering trouble. Missing individual artwork can be an upstream CDN failure or a rejected/over-budget asset.
 
 ### Stale image
 
@@ -385,7 +402,7 @@ A README is a cached snapshot. CSS clocks advancing do not mean presence is bein
 
 ### Profile frame or effect missing
 
-The frame, profile effect, banner color, bio and extra badges come from the profile sources, not from Lanyard. On a cold instance the first render can miss them; that render is a [partial snapshot](#caching-and-github-camo) and is replaced within seconds. Open `/api/{id}/profile` directly: `"profile": null` or an `effect` with only `skuId` means the sources were still loading or failed; reload after a few seconds. If it stays `null`, the dstn mirror may be down or rate-limiting your host. Set `DISCORD_BOT_TOKEN` for the banner and color, or point `DISCORD_PROFILE_PROVIDER_URL` at another compatible mirror.
+The frame, profile effect, banner color, bio and extra badges come from the profile sources, not from Lanyard. On a cold instance the first render can miss them; that render is a [partial snapshot](#caching-and-github-camo) and is replaced within seconds. Open `/api/{id}/profile` directly: `"profile": null` or an `effect` with only `skuId` means the sources were still loading or failed; reload after a few seconds. If it stays `null`, the dstn mirror may be down, rate-limiting your host, or unable to see your account. Pin the cosmetics with the `profile_effect`/`profile_frame` [KV keys](#lanyard-kv), and on your own deployment add the optional [profile store](#where-the-frame-and-effect-come-from) so a cold start or a mirror outage reuses the last good profile.
 
 ### Live card stays disconnected or is clipped
 
@@ -431,7 +448,7 @@ powershell -File scripts/screenshot-examples.ps1 -MatrixDir .verification/theme-
 To inspect a deployed response's size and timing without changing it:
 
 ```powershell
-curl.exe -sS -o .verification/card.svg -w "bytes=%{size_download} seconds=%{time_total}\n" "https://YOUR-DEPLOYMENT.vercel.app/api/983724520789655613?theme=profile&animated=false"
+curl.exe -sS -o .verification/card.svg -w "bytes=%{size_download} seconds=%{time_total}\n" "https://discord-pulse-lian.vercel.app/api/983724520789655613?theme=profile&animated=false"
 ```
 
 Create `.verification` first if needed. Repeat once after the cache is warm, then check the GitHub README separately. Cold and warm timings depend on upstream services and the deployment region. The maintained [discord-card workflow](https://github.com/LienThuan04/Discord-Github-Profile/blob/main/docs/skills/discord-card/SKILL.md#4-check-svg-byte-size-and-github-camo-timing) records measured per-theme owner-card sizes and timings. Public Camo verification requires a chosen public deployment.

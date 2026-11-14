@@ -1,5 +1,5 @@
-import { lookupProfileExtras, type ProfileLookup } from "@/lib/discord/profile";
-import { isSnowflake } from "@/lib/lanyard/client";
+import { lookupProfileExtras, presenceCosmetics, type ProfileLookup } from "@/lib/discord/profile";
+import { fetchPresence, isSnowflake } from "@/lib/lanyard/client";
 import { finishAfterResponse, PARTIAL_CACHE, SNAPSHOT_CACHE } from "@/lib/cache-policy";
 
 export const runtime = "nodejs";
@@ -10,7 +10,8 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
   const { id } = await params;
   if (!isSnowflake(id)) return Response.json({ error: "Invalid Discord ID" }, { status: 400, headers: { "Cache-Control": "no-store" } });
   let lookup: ProfileLookup | null = null;
-  try { lookup = await lookupProfileExtras(id); } catch { /* Keep the preview available during provider failures. */ }
+  // Lanyard KV can declare the effect and frame; the presence request runs beside the profile lookup.
+  try { lookup = await lookupProfileExtras(id, { declared: fetchPresence(id).then(presenceCosmetics) }); } catch { /* Keep the preview available during provider failures. */ }
   if (lookup && !lookup.complete) finishAfterResponse(lookup.settled);
   const profile = lookup?.profile ?? null;
   return Response.json({ profile }, { headers: {

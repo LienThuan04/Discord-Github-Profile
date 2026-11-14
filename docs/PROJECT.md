@@ -1,8 +1,8 @@
-# Discord-Github-Profile — Discord Presence Card & Card Studio
+# Discord-PULSE — Profile User Live Status Engine (Discord Presence Card & Card Studio)
 
 - Repo: `github.com/LienThuan04/Discord-Github-Profile` (branch **`main`**), phát triển và duy trì bởi `LianHarman(LienThuan04)`. Giấy phép: `LICENSE` (MIT).
-- Deploy: Vercel project `discord-github-profile` (team `lien-hoa-thuans-projects`), alias production `https://lianharman-discord.vercel.app`; đã xác nhận ngày 13/11 bằng `vercel inspect`. README profile và portfolio đều dùng URL này. Tài liệu người dùng vẫn dùng chỗ giữ `https://YOUR-DEPLOYMENT.vercel.app`.
-- Deploy thứ hai: Cloudflare Workers qua OpenNext (`wrangler.jsonc`, `open-next.config.ts`), Worker `discord-github-profile`. Hướng dẫn đầy đủ cho mọi app Next.js kèm bảng lỗi đã gặp: `docs/DEPLOY-CLOUDFLARE.md` (tag `cloudflare-deploy-guide`).
+- Deploy: Vercel project `discord-pulse` (team `lien-hoa-thuans-projects`), alias production `https://discord-pulse-lian.vercel.app`. Tài liệu người dùng trỏ host này; self-hosters thay bằng origin của họ.
+- Deploy thứ hai: Cloudflare Workers qua OpenNext (`wrangler.jsonc`, `open-next.config.ts`), Worker `discord-pulse`. Hướng dẫn đầy đủ cho mọi app Next.js kèm bảng lỗi đã gặp: `docs/DEPLOY-CLOUDFLARE.md` (tag `cloudflare-deploy-guide`).
 - Stack: Next.js 16.4.6 (App Router, `src/`), React 19.3.1, TypeScript 6.0.3 (strict), Zod 4.6.7, CSS Modules + CSS variables (không Tailwind, không UI kit), Vitest 4.1.12, ESLint 9 flat config, pnpm 11.22.0.
 
 ## Routes (`src/app/`)
@@ -50,7 +50,7 @@ Chi tiết hợp đồng kỹ thuật khi thêm hoặc sửa theme nằm ở `do
 
 Ngoài bảy theme nền tảng ở bảng trên, registry còn có `chat`, `banner`, `terminal`, `neon`, `retro`, `polaroid`, `mobile`, `voice`, `wave`. Theme `wave` dựng lại card cũ của chủ repo: header nền nameplate, khối "nước" gợn sóng, màu theo `wave_color` (`auto` lấy màu của app đang chạy). Theme banner rộng 600–1000px, mặc định 800; Studio dùng cùng `THEME_WIDTHS`.
 
-Profile extras được hiển thị qua `src/card/parts/profile-look.tsx`: banner/nền, surface Nitro, effect tĩnh trong SVG và APNG có lịch phát trong live, gộp badge và fallback bio/pronouns. Cả 15 theme bật `usesProfile`; frame type 3 được bọc chung ở registry và tăng canvas theo overflow. `width` vẫn là chiều rộng card gốc. `/api/[id]/profile` cung cấp JSON có cache cho Studio; trang Studio warm/seed profile song song với Lanyard, còn live bổ sung profile khi seed server chưa có đủ effect. Hai route API dùng `lookupProfileExtras()` (`{ profile, complete, settled }`) để biết kết quả đã đủ chưa; `fetchProfileExtras()` chỉ trả `profile`. Lý do: instance lạnh trên Vercel thường vượt budget 1,5 s, và card thiếu art từng bị CDN giữ tới 1 giờ (xem `docs/memory/decisions.md`). `banner_source`, `hide_effect`, `hide_frame`, `tz` có control theo theme; clock chat/mobile và date polaroid theo múi giờ IANA.
+Profile extras được hiển thị qua `src/card/parts/profile-look.tsx`: banner/nền, surface Nitro, effect tĩnh trong SVG và APNG có lịch phát trong live, gộp badge và fallback bio/pronouns. Cả 15 theme bật `usesProfile`; frame type 3 được bọc chung ở registry và tăng canvas theo overflow. `width` vẫn là chiều rộng card gốc. `/api/[id]/profile` cung cấp JSON có cache cho Studio; trang Studio warm/seed profile song song với Lanyard, còn live bổ sung profile khi seed server chưa có đủ effect. Hai route API dùng `lookupProfileExtras()` (`{ profile, complete, settled }`) để biết kết quả đã đủ chưa; `fetchProfileExtras()` chỉ trả `profile`. Thứ tự ưu tiên cho khung và hiệu ứng: (1) dstn trả kịp budget, (2) Lanyard KV `profile_effect`/`profile_frame` (SKU hoặc `none`; mọi nơi gọi truyền `declared: presence.then(presenceCosmetics)`), (3) bản tốt gần nhất trong kho. Studio có ô **Keep your frame and effect** (`src/components/studio/CosmeticsLock.tsx`, `cosmeticCommands()` trong `src/lib/studio-controls.ts`) hiện lệnh `/set` để copy. Lý do: instance lạnh trên Vercel thường vượt budget 1,5 s, và card thiếu art từng bị CDN giữ tới 1 giờ (xem `docs/memory/decisions.md`). `banner_source`, `hide_effect`, `hide_frame`, `tz` có control theo theme; clock chat/mobile và date polaroid theo múi giờ IANA.
 
 ## Query params
 
@@ -70,6 +70,8 @@ Toàn bộ 37 tham số query dạng `snake_case` được định nghĩa tại 
 | `DISCORD_BOT_TOKEN` | `(trống)` | Tuỳ chọn, chính thức: bật `GET /api/v10/users/{id}` (banner, `accent_color`) cho `CardData.profile`. Chỉ dùng phía server. |
 | `DISCORD_PROFILE_PROVIDER` | `dstn` | Mirror hồ sơ **không chính thức** `dcdn.dstn.to` (bio, pronouns, theme colors, profile effect, toàn bộ badge); `off` để tắt. |
 | `DISCORD_PROFILE_PROVIDER_URL` | `(trống → https://dcdn.dstn.to)` | Base URL của mirror tương thích dstn (`{url}/profile/{id}`). |
+| `KV_REST_API_URL` + `KV_REST_API_TOKEN` (hoặc `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN`) | `(trống)` | Kho Upstash Redis lưu "bản tốt gần nhất" của từng user (`src/lib/discord/profile-store.ts`). Có kho thì cold start hay dstn chết vẫn giữ được khung/hiệu ứng/badge. Trên Vercel: Marketplace → Upstash for Redis → nối vào project. Chỉ dùng phía server. |
+| `PROFILE_STORE` | `(trống)` | `off` để bỏ qua kho. |
 
 Trên Cloudflare, biến runtime không bí mật nằm trong `vars` của `wrangler.jsonc`, vì mỗi lần deploy sẽ ghi đè biến thường đặt trên dashboard. `DISCORD_BOT_TOKEN` đặt làm Secret, còn `NEXT_PUBLIC_*` là build variable.
 

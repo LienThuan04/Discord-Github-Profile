@@ -1,6 +1,6 @@
-# AGENTS.md — Discord-Github-Profile
+# AGENTS.md — Discord-PULSE
 
-Discord-Github-Profile của `LianHarman(LienThuan04)`. Ứng dụng Next.js sinh card Discord presence (SVG snapshot cho GitHub README và live card qua WebSocket cho website) dựa trên dữ liệu Lanyard.
+Discord-PULSE (Profile User Live Status Engine) của `LianHarman(LienThuan04)`. Ứng dụng Next.js sinh card Discord presence (SVG snapshot cho GitHub README và live card qua WebSocket cho website) dựa trên dữ liệu Lanyard.
 Repo: `https://github.com/LienThuan04/Discord-Github-Profile`. Branch: `main`.
 
 ## Bắt đầu phiên

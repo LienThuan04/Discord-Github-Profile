@@ -1,11 +1,11 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "discord-github-profile",
+  "name": "discord-pulse",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-11-10",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
-  "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "discord-github-profile" }],
+  "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "discord-pulse" }],
   "observability": { "enabled": true },
   "vars": {
     "FEEDBACK_URL": "https://lian.harmanit.workers.dev",
