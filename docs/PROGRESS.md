@@ -1,11 +1,19 @@
 # PROGRESS — Discord-PULSE
 
-Cập nhật: 2026-11-14 bởi Claude Code. Rename sang Discord-PULSE + host mới, chờ commit/push theo yêu cầu người dùng.
+Cập nhật: 2026-11-14 bởi Claude Code. Rename + host mới đã commit/push; wiki đã sync.
 
 ## Đang làm
 
-- Rename Discord-PULSE (PULSE = Profile User Live Status Engine) + host `discord-pulse-lian.vercel.app` (đã live, 200): README, wiki, Card Studio brand/metadata, package `discord-pulse`, worker `discord-pulse`, docs. Chưa commit.
-- Phase 9 đang triển khai (gộp chung commit này): theme `wave`, màu theo ứng dụng, URL cũ và Studio. Git sạch tại `e5c9c07`; không commit/push. Kế hoạch: `docs/superpowers/plans/2026-11-13-wave.md`. Parser/mặc định/legacy đã triển khai test-first (22 test đỏ ban đầu), bộ lọc ID và Studio switch đã qua 38/38 test phạm vi. Hai test wave còn chờ đăng ký theme. Đang thêm gallery/tài liệu và chờ layout; tiếp theo chạy toàn bộ QA theo `phase9.md`. Graph cũ có node `presence-kit.tsx` không còn tồn tại; đã đọc các part thực tế, sẽ update graph cuối phiên.
+(empty)
+
+## Bước tiếp theo
+
+Wait for user feedback. Future commits/pushes require a new user request.
+
+## Nhật ký
+
+- 2026-11-14 · Claude · Renamed product to Discord-PULSE (PULSE = Profile User Live Status Engine), moved production host to `discord-pulse-lian.vercel.app`, origin now `LienThuan04/Discord-PULSE.git`. Repo commit `dc3ad23` (Co-authored-by DanGuangLT) on `main`, profile README `a91b36b` on `LienThuan04/main`, wiki `3e7fbb8`. Verified: lint/typecheck 0, 2573/2573 tests, build OK, link check 0 errors, production live with PULSE metadata and full frame+effect.
+- Phase 9 đang triển khai (đã gộp trong `dc3ad23`): theme `wave`, màu theo ứng dụng, URL cũ và Studio. Git sạch tại `e5c9c07`; không commit/push. Kế hoạch: `docs/superpowers/plans/2026-11-13-wave.md`. Parser/mặc định/legacy đã triển khai test-first (22 test đỏ ban đầu), bộ lọc ID và Studio switch đã qua 38/38 test phạm vi. Hai test wave còn chờ đăng ký theme. Đang thêm gallery/tài liệu và chờ layout; tiếp theo chạy toàn bộ QA theo `phase9.md`. Graph cũ có node `presence-kit.tsx` không còn tồn tại; đã đọc các part thực tế, sẽ update graph cuối phiên.
 
 ## Trạng thái xác minh hiện tại
 
